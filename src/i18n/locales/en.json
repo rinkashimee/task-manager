@@ -1,6 +1,11 @@
 {
   "common": {},
   "sidebar": {
-    "logo": "Task Manager"
+    "logo": "Task Manager",
+    "dashboard": "Dashboard",
+    "my-tasks": "My Tasks",
+    "projects": "Porjects",
+    "settings": "Settings",
+    "footer": "Small steps \n build big results."
   }
 }
