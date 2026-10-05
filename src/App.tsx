@@ -1,11 +1,10 @@
-import { useTranslation } from 'react-i18next';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
 
 export function App() {
-  const { t } = useTranslation();
-
   return (
-    <aside>
-      <div>{t('sidebar.logo')}</div>
-    </aside>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
