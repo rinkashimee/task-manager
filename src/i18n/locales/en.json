@@ -6,7 +6,16 @@
     "account": "Account",
     "appearance": "Appearance",
     "about": "About",
-    "logout": "Log out"
+    "logout": "Log out",
+    "search-tasks": "Search tasks...",
+    "add-tasks": "Add Tasks",
+    "no-tasks": "No tasks yet",
+    "task-caption": "Create a task to start organizing your work.",
+    "all": "All",
+    "to-do": "To Do",
+    "in-progress": "In Progress",
+    "completed": "Completed",
+    "overdue": "Overdue"
   },
   "sidebar": {
     "logo": "Task Manager",
@@ -19,5 +28,16 @@
   "dashboard": {
     "title": "{{data}}, {{user}}!👋",
     "caption": "Here's an overview of your tasks for today."
+  },
+  "my-tasks": {
+    "title": "My Tasks",
+    "caption": "Keep track of your tasks and stay productive.",
+    "table": {
+      "task": "Task",
+      "project": "Project",
+      "priority": "Priority",
+      "status": "Status",
+      "due-date": "Due Date"
+    }
   }
 }

@@ -2,12 +2,15 @@ import type { Icon } from '@phosphor-icons/react';
 import {
   CaretDownIcon,
   CheckSquareIcon,
+  ClipboardTextIcon,
   FolderIcon,
   GearIcon,
   HouseLineIcon,
   InfoIcon,
   MagicWandIcon,
+  MagnifyingGlassIcon,
   PaletteIcon,
+  PlusIcon,
   SignOutIcon,
   UserCircleIcon,
 } from '@phosphor-icons/react';
@@ -23,6 +26,9 @@ const icons = {
   PaletteIcon,
   SignOutIcon,
   InfoIcon,
+  MagnifyingGlassIcon,
+  PlusIcon,
+  ClipboardTextIcon,
 } satisfies Record<string, Icon>;
 
 export type IconType = keyof typeof icons;

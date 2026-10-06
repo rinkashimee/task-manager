@@ -15,7 +15,7 @@ export default function UserDropdownHeader(props: UserDropdownHeaderProps) {
       <UserAvatar name={name} avatarUrl={avatarUrl} size="md" />
 
       <div className="min-w-0">
-        <Typography variant="body-sm" className="text-text">
+        <Typography variant="body-sm" className="text-text font-semibold">
           {name}
         </Typography>
 

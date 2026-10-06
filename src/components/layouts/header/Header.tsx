@@ -12,11 +12,11 @@ export default function Header(props: HeaderProps) {
   return (
     <header className="border-border flex items-center justify-between border-b p-6">
       <div>
-        <Typography as="h3" variant="body-lg" className="text-text font-heading">
+        <Typography as="h3" variant="body-lg" className="text-text font-heading truncate">
           {title}
         </Typography>
 
-        <Typography variant="body-sm" className="text-text font-sans">
+        <Typography variant="body-sm" className="text-text-muted truncate font-sans">
           {caption}
         </Typography>
       </div>
