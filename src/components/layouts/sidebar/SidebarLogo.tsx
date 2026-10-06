@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import taskManagerLogo from '@/assets/task-manager-logo.svg';
-import Typography from '../ui/Typography';
+import Typography from '../../ui/Typography/Typography';
 
 export default function SidebarLogo() {
   const { t } = useTranslation();

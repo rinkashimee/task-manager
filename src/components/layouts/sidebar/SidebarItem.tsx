@@ -1,8 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import type { IconType } from '../icons/TaskIcon';
+import type { IconType } from '../../icons/TaskIcon';
 import clsx from 'clsx';
-import TaskIcon from '../icons/TaskIcon';
-import Typography from '../ui/Typography';
+import TaskIcon from '../../icons/TaskIcon';
+import Typography from '../../ui/Typography/Typography';
 import type { ParseKeys } from 'i18next';
 import { useTranslation } from 'react-i18next';
 

@@ -1,5 +1,5 @@
-import DashboardLayout from '@/layouts/DashboardLayout';
-import Dashboard from '@/pages/Dashboard';
+import DashboardLayout from '@/components/layouts/DashboardLayout';
+import Dashboard from '@/pages/dashboard/Dashboard';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 export default function AppRoutes() {
