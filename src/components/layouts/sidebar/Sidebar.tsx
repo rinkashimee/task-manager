@@ -1,8 +1,8 @@
 import { sidebarItems } from '@/config/sidebar';
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
-import TaskIcon from '../icons/TaskIcon';
-import Typography from '../ui/Typography';
+import TaskIcon from '../../icons/TaskIcon';
+import Typography from '../../ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
 
 export default function Sidebar() {

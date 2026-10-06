@@ -1,5 +1,13 @@
 {
-  "common": {},
+  "common": {
+    "morning": "Good morning",
+    "afternoon": "Good afternoon",
+    "evening": "Good evening",
+    "account": "Account",
+    "appearance": "Appearance",
+    "about": "About",
+    "logout": "Log out"
+  },
   "sidebar": {
     "logo": "Task Manager",
     "dashboard": "Dashboard",
@@ -7,5 +15,9 @@
     "projects": "Porjects",
     "settings": "Settings",
     "footer": "Small steps \n build big results."
+  },
+  "dashboard": {
+    "title": "{{data}}, {{user}}!👋",
+    "caption": "Here's an overview of your tasks for today."
   }
 }

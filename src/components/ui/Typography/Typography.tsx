@@ -1,6 +1,7 @@
 import type { ElementType, ReactNode } from 'react';
 
-type TypographyVariant = 'h1' | 'h2' | 'h3' | 'body-lg' | 'body' | 'body-sm' | 'label' | 'caption';
+export type TypographyVariant =
+  'h1' | 'h2' | 'h3' | 'body-lg' | 'body' | 'body-sm' | 'label' | 'caption';
 
 interface TypographyProps {
   variant?: TypographyVariant;
