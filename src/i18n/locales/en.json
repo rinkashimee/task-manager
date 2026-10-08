@@ -15,7 +15,25 @@
     "to-do": "To Do",
     "in-progress": "In Progress",
     "completed": "Completed",
-    "overdue": "Overdue"
+    "overdue": "Overdue",
+    "cancel": "Cancel",
+    "create-task": "Create Task",
+    "validation": {
+      "field-required": "This field is required",
+      "minimum-char": "Minimum {{min}} characters",
+      "maximum-char": "Maximum {{max}} characters"
+    },
+    "status-dropdown": {
+      "todo": "To Do",
+      "in-progress": "In Porgress",
+      "completed": "Completed",
+      "on-hold": "On Hold"
+    },
+    "priority-dropdown": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    }
   },
   "sidebar": {
     "logo": "Task Manager",
@@ -38,6 +56,26 @@
       "priority": "Priority",
       "status": "Status",
       "due-date": "Due Date"
+    },
+    "modal": {
+      "title": "Add Tasks",
+      "caption": "Create a new task and keep your work on track."
+    },
+    "form": {
+      "task-title": "Task Title",
+      "desc": "Description",
+      "project": "Project",
+      "priority": "Priority",
+      "status": "Status",
+      "due-date": "Due Date"
+    },
+    "placeholder": {
+      "enter-task-title": "Enter task title",
+      "enter-desc": "Enter description",
+      "select-project": "Select project",
+      "select-priority": "Select priority",
+      "select-status": "Select status",
+      "select-due-date": "Select Due Date"
     }
   }
 }

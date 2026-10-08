@@ -55,7 +55,7 @@ export default function Table<T>(props: TableProps<T>) {
               ))}
             </tr>
           </thead>
-          {data.length > 0 && (
+          {data?.length > 0 && (
             <tbody>
               {data.map((record, rowIndex) => {
                 const key = typeof rowKey === 'function' ? rowKey(record) : record[rowKey];
@@ -86,7 +86,7 @@ export default function Table<T>(props: TableProps<T>) {
           )}
         </table>
 
-        {data.length === 0 && <TableEmptyState />}
+        {data?.length === 0 && <TableEmptyState />}
       </div>
 
       {/* //TODO: {pagination && <TablePagination {...pagination} />} */}

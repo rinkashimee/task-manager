@@ -9,6 +9,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   icon?: IconType;
   wrapperClassName?: string;
+  hideIcon?: boolean;
 }
 
 const variants: Record<InputVariant, string> = {
@@ -23,23 +24,28 @@ export default function Input(props: InputProps) {
     error,
     className,
     wrapperClassName,
+    hideIcon = false,
+    ...restProps
   } = props;
 
   return (
     <div className={cn('relative', wrapperClassName)}>
-      <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
+      <div
+        hidden={hideIcon}
+        className="pointer-events-none absolute inset-y-0 left-4 flex items-center"
+      >
         <TaskIcon size={18} icon={icon} className="text-text-muted" />
       </div>
 
       <input
-        {...props}
+        {...restProps}
         className={cn(
           'h-10 w-full rounded-md px-3',
           'text-text font-sans text-xs',
           'placeholder:text-text-muted',
           'transition-colors outline-none',
           'disabled:cursor-not-allowed disabled:opacity-50',
-          icon ? 'pl-10' : 'pl-3',
+          icon && !hideIcon ? 'pl-10' : 'pl-3',
           variants[variant],
           error && 'border-danger focus:border-danger',
           className

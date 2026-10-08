@@ -21,6 +21,8 @@
   --color-primary: var(--primary);
 
   --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
 }
 
 :root {
@@ -40,6 +42,8 @@
   --primary: #664fff;
 
   --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #22c55e;
 }
 
 .dark {
@@ -59,6 +63,8 @@
   --primary: #664fff;
 
   --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #22c55e;
 }
 
 html {

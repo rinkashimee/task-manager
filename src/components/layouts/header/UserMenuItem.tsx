@@ -21,14 +21,14 @@ export default function UserMenuItem(props: UserMenuItemProps) {
       onClick={onClick}
       className={cn(
         'w-full justify-start gap-3 px-3 py-2',
-        'text-text hover:bg-primary/10 hover:text-primary',
+        'text-text-muted hover:bg-primary/10 hover:text-primary',
         danger && 'text-danger hover:bg-danger/10 hover:text-danger',
         classname
       )}
     >
       <TaskIcon icon={icon} size={18} />
 
-      <Typography as="p" variant="caption" className="font-sans font-medium">
+      <Typography as="p" variant="caption" className="font-sans font-semibold">
         {label}
       </Typography>
     </Button>

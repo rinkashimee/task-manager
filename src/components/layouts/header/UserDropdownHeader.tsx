@@ -19,7 +19,7 @@ export default function UserDropdownHeader(props: UserDropdownHeaderProps) {
           {name}
         </Typography>
 
-        <Typography as="p" variant="caption" className="text-text-muted truncate">
+        <Typography as="p" variant="caption" className="text-text-muted truncate font-medium">
           {email}
         </Typography>
       </div>

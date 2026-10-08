@@ -7,12 +7,28 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import TaskFilter from './components/TaskFilter';
 import TaskTable from './components/TaskTable';
-import type { FilterType } from './types/TaskTypes';
+import type { FilterType, TaskFormValues, TaskTypes } from './types/TaskTypes';
+import Modal from '@/components/ui/Modal/Modal';
+import AddTaskForm from './components/AddTaskForm';
+import { generateId } from '@/lib/utils/utils';
 
 export default function MyTasks() {
   const { t } = useTranslation();
 
   const [filter, setFilter] = useState<FilterType>('all');
+  const [isOpen, onClose] = useState<boolean>(false);
+
+  const [taskData, setTaskData] = useState<TaskTypes[]>([]);
+
+  const handleSubmit = (values: TaskFormValues) => {
+    const newTask: TaskTypes = {
+      ...values,
+      id: generateId(),
+    };
+
+    setTaskData((prev) => [...prev, newTask]);
+    onClose(false);
+  };
 
   return (
     <div className="flex h-full min-h-0 flex-col">
@@ -26,7 +42,12 @@ export default function MyTasks() {
           wrapperClassName="w-full max-w-[400px]"
         />
 
-        <Button type="button" variant="primary" className="h-9 gap-2 px-4 font-sans">
+        <Button
+          type="button"
+          variant="primary"
+          className="h-9 gap-2 px-4 font-sans"
+          onClick={() => onClose(true)}
+        >
           <TaskIcon size={16} icon="PlusIcon" />
 
           <Typography as="p" variant="caption" className="truncate">
@@ -40,6 +61,16 @@ export default function MyTasks() {
 
         <TaskTable />
       </div>
+
+      <Modal
+        open={isOpen}
+        onClose={() => onClose(false)}
+        title={t('my-tasks.modal.title')}
+        caption={t('my-tasks.modal.caption')}
+        size="md"
+      >
+        <AddTaskForm handleSubmit={handleSubmit} onClose={onClose} />
+      </Modal>
     </div>
   );
 }
