@@ -86,7 +86,7 @@ export default function MyTasks() {
     const end = start + pageSize;
 
     return filteredTaskData.slice(start, end);
-  }, [taskData, currentPage, pageSize]);
+  }, [taskData, currentPage, pageSize, search, filter]);
 
   return (
     <div className="flex h-full min-h-0 flex-col">
