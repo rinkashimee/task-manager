@@ -1,4 +1,8 @@
+import type { HandleTypes } from '@/constants/commonContants';
+
 export type FilterType = 'all' | 'todo' | 'in-progress' | 'completed' | 'overdue';
+
+export type TaskFormMode = 'create' | 'edit';
 
 export interface TaskTypes {
   id: string;
@@ -11,3 +15,8 @@ export interface TaskTypes {
 }
 
 export type TaskFormValues = Omit<TaskTypes, 'id'>;
+
+export interface ConfirmationState {
+  task: TaskTypes;
+  handleType: HandleTypes;
+}

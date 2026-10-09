@@ -1,11 +1,12 @@
 import { cn } from '@/lib/utils/utils';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   children: ReactNode;
+  ref?: Ref<HTMLButtonElement>;
 }
 
 const variants: Record<ButtonVariant, string> = {
@@ -15,11 +16,12 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 export default function Button(props: ButtonProps) {
-  const { children, className, type = 'button', variant = 'primary' } = props;
+  const { ref, children, className, type = 'button', variant = 'primary', ...restProps } = props;
 
   return (
     <button
-      {...props}
+      {...restProps}
+      ref={ref}
       type={type}
       className={cn(
         'inline-flex items-center justify-center',

@@ -22,6 +22,7 @@ export interface FormProps<
   TValues extends object = Record<string, FormDataEntryValue>,
 > extends Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> {
   layout?: FormLayout;
+  initialValues?: Partial<TValues>;
   onSubmit?: (values: TValues, event: FormSubmitEvent) => void;
 }
 
@@ -30,6 +31,7 @@ export interface FormFieldProps {
   id?: string;
   error?: boolean;
   required?: boolean;
+  defaultValue?: string;
   'aria-invalid'?: boolean;
   'aria-describedby'?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -47,4 +49,5 @@ export interface FormContextValue {
   errors: Record<string, string>;
   registerField: (name: string, rules: FormRule[]) => () => void;
   clearError: (name: string) => void;
+  initialValues?: Record<string, unknown>;
 }

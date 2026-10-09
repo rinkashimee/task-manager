@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils/utils';
 import type { ReactNode } from 'react';
 import TableEmptyState from './TableEmptyState';
+import TablePagination from './TablePagination';
 
 export interface TableColumn<T> {
   key: string;
@@ -11,16 +12,24 @@ export interface TableColumn<T> {
   render?: (value: T[keyof T] | undefined, record: T, index: number) => ReactNode;
 }
 
+export interface TablePaginationTypes {
+  current: number;
+  pageSize: number;
+  total: number;
+  resourceName?: string;
+  onChange?: (page: number) => void;
+}
+
 interface TableProps<T> {
   rowKey: keyof T | ((record: T) => React.Key);
   columns: TableColumn<T>[];
   data: T[];
-  //   pagination?: false | TablePaginationTypes;
+  pagination?: false | TablePaginationTypes;
   tableWrapperClassName?: string;
 }
 
 export default function Table<T>(props: TableProps<T>) {
-  const { rowKey, columns, data, tableWrapperClassName } = props;
+  const { rowKey, columns, data, pagination, tableWrapperClassName } = props;
 
   return (
     <div className={cn('bg-card flex flex-col overflow-hidden', tableWrapperClassName)}>
@@ -68,7 +77,7 @@ export default function Table<T>(props: TableProps<T>) {
                       return (
                         <td
                           key={column.key}
-                          className={cn('px-4 py-2', {
+                          className={cn('p-4', {
                             'text-center': column.align === 'center',
                             'text-right': column.align === 'right',
                           })}
@@ -89,7 +98,7 @@ export default function Table<T>(props: TableProps<T>) {
         {data?.length === 0 && <TableEmptyState />}
       </div>
 
-      {/* //TODO: {pagination && <TablePagination {...pagination} />} */}
+      {pagination && <TablePagination {...pagination} />}
     </div>
   );
 }

@@ -16,7 +16,9 @@ export default function FormItem(props: FormItemProps) {
   const fieldId = `${generatedId}-field`;
   const messageId = `${generatedId}-message`;
 
-  const { errors, registerField, clearError } = useFormContext();
+  const { errors, registerField, clearError, initialValues } = useFormContext();
+
+  const initialValue = initialValues?.[name];
 
   const error = errors[name];
   const required = rules?.some((rule) => rule.required) ?? false;
@@ -28,6 +30,10 @@ export default function FormItem(props: FormItemProps) {
   const field = cloneElement(children, {
     name,
     id: children.props.id ?? fieldId,
+    defaultValue:
+      initialValue !== undefined && initialValue !== null
+        ? String(initialValue)
+        : children.props.defaultValue,
     error: Boolean(error),
     'aria-invalid': Boolean(error),
     'aria-describedby': error || help ? messageId : undefined,

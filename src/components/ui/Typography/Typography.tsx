@@ -16,7 +16,7 @@ const variantStyles: Record<TypographyVariant, string> = {
 
   label: 'font-sans text-sm font-medium',
 
-  caption: 'text-xs font-normal',
+  caption: 'font-sans text-xs font-normal',
 };
 
 const defaultElements: Record<TypographyVariant, ElementType> = {

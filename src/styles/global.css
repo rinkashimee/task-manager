@@ -23,6 +23,7 @@
   --color-danger: var(--danger);
   --color-warning: var(--warning);
   --color-success: var(--success);
+  --color-info: var(--info);
 }
 
 :root {
@@ -44,6 +45,7 @@
   --danger: #ef4444;
   --warning: #f59e0b;
   --success: #22c55e;
+  --info: #3b82f6;
 }
 
 .dark {
@@ -65,6 +67,7 @@
   --danger: #ef4444;
   --warning: #f59e0b;
   --success: #22c55e;
+  --info: #3b82f6;
 }
 
 html {

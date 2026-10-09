@@ -10,18 +10,32 @@ import { priorityOptions } from '@/constants/priorityOptions';
 import type { TaskFormValues, TaskTypes } from '../types/TaskTypes';
 import type { FormSubmitEvent } from '@/components/ui/Form/Form.types';
 
-interface TaskFormProps {
-  onClose: (value: boolean) => void;
+export interface TaskFormProps {
+  mode?: 'create' | 'edit';
+  initialValues?: TaskTypes;
+  onClose: (open: boolean) => void;
   handleSubmit: (values: TaskFormValues, event: FormSubmitEvent) => void;
 }
 
-export default function AddTaskForm(props: TaskFormProps) {
-  const { onClose, handleSubmit } = props;
+export default function TaskForm(props: TaskFormProps) {
+  const { mode = 'create', initialValues, onClose, handleSubmit } = props;
 
   const { t } = useTranslation();
 
+  const isEdit = mode === 'edit';
+
   return (
-    <Form<TaskTypes> onSubmit={handleSubmit} className="p-6">
+    <Form<TaskTypes>
+      key={`${mode}-${initialValues?.id ?? 'new'}`}
+      initialValues={
+        initialValues ?? {
+          priority: 'medium',
+          status: 'todo',
+        }
+      }
+      onSubmit={handleSubmit}
+      className="p-6"
+    >
       <Form.Item
         name="title"
         label={t('my-tasks.form.task-title')}
@@ -83,7 +97,7 @@ export default function AddTaskForm(props: TaskFormProps) {
 
         <Button type="submit" variant="primary" className="h-9 gap-2 px-4 font-sans">
           <Typography as="p" variant="caption" className="truncate">
-            {t('common.create-task')}
+            {isEdit ? t('common.save-changes') : t('common.create-task')}
           </Typography>
         </Button>
       </div>

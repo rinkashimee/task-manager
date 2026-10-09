@@ -9,7 +9,7 @@ export const statusOptions: DropdownOption[] = [
   {
     labels: 'common.status-dropdown.in-progress',
     value: 'in-progress',
-    icon: <span className="bg-warning size-2.5 rounded-full" />,
+    icon: <span className="bg-info size-2.5 rounded-full" />,
   },
   {
     labels: 'common.status-dropdown.completed',

@@ -34,7 +34,7 @@ function validateField(
 function Form<TValues extends object = Record<string, FormDataEntryValue>>(
   props: FormProps<TValues>
 ) {
-  const { children, layout = 'vertical', onSubmit, className, ...restProps } = props;
+  const { children, layout = 'vertical', initialValues, onSubmit, className, ...restProps } = props;
 
   const { t } = useTranslation();
 
@@ -61,7 +61,12 @@ function Form<TValues extends object = Record<string, FormDataEntryValue>>(
   }, []);
 
   const contextValue = useMemo(
-    () => ({ errors, registerField, clearError }),
+    () => ({
+      errors,
+      registerField,
+      clearError,
+      initialValues: initialValues as Record<string, unknown> | undefined,
+    }),
     [errors, registerField, clearError]
   );
 

@@ -18,6 +18,12 @@
     "overdue": "Overdue",
     "cancel": "Cancel",
     "create-task": "Create Task",
+    "save-changes": "Save Changes",
+    "edit": "Edit task",
+    "mark-completed": "Mark as completed",
+    "duplicate": "Duplicate",
+    "delete": "Delete task",
+    "pagination-showing": "Showing {{count}} of {{total}} {{resourceName}}",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",
@@ -33,6 +39,16 @@
       "low": "Low",
       "medium": "Medium",
       "high": "High"
+    },
+    "confirmation-config": {
+      "complete-task": "Complete Task",
+      "edit-task": "Edit Task",
+      "delete-task": "Delete Task",
+      "duplicate-task": "Duplicate Task",
+      "complete-desc": "Are you sure you want to mark this task as completed?",
+      "edit-desc": "Are you sure you want to edit this task?",
+      "delete-desc": "Are you sure you want to delete this task? This action cannot be undone.",
+      "duplicate-desc": "Are you sure you want to duplicate this task?"
     }
   },
   "sidebar": {
@@ -58,8 +74,10 @@
       "due-date": "Due Date"
     },
     "modal": {
-      "title": "Add Tasks",
-      "caption": "Create a new task and keep your work on track."
+      "add-tasks": "Add Tasks",
+      "edit-tasks": "Edit Tasks",
+      "add-caption": "Create a new task and keep your work on track.",
+      "edit-caption": "Update your task details and keep your work on track."
     },
     "form": {
       "task-title": "Task Title",
