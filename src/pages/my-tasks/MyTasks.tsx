@@ -11,9 +11,11 @@ import type { FilterType, TaskFormMode, TaskFormValues, TaskTypes } from './type
 import Modal from '@/components/ui/Modal/Modal';
 import TaskForm from './components/TaskForm';
 import { useTasks } from './hooks/useTasks';
+import { useToast } from '@/components/ui/Toast/ToastProvider';
 
 export default function MyTasks() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
 
   const pageSize = 50;
 
@@ -26,52 +28,57 @@ export default function MyTasks() {
     task?: TaskTypes;
   } | null>(null);
 
-  const { taskData, isFetching, isCreating, totalItems, projectDropdown, setTaskData, createTask } =
-    useTasks({
-      currentPage,
-      pageSize,
-      search,
-      filter,
-    });
+  const {
+    taskData,
+    isFetching,
+    isCreating,
+    isUpdating,
+    totalItems,
+    projectDropdown,
+    createTask,
+    updateTask,
+    getTaskById,
+    deleteTask,
+  } = useTasks({
+    currentPage,
+    pageSize,
+    search,
+    filter,
+  });
+
+  const isSubmitting = isCreating || isUpdating;
 
   const handleAddTask = () => {
     setTaskForm({ mode: 'create' });
   };
 
-  const handleEditTask = (task: TaskTypes) => {
-    setTaskForm({ mode: 'edit', task });
+  const handleEditTask = async (task: TaskTypes) => {
+    const latestTask = await getTaskById(task.id);
+
+    if (!latestTask) {
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: t('common.not-found'),
+        variant: 'error',
+      });
+
+      return;
+    }
+
+    setTaskForm({ mode: 'edit', task: latestTask });
   };
 
   const handleTaskSubmit = async (values: TaskFormValues) => {
     if (!taskForm) return;
 
-    if (taskForm.mode === 'edit' && taskForm.task) {
-      // We'll implement the UPDATE API next.
-      return;
-    }
-
-    const success = await createTask(values);
+    const success =
+      taskForm.mode === 'edit' && taskForm.task
+        ? await updateTask(taskForm.task.id, values)
+        : await createTask(values);
 
     if (success) {
       setTaskForm(null);
     }
-
-    // if (taskForm.mode === 'edit' && taskForm.task) {
-    //   setTaskData((prev) =>
-    //     prev.map((task) =>
-    //       task.id === taskForm.task?.id ? { ...task, ...values, id: task.id } : task
-    //     )
-    //   );
-    // } else {
-    //   const newTask: TaskTypes = {
-    //     ...values,
-    //     id: generateId(),
-    //   };
-
-    //   setTaskData((prev) => [...prev, newTask]);
-    // }
-
-    // setTaskForm(null);
   };
 
   const handleSearch = (value: string) => {
@@ -127,8 +134,10 @@ export default function MyTasks() {
           currentPage={currentPage}
           setCurrentPage={handlePageChange}
           data={taskData}
-          setTaskData={setTaskData}
           handleEditTask={handleEditTask}
+          deleteTask={deleteTask}
+          createTask={createTask}
+          updateTask={updateTask}
         />
       </div>
 
@@ -136,7 +145,7 @@ export default function MyTasks() {
         <Modal
           open={taskForm !== null}
           onClose={() => {
-            if (!isCreating) {
+            if (!isSubmitting) {
               setTaskForm(null);
             }
           }}
@@ -157,8 +166,10 @@ export default function MyTasks() {
             projectDropdown={projectDropdown}
             initialValues={taskForm.task}
             handleSubmit={handleTaskSubmit}
-            onClose={() => setTaskForm(null)}
-            isSubmitting={isCreating}
+            onClose={() => {
+              if (!isSubmitting) setTaskForm(null);
+            }}
+            isSubmitting={isSubmitting}
           />
         </Modal>
       )}

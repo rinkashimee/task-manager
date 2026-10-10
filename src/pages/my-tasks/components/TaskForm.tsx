@@ -59,7 +59,7 @@ export default function TaskForm(props: TaskFormProps) {
       </Form.Item>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Form.Item name="projectId" label={t('my-tasks.form.project')}>
+        <Form.Item name="projectId" label={t('my-tasks.form.project')} rules={[{ required: true }]}>
           <Dropdown
             placeholder={t('my-tasks.placeholder.select-project')}
             icon="FolderIcon"

@@ -1,3 +1,4 @@
+import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 import type { HandleTypes } from '@/constants/commonContants';
 
 export type FilterType = 'all' | 'todo' | 'in-progress' | 'completed' | 'overdue';
@@ -53,6 +54,7 @@ export interface ProjectOptionResponse {
 
 export type TaskLoadingState = {
   fetch: boolean;
+  fetchTask: boolean;
   create: boolean;
   update: boolean;
   delete: boolean;
@@ -63,4 +65,18 @@ export interface UseTasksParams {
   pageSize: number;
   search: string;
   filter: FilterType;
+}
+
+export interface TaskTableProps {
+  total: number;
+  pageSize: number;
+  currentPage: number;
+  isFetching: boolean;
+  data: TaskTypes[];
+  projectDropdown: DropdownOption[];
+  createTask: (data: TaskRequest, successMessage?: string) => Promise<boolean>;
+  updateTask: (id: string, values: TaskRequest, successMessage?: string) => Promise<boolean>;
+  deleteTask: (id: string) => Promise<boolean>;
+  handleEditTask: (data: TaskTypes) => void;
+  setCurrentPage: (page: number) => void;
 }

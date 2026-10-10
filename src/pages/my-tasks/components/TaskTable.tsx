@@ -1,25 +1,16 @@
 import Card from '@/components/ui/Cards/Card';
 import Table from '@/components/ui/Table/Table';
 import taskTableColumns from './TaskTableColumn';
-import type { ConfirmationState, TaskTypes } from '../types/TaskTypes';
-import { useState, type Dispatch, type SetStateAction } from 'react';
-import { generateId } from '@/lib/utils/utils';
+import type {
+  ConfirmationState,
+  TaskFormValues,
+  TaskTableProps,
+  TaskTypes,
+} from '../types/TaskTypes';
+import { useState } from 'react';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import type { HandleTypes } from '@/constants/commonContants';
 import { useTranslation } from 'react-i18next';
-import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
-
-interface TaskTableProps {
-  total: number;
-  pageSize: number;
-  currentPage: number;
-  isFetching: boolean;
-  data: TaskTypes[];
-  projectDropdown: DropdownOption[];
-  setTaskData: Dispatch<SetStateAction<TaskTypes[]>>;
-  handleEditTask: (data: TaskTypes) => void;
-  setCurrentPage: (page: number) => void;
-}
 
 export default function TaskTable(props: TaskTableProps) {
   const {
@@ -29,7 +20,9 @@ export default function TaskTable(props: TaskTableProps) {
     total,
     isFetching,
     projectDropdown,
-    setTaskData,
+    createTask,
+    updateTask,
+    deleteTask,
     handleEditTask,
     setCurrentPage,
   } = props;
@@ -76,7 +69,7 @@ export default function TaskTable(props: TaskTableProps) {
 
     switch (handleType) {
       case 'complete':
-        handleComplete(task.id);
+        handleComplete(task);
         break;
 
       case 'edit':
@@ -99,24 +92,34 @@ export default function TaskTable(props: TaskTableProps) {
     handleEditTask(task);
   };
 
-  const handleComplete = (id: string) => {
-    setTaskData((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, status: 'completed' } : task))
+  const handleComplete = async (task: TaskTypes) => {
+    const { id, ...values } = task;
+
+    await updateTask(
+      id,
+      {
+        ...values,
+        status: 'completed',
+      },
+      t('common.complete-success')
     );
   };
 
-  const handleDuplicate = (task: TaskTypes) => {
-    const originalTitle = task.title.replace(/(?: \(Copy\))+$/, '');
-    const newTask: TaskTypes = {
-      ...task,
-      id: generateId(),
+  const handleDuplicate = async (task: TaskTypes) => {
+    const { id, ...values } = task;
+
+    const originalTitle = values.title.replace(/(?: \(Copy\))+$/, '');
+
+    const newTask: TaskFormValues = {
+      ...values,
       title: `${originalTitle} (Copy)`,
     };
-    setTaskData((prev) => [...prev, newTask]);
+
+    await createTask(newTask, t('common.duplicate-success'));
   };
 
-  const handleDelete = (id: string) => {
-    setTaskData((prev) => prev.filter((task) => task.id !== id));
+  const handleDelete = async (id: string) => {
+    await deleteTask(id);
   };
 
   return (

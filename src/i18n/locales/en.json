@@ -29,6 +29,10 @@
     "went-wrong": "Something went wrong. Please try again.",
     "creating": "Creating...",
     "saving": "Saving...",
+    "not-found": "Unable to load task details. Please try again.",
+    "unable-duplicate": "Unable to duplicate task. Please try again.",
+    "duplicate-success": "Task duplicated successfully",
+    "complete-success": "Task marked as completed successfully",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",

@@ -27,19 +27,21 @@ export const taskApi = {
     return response.data;
   },
 
-  //   getById: async (id: string): Promise<TaskTypes> => {
-  //     const response = await api.get<ApiResponse<TaskTypes>>(`/tasks/${id}`);
+  getById: async (id: string): Promise<TaskResponse> => {
+    const response = await api.get<ApiResponse<TaskResponse>>(`/tasks/${id}`);
 
-  //     return response.data.data;
-  //   },
+    return response.data.data;
+  },
 
-  //   update: async (id: string, data: TaskRequest): Promise<TaskTypes> => {
-  //     const response = await api.put<ApiResponse<TaskTypes>>(`/tasks/${id}`, data);
+  update: async (id: string, data: TaskRequest): Promise<ApiResponse<TaskResponse>> => {
+    const response = await api.put<ApiResponse<TaskResponse>>(`/tasks/${id}`, data);
 
-  //     return response.data.data;
-  //   },
+    return response.data;
+  },
 
-  //   delete: async (id: string): Promise<void> => {
-  //     await api.delete(`/tasks/${id}`);
-  //   },
+  delete: async (id: string): Promise<ApiResponse<null>> => {
+    const response = await api.delete<ApiResponse<null>>(`/tasks/${id}`);
+
+    return response.data;
+  },
 };

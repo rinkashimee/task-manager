@@ -23,6 +23,7 @@ export function useTasks(props: UseTasksParams) {
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState<TaskLoadingState>({
     fetch: true,
+    fetchTask: false,
     create: false,
     update: false,
     delete: false,
@@ -90,7 +91,7 @@ export function useTasks(props: UseTasksParams) {
 
   // CREATE TASK
   const createTask = useCallback(
-    async (data: TaskRequest): Promise<boolean> => {
+    async (data: TaskRequest, successMessage?: string): Promise<boolean> => {
       if (loading.create) return false;
 
       try {
@@ -100,7 +101,7 @@ export function useTasks(props: UseTasksParams) {
 
         showToast({
           title: t('common.toast-title.success'),
-          description: response.message,
+          description: successMessage ?? response.message,
           variant: 'success',
         });
 
@@ -124,8 +125,111 @@ export function useTasks(props: UseTasksParams) {
     [loading, fetchTasks, showToast, t]
   );
 
+  // GET TASK BY ID
+  const getTaskById = useCallback(
+    async (id: string): Promise<TaskTypes | null> => {
+      try {
+        setLoading((prev) => ({ ...prev, fetchTask: true }));
+
+        const response = await taskApi.getById(id);
+
+        return {
+          ...response,
+          dueDate: response.dueDate ?? '',
+        };
+      } catch (error) {
+        const message = getApiErrorMessage(error, t);
+
+        showToast({
+          title: t('common.toast-title.fail'),
+          description: message,
+          variant: 'error',
+        });
+
+        return null;
+      } finally {
+        setLoading((prev) => ({ ...prev, fetchTask: false }));
+      }
+    },
+    [showToast, t]
+  );
+
+  // UPDATE TASK
+  const updateTask = useCallback(
+    async (id: string, values: TaskRequest, successMessage?: string): Promise<boolean> => {
+      try {
+        setLoading((prev) => ({ ...prev, update: true }));
+
+        const payload: TaskRequest = {
+          ...values,
+          dueDate: values.dueDate || null,
+        };
+
+        const response = await taskApi.update(id, payload);
+
+        showToast({
+          title: t('common.toast-title.success'),
+          description: successMessage ?? response.message,
+          variant: 'success',
+        });
+
+        await fetchTasks();
+
+        return true;
+      } catch (error) {
+        showToast({
+          title: t('common.toast-title.fail'),
+          description: getApiErrorMessage(error, t),
+          variant: 'error',
+        });
+
+        return false;
+      } finally {
+        setLoading((prev) => ({ ...prev, update: false }));
+      }
+    },
+    [fetchTasks, showToast, t]
+  );
+
+  // DELETE TASK
+  const deleteTask = useCallback(
+    async (id: string): Promise<boolean> => {
+      try {
+        setLoading((prev) => ({ ...prev, delete: true }));
+
+        const response = await taskApi.delete(id);
+
+        showToast({
+          title: t('common.toast-title.success'),
+          description: response.message,
+          variant: 'success',
+        });
+
+        await fetchTasks();
+
+        return true;
+      } catch (error) {
+        showToast({
+          title: t('common.toast-title.fail'),
+          description: getApiErrorMessage(error, t),
+          variant: 'error',
+        });
+
+        return false;
+      } finally {
+        setLoading((prev) => ({ ...prev, delete: false }));
+      }
+    },
+    [fetchTasks, showToast, t]
+  );
+
+  // Fetch projects
   useEffect(() => {
     void fetchProjectDropdown();
+  }, [fetchProjectDropdown]);
+
+  // Fetch tasks
+  useEffect(() => {
     void fetchTasks();
   }, [fetchTasks]);
 
@@ -136,10 +240,14 @@ export function useTasks(props: UseTasksParams) {
     isCreating: loading.create,
     isUpdating: loading.update,
     isDeleting: loading.delete,
+    isFetchingTask: loading.fetchTask,
     projectDropdown,
     setTaskData,
     fetchTasks,
     createTask,
+    updateTask,
+    getTaskById,
+    deleteTask,
     fetchProjectDropdown,
   };
 }
