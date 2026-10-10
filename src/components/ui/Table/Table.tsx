@@ -2,12 +2,14 @@ import { cn } from '@/lib/utils/utils';
 import type { ReactNode } from 'react';
 import TableEmptyState from './TableEmptyState';
 import TablePagination from './TablePagination';
+import TableSkeletonRows from './TableSkeletonRows';
 
 export interface TableColumn<T> {
   key: string;
   title: ReactNode;
   dataIndex?: keyof T;
   width?: number | string;
+  skeletonWidth?: string;
   align?: 'left' | 'center' | 'right';
   render?: (value: T[keyof T] | undefined, record: T, index: number) => ReactNode;
 }
@@ -26,10 +28,20 @@ interface TableProps<T> {
   data: T[];
   pagination?: false | TablePaginationTypes;
   tableWrapperClassName?: string;
+  isLoading?: boolean;
+  skeletonRows?: number;
 }
 
 export default function Table<T>(props: TableProps<T>) {
-  const { rowKey, columns, data, pagination, tableWrapperClassName } = props;
+  const {
+    rowKey,
+    columns,
+    data,
+    pagination,
+    tableWrapperClassName,
+    isLoading = false,
+    skeletonRows = 5,
+  } = props;
 
   return (
     <div className={cn('bg-card flex flex-col overflow-hidden', tableWrapperClassName)}>
@@ -64,11 +76,12 @@ export default function Table<T>(props: TableProps<T>) {
               ))}
             </tr>
           </thead>
-          {data?.length > 0 && (
-            <tbody>
-              {data.map((record, rowIndex) => {
+          <tbody>
+            {isLoading ? (
+              <TableSkeletonRows columns={columns} rows={skeletonRows} />
+            ) : (
+              data.map((record, rowIndex) => {
                 const key = typeof rowKey === 'function' ? rowKey(record) : record[rowKey];
-                // hover: bg - neutral - 50;
                 return (
                   <tr key={String(key)} className="border-border border-b transition">
                     {columns.map((column) => {
@@ -90,15 +103,15 @@ export default function Table<T>(props: TableProps<T>) {
                     })}
                   </tr>
                 );
-              })}
-            </tbody>
-          )}
+              })
+            )}
+          </tbody>
         </table>
 
-        {data?.length === 0 && <TableEmptyState />}
+        {!isLoading && (!data || data.length === 0) && <TableEmptyState />}
       </div>
 
-      {pagination && <TablePagination {...pagination} />}
+      {!isLoading && pagination && <TablePagination {...pagination} />}
     </div>
   );
 }

@@ -7,19 +7,32 @@ import { generateId } from '@/lib/utils/utils';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import type { HandleTypes } from '@/constants/commonContants';
 import { useTranslation } from 'react-i18next';
+import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 
 interface TaskTableProps {
   total: number;
   pageSize: number;
   currentPage: number;
+  isFetching: boolean;
   data: TaskTypes[];
+  projectDropdown: DropdownOption[];
   setTaskData: Dispatch<SetStateAction<TaskTypes[]>>;
   handleEditTask: (data: TaskTypes) => void;
   setCurrentPage: (page: number) => void;
 }
 
 export default function TaskTable(props: TaskTableProps) {
-  const { data, pageSize, currentPage, total, setTaskData, handleEditTask, setCurrentPage } = props;
+  const {
+    data,
+    pageSize,
+    currentPage,
+    total,
+    isFetching,
+    projectDropdown,
+    setTaskData,
+    handleEditTask,
+    setCurrentPage,
+  } = props;
 
   const { t } = useTranslation();
 
@@ -111,8 +124,10 @@ export default function TaskTable(props: TaskTableProps) {
       <Table
         tableWrapperClassName="min-h-0 flex-1"
         rowKey={(id) => id.id}
-        columns={taskTableColumns({ confirmationModal })}
+        columns={taskTableColumns({ projectDropdown, confirmationModal })}
         data={data}
+        isLoading={isFetching}
+        skeletonRows={15}
         pagination={{
           current: currentPage,
           pageSize: pageSize,

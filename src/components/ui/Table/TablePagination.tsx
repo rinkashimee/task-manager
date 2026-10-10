@@ -16,13 +16,20 @@ export default function TablePagination(props: TablePaginationProps) {
   const { current, pageSize, total, resourceName, onChange } = props;
   const { t } = useTranslation();
 
-  const totalPages = Math.ceil(total / pageSize);
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+
+  const start = total === 0 ? 0 : (current - 1) * pageSize + 1;
+
+  const end = Math.min(current * pageSize, total);
+
+  const isFirstPage = current <= 1;
+  const isLastPage = current >= totalPages;
 
   return (
     <div className="flex items-center justify-between p-3">
       <Typography variant="caption" className="truncate">
         {t('common.pagination-showing', {
-          count: `${(current - 1) * pageSize + 1}-${Math.min(current * pageSize, total)}`,
+          count: `${start}-${end}`,
           total: `${total}`,
           resourceName: resourceName?.toLowerCase(),
         })}
@@ -31,7 +38,7 @@ export default function TablePagination(props: TablePaginationProps) {
       <div className="flex items-center gap-2">
         <Button
           variant="ghost"
-          disabled={current === 1}
+          disabled={isFirstPage}
           onClick={() => onChange?.(current - 1)}
           className="px-3 py-2"
         >
@@ -44,7 +51,7 @@ export default function TablePagination(props: TablePaginationProps) {
 
         <Button
           variant="ghost"
-          disabled={current === totalPages}
+          disabled={isLastPage}
           onClick={() => onChange?.(current + 1)}
           className="px-3 py-2"
         >

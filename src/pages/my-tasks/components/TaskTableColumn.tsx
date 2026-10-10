@@ -8,13 +8,15 @@ import { priorityVariants, statusVariants } from '../constant/TaskContants';
 import { priorityOptions } from '@/constants/priorityOptions';
 import TaskActionMenu from './TaskActionMenu';
 import type { HandleTypes } from '@/constants/commonContants';
+import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 
 interface TableColumnProps {
+  projectDropdown: DropdownOption[];
   confirmationModal: (task: TaskTypes, handleType: HandleTypes) => void;
 }
 
 export default function taskTableColumns(props: TableColumnProps): TableColumn<TaskTypes>[] {
-  const { confirmationModal } = props;
+  const { projectDropdown, confirmationModal } = props;
 
   const { t } = useTranslation();
 
@@ -24,33 +26,41 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
       title: t('my-tasks.table.task'),
       width: 450,
       dataIndex: 'title',
+      skeletonWidth: 'w-48',
       render: (_, response) => (
         <div className="flex flex-col">
-          <Typography variant="caption" className="font-sans font-semibold">
+          <Typography variant="caption" className="truncate font-sans font-semibold">
             {response.title}
           </Typography>
 
-          <Typography variant="caption" className="text-text-muted font-sans">
+          <Typography variant="caption" className="text-text-muted truncate font-sans">
             {response.description}
           </Typography>
         </div>
       ),
     },
     {
-      key: 'project',
+      key: 'projectId',
       title: t('my-tasks.table.project'),
-      dataIndex: 'project',
-      render: (_, response) => (
-        /**TODO: */
-        <Typography variant="caption" className="text-text font-sans">
-          {response.project}
-        </Typography>
-      ),
+      dataIndex: 'projectId',
+      skeletonWidth: 'w-28',
+      render: (_, response) => {
+        const selectedProject = projectDropdown.find(
+          (option) => option.value === response.projectId
+        );
+
+        return (
+          <Typography variant="caption" className="text-text font-sans">
+            {selectedProject?.label}
+          </Typography>
+        );
+      },
     },
     {
       key: 'priority',
       title: t('my-tasks.table.priority'),
       dataIndex: 'priority',
+      skeletonWidth: 'w-24',
       render: (_, response) => {
         const selectedPriority = priorityOptions.find(
           (option) => option.value === response.priority
@@ -67,6 +77,7 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
       key: 'status',
       title: t('my-tasks.table.status'),
       dataIndex: 'status',
+      skeletonWidth: 'w-24',
       render: (_, response) => {
         const selectedStatus = statusOptions.find((option) => option.value === response.status);
 
@@ -81,6 +92,7 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
       key: 'dueDate',
       title: t('my-tasks.table.due-date'),
       dataIndex: 'dueDate',
+      skeletonWidth: 'w-28',
       render: (_, reponse) => (
         <Typography variant="caption" className="text-text font-sans">
           {reponse.dueDate}
@@ -90,6 +102,7 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
     {
       key: 'action',
       title: '',
+      skeletonWidth: 'w-6',
       render: (_, response) => (
         <TaskActionMenu
           isCompleted={response.status === 'completed'}

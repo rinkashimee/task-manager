@@ -23,6 +23,7 @@ import {
   TrashIcon,
   UserCircleIcon,
   WarningIcon,
+  XCircleIcon,
   XIcon,
 } from '@phosphor-icons/react';
 
@@ -51,6 +52,7 @@ const icons = {
   CheckCircleIcon,
   CaretLeftIcon,
   CaretRightIcon,
+  XCircleIcon,
 } satisfies Record<string, Icon>;
 
 export type IconType = keyof typeof icons;

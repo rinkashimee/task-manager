@@ -9,16 +9,26 @@ import { statusOptions } from '../../../constants/statusOptions';
 import { priorityOptions } from '@/constants/priorityOptions';
 import type { TaskFormValues, TaskTypes } from '../types/TaskTypes';
 import type { FormSubmitEvent } from '@/components/ui/Form/Form.types';
+import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 
 export interface TaskFormProps {
   mode?: 'create' | 'edit';
   initialValues?: TaskTypes;
+  isSubmitting?: boolean;
+  projectDropdown: DropdownOption[];
   onClose: (open: boolean) => void;
   handleSubmit: (values: TaskFormValues, event: FormSubmitEvent) => void;
 }
 
 export default function TaskForm(props: TaskFormProps) {
-  const { mode = 'create', initialValues, onClose, handleSubmit } = props;
+  const {
+    mode = 'create',
+    initialValues,
+    isSubmitting,
+    projectDropdown,
+    onClose,
+    handleSubmit,
+  } = props;
 
   const { t } = useTranslation();
 
@@ -49,14 +59,11 @@ export default function TaskForm(props: TaskFormProps) {
       </Form.Item>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Form.Item name="project" label={t('my-tasks.form.project')}>
+        <Form.Item name="projectId" label={t('my-tasks.form.project')}>
           <Dropdown
             placeholder={t('my-tasks.placeholder.select-project')}
             icon="FolderIcon"
-            options={[
-              { label: 'Website Redesign', value: 'website' },
-              { label: 'Mobile App', value: 'mobile' }, //TODO:
-            ]}
+            options={projectDropdown}
           />
         </Form.Item>
 
@@ -89,15 +96,27 @@ export default function TaskForm(props: TaskFormProps) {
           variant="secondary"
           className="h-9 gap-2 px-4 font-sans"
           onClick={() => onClose(false)}
+          disabled={isSubmitting}
         >
           <Typography as="p" variant="caption" className="truncate">
             {t('common.cancel')}
           </Typography>
         </Button>
 
-        <Button type="submit" variant="primary" className="h-9 gap-2 px-4 font-sans">
+        <Button
+          type="submit"
+          variant="primary"
+          className="h-9 gap-2 px-4 font-sans"
+          disabled={isSubmitting}
+        >
           <Typography as="p" variant="caption" className="truncate">
-            {isEdit ? t('common.save-changes') : t('common.create-task')}
+            {isSubmitting
+              ? isEdit
+                ? t('common.saving')
+                : t('common.creating')
+              : isEdit
+                ? t('common.save-changes')
+                : t('common.create-task')}
           </Typography>
         </Button>
       </div>

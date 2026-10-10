@@ -4,18 +4,18 @@ import Button from '@/components/ui/Button/Button';
 import Input from '@/components/ui/Input/Input';
 import Typography from '@/components/ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import TaskFilter from './components/TaskFilter';
 import TaskTable from './components/TaskTable';
 import type { FilterType, TaskFormMode, TaskFormValues, TaskTypes } from './types/TaskTypes';
 import Modal from '@/components/ui/Modal/Modal';
-import { generateId } from '@/lib/utils/utils';
 import TaskForm from './components/TaskForm';
+import { useTasks } from './hooks/useTasks';
 
 export default function MyTasks() {
   const { t } = useTranslation();
 
-  const pageSize = 10;
+  const pageSize = 50;
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
@@ -26,7 +26,13 @@ export default function MyTasks() {
     task?: TaskTypes;
   } | null>(null);
 
-  const [taskData, setTaskData] = useState<TaskTypes[]>([]);
+  const { taskData, isFetching, isCreating, totalItems, projectDropdown, setTaskData, createTask } =
+    useTasks({
+      currentPage,
+      pageSize,
+      search,
+      filter,
+    });
 
   const handleAddTask = () => {
     setTaskForm({ mode: 'create' });
@@ -36,57 +42,51 @@ export default function MyTasks() {
     setTaskForm({ mode: 'edit', task });
   };
 
-  const handleTaskSubmit = (values: TaskFormValues) => {
+  const handleTaskSubmit = async (values: TaskFormValues) => {
     if (!taskForm) return;
 
     if (taskForm.mode === 'edit' && taskForm.task) {
-      setTaskData((prev) =>
-        prev.map((task) =>
-          task.id === taskForm.task?.id ? { ...task, ...values, id: task.id } : task
-        )
-      );
-    } else {
-      const newTask: TaskTypes = {
-        ...values,
-        id: generateId(),
-      };
-
-      setTaskData((prev) => [...prev, newTask]);
+      // We'll implement the UPDATE API next.
+      return;
     }
 
-    setTaskForm(null);
+    const success = await createTask(values);
+
+    if (success) {
+      setTaskForm(null);
+    }
+
+    // if (taskForm.mode === 'edit' && taskForm.task) {
+    //   setTaskData((prev) =>
+    //     prev.map((task) =>
+    //       task.id === taskForm.task?.id ? { ...task, ...values, id: task.id } : task
+    //     )
+    //   );
+    // } else {
+    //   const newTask: TaskTypes = {
+    //     ...values,
+    //     id: generateId(),
+    //   };
+
+    //   setTaskData((prev) => [...prev, newTask]);
+    // }
+
+    // setTaskForm(null);
   };
 
-  const filteredTaskData = useMemo(() => {
-    const query = search.toLowerCase();
-    const today = new Date().toLocaleDateString('en-CA');
+  const handleSearch = (value: string) => {
+    setSearch(value);
+    setCurrentPage(1);
+  };
 
-    return taskData.filter((item) => {
-      const matchesSearch = [
-        item.title,
-        item.description,
-        item.project,
-        item.priority,
-        item.status,
-        item.dueDate,
-      ].some((value) => value.toLowerCase().includes(query));
+  const handleFilter = (value: FilterType) => {
+    setFilter(value);
+    setCurrentPage(1);
+  };
 
-      const isOverdue =
-        Boolean(item.dueDate) && item.dueDate < today && item.status !== 'completed';
-
-      const matchesStatus =
-        filter === 'all' || (filter === 'overdue' ? isOverdue : item.status === filter);
-
-      return matchesSearch && matchesStatus;
-    });
-  }, [taskData, search, filter]);
-
-  const paginatedTaskData = useMemo(() => {
-    const start = (currentPage - 1) * pageSize;
-    const end = start + pageSize;
-
-    return filteredTaskData.slice(start, end);
-  }, [taskData, currentPage, pageSize, search, filter]);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="flex h-full min-h-0 flex-col">
@@ -98,7 +98,7 @@ export default function MyTasks() {
           value={search}
           placeholder={t('common.search-tasks')}
           icon="MagnifyingGlassIcon"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
           wrapperClassName="w-full max-w-[400px]"
         />
 
@@ -117,14 +117,16 @@ export default function MyTasks() {
       </div>
 
       <div className="mb-6 flex min-h-0 flex-1 flex-col gap-4 px-6">
-        <TaskFilter value={filter} onChange={setFilter} />
+        <TaskFilter value={filter} onChange={handleFilter} />
 
         <TaskTable
+          isFetching={isFetching}
           pageSize={pageSize}
-          total={filteredTaskData?.length}
+          total={totalItems}
+          projectDropdown={projectDropdown}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          data={paginatedTaskData}
+          setCurrentPage={handlePageChange}
+          data={taskData}
           setTaskData={setTaskData}
           handleEditTask={handleEditTask}
         />
@@ -133,7 +135,11 @@ export default function MyTasks() {
       {taskForm && (
         <Modal
           open={taskForm !== null}
-          onClose={() => setTaskForm(null)}
+          onClose={() => {
+            if (!isCreating) {
+              setTaskForm(null);
+            }
+          }}
           title={
             taskForm?.mode === 'edit'
               ? t('my-tasks.modal.edit-tasks')
@@ -148,9 +154,11 @@ export default function MyTasks() {
         >
           <TaskForm
             mode={taskForm.mode}
+            projectDropdown={projectDropdown}
             initialValues={taskForm.task}
             handleSubmit={handleTaskSubmit}
             onClose={() => setTaskForm(null)}
+            isSubmitting={isCreating}
           />
         </Modal>
       )}
