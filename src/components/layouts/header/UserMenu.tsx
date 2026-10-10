@@ -47,7 +47,7 @@ export default function UserMenu(props: UserMenuProps) {
       >
         <UserAvatar name={name} avatarUrl={avatarUrl} />
 
-        <Typography variant="body-sm" className="font-sans">
+        <Typography variant="body-sm" className="font-sans font-semibold">
           {name}
         </Typography>
 

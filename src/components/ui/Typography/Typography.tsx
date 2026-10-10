@@ -1,14 +1,5 @@
-import type { ElementType, ReactNode } from 'react';
-
-export type TypographyVariant =
-  'h1' | 'h2' | 'h3' | 'body-lg' | 'body' | 'body-sm' | 'label' | 'caption';
-
-interface TypographyProps {
-  variant?: TypographyVariant;
-  children: ReactNode;
-  className?: string;
-  as?: ElementType;
-}
+import type { ElementType } from 'react';
+import type { TypographyProps, TypographyVariant } from './Typography.types';
 
 const variantStyles: Record<TypographyVariant, string> = {
   h1: 'font-heading text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight',
@@ -25,7 +16,7 @@ const variantStyles: Record<TypographyVariant, string> = {
 
   label: 'font-sans text-sm font-medium',
 
-  caption: 'text-xs font-normal',
+  caption: 'font-sans text-xs font-normal',
 };
 
 const defaultElements: Record<TypographyVariant, ElementType> = {
@@ -40,9 +31,13 @@ const defaultElements: Record<TypographyVariant, ElementType> = {
 };
 
 export default function Typography(props: TypographyProps) {
-  const { variant = 'body', children, className = '', as } = props;
+  const { variant = 'body', children, className = '', as, ...restProps } = props;
 
   const Component = as ?? defaultElements[variant];
 
-  return <Component className={`${variantStyles[variant]} ${className}`}>{children}</Component>;
+  return (
+    <Component {...restProps} className={`${variantStyles[variant]} ${className}`}>
+      {children}
+    </Component>
+  );
 }

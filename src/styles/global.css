@@ -7,6 +7,7 @@
 
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-canvas: var(--canvas);
 
   --color-card: var(--card);
 
@@ -15,15 +16,20 @@
   --color-text-inverse: var(--text-inverse);
 
   --color-border: var(--border);
+  --color-input-border: var(--input-border);
 
   --color-primary: var(--primary);
 
   --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-info: var(--info);
 }
 
 :root {
   --background: #f9fafe;
   --surface: #10182d;
+  --canvas: #f2f5fc;
 
   --card: #ffffff;
 
@@ -32,15 +38,20 @@
   --text-inverse: #ffffff;
 
   --border: #edf1fb;
+  --input-border: #e1e7f5;
 
   --primary: #664fff;
 
   --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #22c55e;
+  --info: #3b82f6;
 }
 
 .dark {
   --background: #0c1523;
   --surface: #0a111f;
+  --canvas: #101b2c;
 
   --card: #ffffff;
 
@@ -49,10 +60,14 @@
   --text-inverse: #ffffff;
 
   --border: #172135;
+  --input-border: #e1e7f5;
 
   --primary: #664fff;
 
   --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #22c55e;
+  --info: #3b82f6;
 }
 
 html {

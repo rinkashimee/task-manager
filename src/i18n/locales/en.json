@@ -6,7 +6,65 @@
     "account": "Account",
     "appearance": "Appearance",
     "about": "About",
-    "logout": "Log out"
+    "logout": "Log out",
+    "search-tasks": "Search tasks...",
+    "add-tasks": "Add Tasks",
+    "no-tasks": "No tasks yet",
+    "task-caption": "Create a task to start organizing your work.",
+    "all": "All",
+    "to-do": "To Do",
+    "in-progress": "In Progress",
+    "completed": "Completed",
+    "overdue": "Overdue",
+    "cancel": "Cancel",
+    "create-task": "Create Task",
+    "save-changes": "Save Changes",
+    "edit": "Edit task",
+    "mark-completed": "Mark as completed",
+    "duplicate": "Duplicate",
+    "delete": "Delete task",
+    "pagination-showing": "Showing {{count}} of {{total}} {{resourceName}}",
+    "request-time-out": "Request timed out. Please try again.",
+    "unable-to-connect": "Unable to connect to the server.",
+    "went-wrong": "Something went wrong. Please try again.",
+    "creating": "Creating...",
+    "saving": "Saving...",
+    "not-found": "Unable to load task details. Please try again.",
+    "unable-duplicate": "Unable to duplicate task. Please try again.",
+    "duplicate-success": "Task duplicated successfully",
+    "complete-success": "Task marked as completed successfully",
+    "validation": {
+      "field-required": "This field is required",
+      "minimum-char": "Minimum {{min}} characters",
+      "maximum-char": "Maximum {{max}} characters"
+    },
+    "status-dropdown": {
+      "todo": "To Do",
+      "in-progress": "In Porgress",
+      "completed": "Completed",
+      "on-hold": "On Hold"
+    },
+    "priority-dropdown": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "confirmation-config": {
+      "complete-task": "Complete Task",
+      "edit-task": "Edit Task",
+      "delete-task": "Delete Task",
+      "duplicate-task": "Duplicate Task",
+      "complete-desc": "Are you sure you want to mark this task as completed?",
+      "edit-desc": "Are you sure you want to edit this task?",
+      "delete-desc": "Are you sure you want to delete this task? This action cannot be undone.",
+      "duplicate-desc": "Are you sure you want to duplicate this task?"
+    },
+    "toast-title": {
+      "fail": "Failed",
+      "success": "Success",
+      "warning": "Warning",
+      "info": "Info"
+    }
   },
   "sidebar": {
     "logo": "Task Manager",
@@ -19,5 +77,38 @@
   "dashboard": {
     "title": "{{data}}, {{user}}!👋",
     "caption": "Here's an overview of your tasks for today."
+  },
+  "my-tasks": {
+    "title": "My Tasks",
+    "caption": "Keep track of your tasks and stay productive.",
+    "table": {
+      "task": "Task",
+      "project": "Project",
+      "priority": "Priority",
+      "status": "Status",
+      "due-date": "Due Date"
+    },
+    "modal": {
+      "add-tasks": "Add Tasks",
+      "edit-tasks": "Edit Tasks",
+      "add-caption": "Create a new task and keep your work on track.",
+      "edit-caption": "Update your task details and keep your work on track."
+    },
+    "form": {
+      "task-title": "Task Title",
+      "desc": "Description",
+      "project": "Project",
+      "priority": "Priority",
+      "status": "Status",
+      "due-date": "Due Date"
+    },
+    "placeholder": {
+      "enter-task-title": "Enter task title",
+      "enter-desc": "Enter description",
+      "select-project": "Select project",
+      "select-priority": "Select priority",
+      "select-status": "Select status",
+      "select-due-date": "Select Due Date"
+    }
   }
 }
