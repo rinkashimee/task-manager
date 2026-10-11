@@ -7,7 +7,7 @@ import Typography from '@/components/ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
 import { statusOptions } from '../../../constants/statusOptions';
 import { priorityOptions } from '@/constants/priorityOptions';
-import type { TaskFormValues, TaskTypes } from '../types/TaskTypes';
+import type { TaskFormValues, TaskTypes } from '../types/Task.types';
 import type { FormSubmitEvent } from '@/components/ui/Form/Form.types';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 

@@ -1,27 +1,25 @@
 import { useToast } from '@/components/ui/Toast/ToastProvider';
-import { useCallback, useEffect, useState } from 'react';
-import type {
-  TaskLoadingState,
-  TaskQueryParams,
-  TaskRequest,
-  TaskTypes,
-  UseTasksParams,
-} from '../types/Task.types';
-import { taskApi } from '../service/taskApi';
 import { useTranslation } from 'react-i18next';
+import type {
+  ProjectLoadingState,
+  ProjectQueryParams,
+  ProjectRequest,
+  ProjectTypes,
+  UseProjectsParams,
+} from '../types/Project.types';
+import { useCallback, useEffect, useState } from 'react';
+import { projectApi } from '../service/projectApi';
 import { getApiErrorMessage } from '@/api/apiError';
-import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 
-export function useTasks(props: UseTasksParams) {
-  const { currentPage, pageSize, search, filter } = props;
+export function useProject(props: UseProjectsParams) {
+  const { currentPage, pageSize, search } = props;
 
   const { t } = useTranslation();
   const { showToast } = useToast();
 
-  const [taskData, setTaskData] = useState<TaskTypes[]>([]);
-  const [projectDropdown, setProjectDropdown] = useState<DropdownOption[]>([]);
+  const [projectData, setProjectData] = useState<ProjectTypes[]>([]);
   const [totalItems, setTotalItems] = useState(0);
-  const [loading, setLoading] = useState<TaskLoadingState>({
+  const [loading, setLoading] = useState<ProjectLoadingState>({
     fetch: true,
     fetchTask: false,
     create: false,
@@ -29,52 +27,26 @@ export function useTasks(props: UseTasksParams) {
     delete: false,
   });
 
-  // GET PROJECT DROPDOWN
-  const fetchProjectDropdown = useCallback(async () => {
+  // GET ALL PROJECTS
+  const fetchProjects = useCallback(async () => {
     try {
       setLoading((prev) => ({ ...prev, fetch: true }));
 
-      const response = await taskApi.getProjectDropdown();
-
-      const options: DropdownOption[] = response.map((project) => ({
-        label: project.name,
-        value: project.id,
-      }));
-
-      setProjectDropdown(options);
-    } catch (error) {
-      const message = getApiErrorMessage(error, t);
-
-      showToast({
-        title: t('common.toast-title.fail'),
-        description: message,
-        variant: 'error',
-      });
-    } finally {
-      setLoading((prev) => ({ ...prev, fetch: false }));
-    }
-  }, [showToast, t]);
-
-  // GET ALL TASKS
-  const fetchTasks = useCallback(async () => {
-    try {
-      setLoading((prev) => ({ ...prev, fetch: true }));
-
-      const params: TaskQueryParams = {
+      const params: ProjectQueryParams = {
         page: currentPage - 1,
         size: pageSize,
         search: search.trim(),
-        status: filter,
       };
 
-      const response = await taskApi.getAll(params);
+      const response = await projectApi.getAll(params);
 
-      const formattedTasks: TaskTypes[] = response.content.map((task) => ({
-        ...task,
-        dueDate: task.dueDate ?? '',
+      const formattedTasks: ProjectTypes[] = response.content.map((project) => ({
+        ...project,
+        dueDate: project.dueDate ?? '',
+        lastUpdated: project.updatedAt,
       }));
 
-      setTaskData(formattedTasks);
+      setProjectData(formattedTasks);
       setTotalItems(response.totalElements);
     } catch (error) {
       const message = getApiErrorMessage(error, t);
@@ -87,17 +59,17 @@ export function useTasks(props: UseTasksParams) {
     } finally {
       setLoading((prev) => ({ ...prev, fetch: false }));
     }
-  }, [currentPage, pageSize, search, filter, showToast, t]);
+  }, [currentPage, pageSize, search, showToast, t]);
 
-  // CREATE TASK
-  const createTask = useCallback(
-    async (data: TaskRequest, successMessage?: string): Promise<boolean> => {
+  // CREATE PROJECT
+  const createProject = useCallback(
+    async (data: ProjectRequest, successMessage?: string): Promise<boolean> => {
       if (loading.create) return false;
 
       try {
         setLoading((prev) => ({ ...prev, create: true }));
 
-        const response = await taskApi.create(data);
+        const response = await projectApi.create(data);
 
         showToast({
           title: t('common.toast-title.success'),
@@ -105,7 +77,7 @@ export function useTasks(props: UseTasksParams) {
           variant: 'success',
         });
 
-        await fetchTasks();
+        await fetchProjects();
 
         return true;
       } catch (error) {
@@ -122,20 +94,21 @@ export function useTasks(props: UseTasksParams) {
         setLoading((prev) => ({ ...prev, create: false }));
       }
     },
-    [loading, fetchTasks, showToast, t]
+    [loading, fetchProjects, showToast, t]
   );
 
-  // GET TASK BY ID
-  const getTaskById = useCallback(
-    async (id: string): Promise<TaskTypes | null> => {
+  // GET PROJECT BY ID
+  const getProjectById = useCallback(
+    async (id: string): Promise<ProjectTypes | null> => {
       try {
         setLoading((prev) => ({ ...prev, fetchTask: true }));
 
-        const response = await taskApi.getById(id);
+        const response = await projectApi.getById(id);
 
         return {
           ...response,
           dueDate: response.dueDate ?? '',
+          lastUpdated: response.updatedAt,
         };
       } catch (error) {
         const message = getApiErrorMessage(error, t);
@@ -154,18 +127,18 @@ export function useTasks(props: UseTasksParams) {
     [showToast, t]
   );
 
-  // UPDATE TASK
-  const updateTask = useCallback(
-    async (id: string, values: TaskRequest, successMessage?: string): Promise<boolean> => {
+  // UPDATE PROJECT
+  const updateProject = useCallback(
+    async (id: string, values: ProjectRequest, successMessage?: string): Promise<boolean> => {
       try {
         setLoading((prev) => ({ ...prev, update: true }));
 
-        const payload: TaskRequest = {
+        const payload: ProjectRequest = {
           ...values,
           dueDate: values.dueDate || null,
         };
 
-        const response = await taskApi.update(id, payload);
+        const response = await projectApi.update(id, payload);
 
         showToast({
           title: t('common.toast-title.success'),
@@ -173,7 +146,7 @@ export function useTasks(props: UseTasksParams) {
           variant: 'success',
         });
 
-        await fetchTasks();
+        await fetchProjects();
 
         return true;
       } catch (error) {
@@ -188,16 +161,16 @@ export function useTasks(props: UseTasksParams) {
         setLoading((prev) => ({ ...prev, update: false }));
       }
     },
-    [fetchTasks, showToast, t]
+    [fetchProjects, showToast, t]
   );
 
-  // DELETE TASK
-  const deleteTask = useCallback(
+  // DELETE PROJECT
+  const deleteProject = useCallback(
     async (id: string): Promise<boolean> => {
       try {
         setLoading((prev) => ({ ...prev, delete: true }));
 
-        const response = await taskApi.delete(id);
+        const response = await projectApi.delete(id);
 
         showToast({
           title: t('common.toast-title.success'),
@@ -205,7 +178,7 @@ export function useTasks(props: UseTasksParams) {
           variant: 'success',
         });
 
-        await fetchTasks();
+        await fetchProjects();
 
         return true;
       } catch (error) {
@@ -220,34 +193,27 @@ export function useTasks(props: UseTasksParams) {
         setLoading((prev) => ({ ...prev, delete: false }));
       }
     },
-    [fetchTasks, showToast, t]
+    [fetchProjects, showToast, t]
   );
 
   // Fetch projects
   useEffect(() => {
-    void fetchProjectDropdown();
-  }, [fetchProjectDropdown]);
-
-  // Fetch tasks
-  useEffect(() => {
-    void fetchTasks();
-  }, [fetchTasks]);
+    void fetchProjects();
+  }, [fetchProjects]);
 
   return {
-    taskData,
+    projectData,
     totalItems,
     isFetching: loading.fetch,
     isCreating: loading.create,
     isUpdating: loading.update,
     isDeleting: loading.delete,
     isFetchingTask: loading.fetchTask,
-    projectDropdown,
-    setTaskData,
-    fetchTasks,
-    createTask,
-    updateTask,
-    getTaskById,
-    deleteTask,
-    fetchProjectDropdown,
+    setProjectData,
+    fetchProjects,
+    createProject,
+    getProjectById,
+    updateProject,
+    deleteProject,
   };
 }

@@ -1,3 +1,4 @@
+import type { ConfirmationVariant } from '@/components/ui/ConfirmationModal';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 import type { HandleTypes } from '@/constants/commonContants';
 
@@ -17,7 +18,7 @@ export interface TaskTypes {
 
 export type TaskFormValues = Omit<TaskTypes, 'id'>;
 
-export interface ConfirmationState {
+export interface TaskConfirmationState {
   task: TaskTypes;
   handleType: HandleTypes;
 }
@@ -80,3 +81,10 @@ export interface TaskTableProps {
   handleEditTask: (data: TaskTypes) => void;
   setCurrentPage: (page: number) => void;
 }
+
+export type TaskConfirmationConfig = {
+  title: string;
+  description: string;
+  variant: ConfirmationVariant;
+  confirmText: string;
+};

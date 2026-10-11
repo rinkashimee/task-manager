@@ -1,7 +1,7 @@
 import Button from '@/components/ui/Button/Button';
 import Typography from '@/components/ui/Typography/Typography';
 import { cn } from '@/lib/utils/utils';
-import type { FilterType } from '../types/TaskTypes';
+import type { FilterType } from '../types/Task.types';
 import type { ParseKeys } from 'i18next';
 import { useTranslation } from 'react-i18next';
 

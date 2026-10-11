@@ -5,16 +5,18 @@ import { cn } from '@/lib/utils/utils';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-interface TaskActionMenuProps {
+interface ActionMenuProps {
+  name: string;
   isCompleted?: boolean;
+  onView: () => void;
   onEdit: () => void;
   onComplete: () => void;
   onDuplicate: () => void;
   onDelete: () => void;
 }
 
-export default function TaskActionMenu(props: TaskActionMenuProps) {
-  const { isCompleted, onEdit, onComplete, onDuplicate, onDelete } = props;
+export default function ActionMenu(props: ActionMenuProps) {
+  const { name, isCompleted, onView, onEdit, onComplete, onDuplicate, onDelete } = props;
 
   const { t } = useTranslation();
 
@@ -99,12 +101,23 @@ export default function TaskActionMenu(props: TaskActionMenuProps) {
           <Button
             variant="ghost"
             role="menuitem"
+            onClick={() => handleAction(onView)}
+            className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
+          >
+            <TaskIcon size={14} icon="EyeIcon" />
+
+            <Typography variant="caption">{t('common.view', { name: name })}</Typography>
+          </Button>
+
+          <Button
+            variant="ghost"
+            role="menuitem"
             onClick={() => handleAction(onEdit)}
             className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
           >
             <TaskIcon size={14} icon="PencilIcon" />
 
-            <Typography variant="caption">{t('common.edit')}</Typography>
+            <Typography variant="caption">{t('common.edit', { name: name })}</Typography>
           </Button>
 
           {!isCompleted && (

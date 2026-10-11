@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import TableEmptyState from './TableEmptyState';
 import TablePagination from './TablePagination';
 import TableSkeletonRows from './TableSkeletonRows';
+import type { IconType } from '@/components/icons/TaskIcon';
 
 export interface TableColumn<T> {
   key: string;
@@ -30,6 +31,9 @@ interface TableProps<T> {
   tableWrapperClassName?: string;
   isLoading?: boolean;
   skeletonRows?: number;
+  emptyTitle: string;
+  emptyDesc: string;
+  emptyIcon?: IconType;
 }
 
 export default function Table<T>(props: TableProps<T>) {
@@ -41,6 +45,9 @@ export default function Table<T>(props: TableProps<T>) {
     tableWrapperClassName,
     isLoading = false,
     skeletonRows = 5,
+    emptyTitle,
+    emptyDesc,
+    emptyIcon,
   } = props;
 
   return (
@@ -108,7 +115,9 @@ export default function Table<T>(props: TableProps<T>) {
           </tbody>
         </table>
 
-        {!isLoading && (!data || data.length === 0) && <TableEmptyState />}
+        {!isLoading && (!data || data.length === 0) && (
+          <TableEmptyState title={emptyTitle} description={emptyDesc} icon={emptyIcon} />
+        )}
       </div>
 
       {!isLoading && pagination && <TablePagination {...pagination} />}

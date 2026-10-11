@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils/utils';
 import TaskIcon from '@/components/icons/TaskIcon';
 import Typography from '../Typography/Typography';
 import Button from '../Button/Button';
+import { useTranslation } from 'react-i18next';
 
 const confirmationVariants: Record<
   ConfirmationVariant,
@@ -43,6 +44,13 @@ const confirmationVariants: Record<
     buttonClassName:
       'h-9 gap-2 px-4 font-sans bg-success text-xs text-text-inverse hover:bg-success/90',
   },
+  default: {
+    icon: 'CopyIcon',
+    iconClassName: 'text-primary',
+    backgroundClassName: 'bg-primary/10',
+    buttonClassName:
+      'h-9 gap-2 px-4 font-sans bg-primary text-xs text-text-inverse hover:bg-primary/90',
+  },
 };
 
 export default function ConfirmationModal(props: ConfirmationModalProps) {
@@ -57,6 +65,8 @@ export default function ConfirmationModal(props: ConfirmationModalProps) {
     cancelText = 'Cancel',
     loading = false,
   } = props;
+
+  const { t } = useTranslation();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -126,7 +136,7 @@ export default function ConfirmationModal(props: ConfirmationModalProps) {
             onClick={handleConfirm}
             className={config.buttonClassName}
           >
-            {isLoading ? 'Processing...' : confirmText}
+            {isLoading ? t('common.processing') : confirmText}
           </Button>
         </div>
       </div>

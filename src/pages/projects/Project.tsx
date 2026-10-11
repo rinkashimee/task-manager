@@ -3,18 +3,17 @@ import Header from '@/components/layouts/header/Header';
 import Button from '@/components/ui/Button/Button';
 import Input from '@/components/ui/Input/Input';
 import Typography from '@/components/ui/Typography/Typography';
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import TaskFilter from './components/TaskFilter';
-import TaskTable from './components/TaskTable';
-import type { FilterType, TaskFormMode, TaskFormValues, TaskTypes } from './types/Task.types';
+import { useTranslation } from 'react-i18next';
+import ProjectTable from './components/ProjectTable';
 import Modal from '@/components/ui/Modal/Modal';
-import TaskForm from './components/TaskForm';
-import { useTasks } from './hooks/useTasks';
-import { useToast } from '@/components/ui/Toast/ToastProvider';
+import ProjectForm from './components/ProjectForm';
+import type { ProjectFormMode, ProjectFormValues, ProjectTypes } from './types/Project.types';
+import { useProject } from './hooks/useProject';
 import { PAGE_SIZE } from '@/constants/commonContants';
+import { useToast } from '@/components/ui/Toast/ToastProvider';
 
-export default function MyTasks() {
+export default function Project() {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
@@ -22,39 +21,39 @@ export default function MyTasks() {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
-  const [filter, setFilter] = useState<FilterType>('all');
 
-  const [taskForm, setTaskForm] = useState<{
-    mode: TaskFormMode;
-    task?: TaskTypes;
+  const [projectForm, setProjectForm] = useState<{
+    mode: ProjectFormMode;
+    project?: ProjectTypes;
   } | null>(null);
 
   const {
-    taskData,
+    projectData,
     isFetching,
     isCreating,
     isUpdating,
+    isDeleting,
     totalItems,
-    projectDropdown,
-    createTask,
-    updateTask,
-    getTaskById,
-    deleteTask,
-  } = useTasks({
+    createProject,
+    updateProject,
+    getProjectById,
+    deleteProject,
+  } = useProject({
     currentPage,
     pageSize,
     search,
-    filter,
   });
 
   const isSubmitting = isCreating || isUpdating;
 
-  const handleAddTask = () => {
-    setTaskForm({ mode: 'create' });
+  const isConfirmation = isCreating || isUpdating || isDeleting;
+
+  const handleAddProject = () => {
+    setProjectForm({ mode: 'create' });
   };
 
-  const handleEditTask = async (task: TaskTypes) => {
-    const latestTask = await getTaskById(task.id);
+  const handleEditProject = async (project: ProjectTypes) => {
+    const latestTask = await getProjectById(project.id);
 
     if (!latestTask) {
       showToast({
@@ -66,29 +65,24 @@ export default function MyTasks() {
       return;
     }
 
-    setTaskForm({ mode: 'edit', task: latestTask });
+    setProjectForm({ mode: 'edit', project: latestTask });
   };
 
-  const handleTaskSubmit = async (values: TaskFormValues) => {
-    if (!taskForm) return;
+  const handleProjectSubmit = async (values: ProjectFormValues) => {
+    if (!projectForm) return;
 
     const success =
-      taskForm.mode === 'edit' && taskForm.task
-        ? await updateTask(taskForm.task.id, values)
-        : await createTask(values);
+      projectForm.mode === 'edit' && projectForm.project
+        ? await updateProject(projectForm.project.id, values)
+        : await createProject(values);
 
     if (success) {
-      setTaskForm(null);
+      setProjectForm(null);
     }
   };
 
   const handleSearch = (value: string) => {
     setSearch(value);
-    setCurrentPage(1);
-  };
-
-  const handleFilter = (value: FilterType) => {
-    setFilter(value);
     setCurrentPage(1);
   };
 
@@ -98,13 +92,12 @@ export default function MyTasks() {
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <Header title={t('my-tasks.title')} caption={t('my-tasks.caption')} />
-
+      <Header title={t('project.title')} caption={t('project.caption')} />
       <div className="flex shrink-0 items-center justify-between gap-6 p-6">
         <Input
           type="text"
           value={search}
-          placeholder={t('common.search-tasks')}
+          placeholder={t('common.search-projects')}
           icon="MagnifyingGlassIcon"
           onChange={(e) => handleSearch(e.target.value)}
           wrapperClassName="w-full max-w-[400px]"
@@ -114,61 +107,57 @@ export default function MyTasks() {
           type="button"
           variant="primary"
           className="h-9 gap-2 px-4 font-sans"
-          onClick={() => handleAddTask()}
+          onClick={() => handleAddProject()}
         >
           <TaskIcon size={16} icon="PlusIcon" />
 
           <Typography as="p" variant="caption" className="truncate">
-            {t('common.add-tasks')}
+            {t('common.new-project')}
           </Typography>
         </Button>
       </div>
-
       <div className="mb-6 flex min-h-0 flex-1 flex-col gap-4 px-6">
-        <TaskFilter value={filter} onChange={handleFilter} />
-
-        <TaskTable
+        <ProjectTable
+          data={projectData}
           isFetching={isFetching}
           pageSize={pageSize}
           total={totalItems}
-          projectDropdown={projectDropdown}
           currentPage={currentPage}
+          isConfirmation={isConfirmation}
           setCurrentPage={handlePageChange}
-          data={taskData}
-          handleEditTask={handleEditTask}
-          deleteTask={deleteTask}
-          createTask={createTask}
-          updateTask={updateTask}
+          handleEditTask={handleEditProject}
+          createTask={createProject}
+          updateProject={updateProject}
+          deleteProject={deleteProject}
         />
       </div>
 
-      {taskForm && (
+      {projectForm && (
         <Modal
-          open={taskForm !== null}
+          open={projectForm !== null}
           onClose={() => {
             if (!isSubmitting) {
-              setTaskForm(null);
+              setProjectForm(null);
             }
           }}
           title={
-            taskForm?.mode === 'edit'
-              ? t('my-tasks.modal.edit-tasks')
-              : t('my-tasks.modal.add-tasks')
+            projectForm?.mode === 'edit'
+              ? t('project.modal.edit-project')
+              : t('project.modal.new-project')
           }
           caption={
-            taskForm?.mode === 'edit'
-              ? t('my-tasks.modal.edit-caption')
-              : t('my-tasks.modal.add-caption')
+            projectForm?.mode === 'edit'
+              ? t('project.modal.edit-caption')
+              : t('project.modal.new-caption')
           }
           size="md"
         >
-          <TaskForm
-            mode={taskForm.mode}
-            projectDropdown={projectDropdown}
-            initialValues={taskForm.task}
-            handleSubmit={handleTaskSubmit}
+          <ProjectForm
+            mode={projectForm.mode}
+            initialValues={projectForm.project}
+            handleSubmit={handleProjectSubmit}
             onClose={() => {
-              if (!isSubmitting) setTaskForm(null);
+              if (!isSubmitting) setProjectForm(null);
             }}
             isSubmitting={isSubmitting}
           />

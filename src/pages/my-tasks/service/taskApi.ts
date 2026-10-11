@@ -5,7 +5,7 @@ import type {
   TaskQueryParams,
   TaskRequest,
   TaskResponse,
-} from '../types/TaskTypes';
+} from '../types/Task.types';
 import api from '@/api/axios';
 
 export const taskApi = {

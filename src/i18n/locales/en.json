@@ -8,9 +8,13 @@
     "about": "About",
     "logout": "Log out",
     "search-tasks": "Search tasks...",
-    "add-tasks": "Add Tasks",
+    "search-projects": "Search projects...",
+    "add-tasks": "Add Task",
+    "new-project": "New Project",
     "no-tasks": "No tasks yet",
+    "no-projects": "No projects yet",
     "task-caption": "Create a task to start organizing your work.",
+    "project-caption": "Create your first project to organize your tasks and track your progress.",
     "all": "All",
     "to-do": "To Do",
     "in-progress": "In Progress",
@@ -18,8 +22,10 @@
     "overdue": "Overdue",
     "cancel": "Cancel",
     "create-task": "Create Task",
+    "create-project": "Create Project",
     "save-changes": "Save Changes",
-    "edit": "Edit task",
+    "view": "View {{name}}",
+    "edit": "Edit {{name}}",
     "mark-completed": "Mark as completed",
     "duplicate": "Duplicate",
     "delete": "Delete task",
@@ -29,10 +35,11 @@
     "went-wrong": "Something went wrong. Please try again.",
     "creating": "Creating...",
     "saving": "Saving...",
+    "processing": "Processing...",
     "not-found": "Unable to load task details. Please try again.",
     "unable-duplicate": "Unable to duplicate task. Please try again.",
-    "duplicate-success": "Task duplicated successfully",
-    "complete-success": "Task marked as completed successfully",
+    "duplicate-success": "{{name}} duplicated successfully",
+    "complete-success": "{{name}} marked as completed successfully",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",
@@ -40,6 +47,7 @@
     },
     "status-dropdown": {
       "todo": "To Do",
+      "not-started": "Not Started",
       "in-progress": "In Porgress",
       "completed": "Completed",
       "on-hold": "On Hold"
@@ -50,14 +58,14 @@
       "high": "High"
     },
     "confirmation-config": {
-      "complete-task": "Complete Task",
-      "edit-task": "Edit Task",
-      "delete-task": "Delete Task",
-      "duplicate-task": "Duplicate Task",
-      "complete-desc": "Are you sure you want to mark this task as completed?",
-      "edit-desc": "Are you sure you want to edit this task?",
-      "delete-desc": "Are you sure you want to delete this task? This action cannot be undone.",
-      "duplicate-desc": "Are you sure you want to duplicate this task?"
+      "complete": "Complete {{name}}",
+      "edit": "Edit {{name}}",
+      "delete": "Delete {{name}}",
+      "duplicate": "Duplicate {{name}}",
+      "complete-desc": "Are you sure you want to mark this {{name}} as completed?",
+      "edit-desc": "Are you sure you want to edit this {{name}}?",
+      "delete-desc": "Are you sure you want to delete this {{name}}? This action cannot be undone.",
+      "duplicate-desc": "Are you sure you want to duplicate this {{name}}?"
     },
     "toast-title": {
       "fail": "Failed",
@@ -80,6 +88,7 @@
   },
   "my-tasks": {
     "title": "My Tasks",
+    "name": "Task",
     "caption": "Keep track of your tasks and stay productive.",
     "table": {
       "task": "Task",
@@ -89,8 +98,8 @@
       "due-date": "Due Date"
     },
     "modal": {
-      "add-tasks": "Add Tasks",
-      "edit-tasks": "Edit Tasks",
+      "add-tasks": "Add Task",
+      "edit-tasks": "Edit Task",
       "add-caption": "Create a new task and keep your work on track.",
       "edit-caption": "Update your task details and keep your work on track."
     },
@@ -103,11 +112,44 @@
       "due-date": "Due Date"
     },
     "placeholder": {
-      "enter-task-title": "Enter task title",
-      "enter-desc": "Enter description",
+      "enter-task-title": "e.g. Design landing page UI",
+      "enter-desc": "Add more details about this task...",
       "select-project": "Select project",
       "select-priority": "Select priority",
       "select-status": "Select status",
+      "select-due-date": "Select Due Date"
+    }
+  },
+  "project": {
+    "title": "Projects",
+    "name": "Project",
+    "caption": "Manage your projects and track progress.",
+    "table": {
+      "name": "Project Name",
+      "progress": "Progress",
+      "status": "Status",
+      "due-date": "Due Date",
+      "last-updated": "Last Updated",
+      "tasks": "{{completeTasks}} of {{totalTasks}} tasks",
+      "percent": "{{value}}%"
+    },
+    "modal": {
+      "new-project": "Add New Project",
+      "edit-project": "Edit Project",
+      "new-caption": "Fill in the details below to create new project.",
+      "edit-caption": "Update your project details to keep everything organized and up to date."
+    },
+    "form": {
+      "name": "Project Name",
+      "desc": "Description",
+      "status": "Project Status",
+      "due-date": "Due Date (optional)",
+      "icon": "Project Icon (optional)"
+    },
+    "placeholder": {
+      "project-name": "e.g. Website Redesign",
+      "desc": "Briefly describe your project...",
+      "select-status": "Select project status",
       "select-due-date": "Select Due Date"
     }
   }

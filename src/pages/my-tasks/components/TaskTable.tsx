@@ -2,11 +2,12 @@ import Card from '@/components/ui/Cards/Card';
 import Table from '@/components/ui/Table/Table';
 import taskTableColumns from './TaskTableColumn';
 import type {
-  ConfirmationState,
+  TaskConfirmationConfig,
+  TaskConfirmationState,
   TaskFormValues,
   TaskTableProps,
   TaskTypes,
-} from '../types/TaskTypes';
+} from '../types/Task.types';
 import { useState } from 'react';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import type { HandleTypes } from '@/constants/commonContants';
@@ -29,36 +30,32 @@ export default function TaskTable(props: TaskTableProps) {
 
   const { t } = useTranslation();
 
-  const [confirmation, setConfirmation] = useState<ConfirmationState | null>(null);
+  const [confirmation, setConfirmation] = useState<TaskConfirmationState | null>(null);
 
-  const confirmationConfig = {
+  const confirmationConfig: Partial<Record<HandleTypes, TaskConfirmationConfig>> = {
     complete: {
-      title: t('common.confirmation-config.complete-task'),
-      description: t('common.confirmation-config.complete-desc'),
+      title: t('common.confirmation-config.complete', { name: t('my-tasks.name') }),
+      description: t('common.confirmation-config.complete-desc', { name: t('my-tasks.name') }),
       variant: 'success',
-      confirmText: t('common.confirmation-config.complete-task'),
-    },
-    edit: {
-      title: t('common.confirmation-config.edit-task'),
-      description: t('common.confirmation-config.edit-desc'),
-      variant: 'info',
-      confirmText: t('common.confirmation-config.edit-task'),
+      confirmText: t('common.confirmation-config.complete', { name: t('my-tasks.name') }),
     },
     delete: {
-      title: t('common.confirmation-config.delete-task'),
-      description: t('common.confirmation-config.delete-desc'),
+      title: t('common.confirmation-config.delete', { name: t('my-tasks.name') }),
+      description: t('common.confirmation-config.delete-desc', { name: t('my-tasks.name') }),
       variant: 'danger',
-      confirmText: t('common.confirmation-config.delete-task'),
+      confirmText: t('common.confirmation-config.delete', { name: t('my-tasks.name') }),
     },
     duplicate: {
-      title: t('common.confirmation-config.duplicate-task'),
-      description: t('common.confirmation-config.duplicate-desc'),
-      variant: 'info',
-      confirmText: t('common.confirmation-config.duplicate-task'),
+      title: t('common.confirmation-config.duplicate', { name: t('my-tasks.name') }),
+      description: t('common.confirmation-config.duplicate-desc', { name: t('my-tasks.name') }),
+      variant: 'default',
+      confirmText: t('common.confirmation-config.duplicate', { name: t('my-tasks.name') }),
     },
-  } as const;
+  };
 
-  const confirmationModal = (task: TaskTypes, handleType: HandleTypes) => {
+  const config = confirmation ? confirmationConfig[confirmation.handleType] : undefined;
+
+  const taskConfirmationModal = (task: TaskTypes, handleType: HandleTypes) => {
     setConfirmation({ task, handleType });
   };
 
@@ -70,10 +67,6 @@ export default function TaskTable(props: TaskTableProps) {
     switch (handleType) {
       case 'complete':
         handleComplete(task);
-        break;
-
-      case 'edit':
-        handleEdit(task);
         break;
 
       case 'delete':
@@ -88,6 +81,9 @@ export default function TaskTable(props: TaskTableProps) {
     setConfirmation(null);
   };
 
+  //TODO:
+  const handleView = (task: TaskTypes) => {};
+
   const handleEdit = (task: TaskTypes) => {
     handleEditTask(task);
   };
@@ -101,7 +97,7 @@ export default function TaskTable(props: TaskTableProps) {
         ...values,
         status: 'completed',
       },
-      t('common.complete-success')
+      t('common.complete-success', { name: t('my-tasks.name') })
     );
   };
 
@@ -115,7 +111,7 @@ export default function TaskTable(props: TaskTableProps) {
       title: `${originalTitle} (Copy)`,
     };
 
-    await createTask(newTask, t('common.duplicate-success'));
+    await createTask(newTask, t('common.duplicate-success', { name: t('my-tasks.name') }));
   };
 
   const handleDelete = async (id: string) => {
@@ -127,10 +123,17 @@ export default function TaskTable(props: TaskTableProps) {
       <Table
         tableWrapperClassName="min-h-0 flex-1"
         rowKey={(id) => id.id}
-        columns={taskTableColumns({ projectDropdown, confirmationModal })}
+        columns={taskTableColumns({
+          projectDropdown,
+          onViewHandle: handleView,
+          onEditHandle: handleEdit,
+          taskConfirmationModal,
+        })}
         data={data}
         isLoading={isFetching}
         skeletonRows={15}
+        emptyTitle={t('common.no-tasks')}
+        emptyDesc={t('common.task-caption')}
         pagination={{
           current: currentPage,
           pageSize: pageSize,
@@ -144,12 +147,10 @@ export default function TaskTable(props: TaskTableProps) {
         open={confirmation !== null}
         onClose={() => setConfirmation(null)}
         onConfirm={handleConfirm}
-        title={confirmation ? confirmationConfig[confirmation.handleType].title : ''}
-        description={confirmation ? confirmationConfig[confirmation.handleType].description : ''}
-        variant={confirmation ? confirmationConfig[confirmation.handleType].variant : 'info'}
-        confirmText={
-          confirmation ? confirmationConfig[confirmation.handleType].confirmText : 'Confirm'
-        }
+        title={config?.title ?? ''}
+        description={config?.description ?? ''}
+        variant={config?.variant ?? 'default'}
+        confirmText={config?.confirmText ?? 'Confirm'}
       />
     </Card>
   );

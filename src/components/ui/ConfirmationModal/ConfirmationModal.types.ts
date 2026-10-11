@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-export type ConfirmationVariant = 'danger' | 'warning' | 'info' | 'success';
+export type ConfirmationVariant = 'default' | 'danger' | 'warning' | 'info' | 'success';
 
 export interface ConfirmationModalProps {
   open: boolean;
