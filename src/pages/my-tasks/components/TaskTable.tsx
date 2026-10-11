@@ -12,6 +12,10 @@ import { useState } from 'react';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import type { HandleTypes } from '@/constants/commonContants';
 import { useTranslation } from 'react-i18next';
+import Modal from '@/components/ui/Modal/Modal';
+import { useToast } from '@/components/ui/Toast/ToastProvider';
+import TaskViewHeader from './TaskViewHeader';
+import TaskView from './TaskView';
 
 export default function TaskTable(props: TaskTableProps) {
   const {
@@ -24,11 +28,15 @@ export default function TaskTable(props: TaskTableProps) {
     createTask,
     updateTask,
     deleteTask,
+    getTaskById,
     handleEditTask,
     setCurrentPage,
   } = props;
 
   const { t } = useTranslation();
+  const { showToast } = useToast();
+
+  const [viewTask, setViewTask] = useState<TaskTypes | null>(null);
 
   const [confirmation, setConfirmation] = useState<TaskConfirmationState | null>(null);
 
@@ -81,8 +89,21 @@ export default function TaskTable(props: TaskTableProps) {
     setConfirmation(null);
   };
 
-  //TODO:
-  const handleView = (task: TaskTypes) => {};
+  const handleView = async (task: TaskTypes) => {
+    const latestTask = await getTaskById(task.id);
+
+    if (!latestTask) {
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: t('common.not-found'),
+        variant: 'error',
+      });
+
+      return;
+    }
+
+    setViewTask(latestTask);
+  };
 
   const handleEdit = (task: TaskTypes) => {
     handleEditTask(task);
@@ -142,6 +163,26 @@ export default function TaskTable(props: TaskTableProps) {
           onChange: setCurrentPage,
         }}
       />
+
+      {viewTask && (
+        <Modal
+          open={viewTask !== null}
+          onClose={() => setViewTask(null)}
+          size="lg"
+          title={viewTask.title}
+          headerVariant="view"
+          headerContent={<TaskViewHeader viewTask={viewTask} />}
+        >
+          <TaskView
+            task={viewTask}
+            projectDropdown={projectDropdown}
+            onEdit={() => {
+              handleEdit(viewTask);
+              setViewTask(null);
+            }}
+          />
+        </Modal>
+      )}
 
       <ConfirmationModal
         open={confirmation !== null}

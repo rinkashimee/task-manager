@@ -29,6 +29,7 @@
     "mark-completed": "Mark as completed",
     "duplicate": "Duplicate",
     "delete": "Delete task",
+    "view-desc": "No description provided.",
     "pagination-showing": "Showing {{count}} of {{total}} {{resourceName}}",
     "request-time-out": "Request timed out. Please try again.",
     "unable-to-connect": "Unable to connect to the server.",
@@ -118,6 +119,16 @@
       "select-priority": "Select priority",
       "select-status": "Select status",
       "select-due-date": "Select Due Date"
+    },
+    "view": {
+      "project": "Project",
+      "due-date": "Due Date",
+      "priority": "Priority",
+      "status": "Status",
+      "last-updated": "Last Updated",
+      "created-at": "Created At",
+      "task-id": "Task ID",
+      "description": "Description"
     }
   },
   "project": {

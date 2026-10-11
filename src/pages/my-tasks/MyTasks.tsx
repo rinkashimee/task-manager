@@ -139,6 +139,7 @@ export default function MyTasks() {
           deleteTask={deleteTask}
           createTask={createTask}
           updateTask={updateTask}
+          getTaskById={getTaskById}
         />
       </div>
 

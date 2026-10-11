@@ -14,9 +14,12 @@ export interface TaskTypes {
   priority: string;
   status: string;
   dueDate: string;
+
+  createdAt: string;
+  updatedAt: string;
 }
 
-export type TaskFormValues = Omit<TaskTypes, 'id'>;
+export type TaskFormValues = Omit<TaskTypes, 'id' | 'createdAt' | 'updatedAt'>;
 
 export interface TaskConfirmationState {
   task: TaskTypes;
@@ -25,8 +28,6 @@ export interface TaskConfirmationState {
 
 export interface TaskResponse extends Omit<TaskTypes, 'dueDate'> {
   dueDate: string | null;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface TaskQueryParams {
@@ -44,7 +45,7 @@ export interface TaskPageResponse {
   size: number;
 }
 
-export interface TaskRequest extends Omit<TaskTypes, 'id' | 'dueDate'> {
+export interface TaskRequest extends Omit<TaskTypes, 'id' | 'dueDate' | 'createdAt' | 'updatedAt'> {
   dueDate: string | null;
 }
 
@@ -78,6 +79,7 @@ export interface TaskTableProps {
   createTask: (data: TaskRequest, successMessage?: string) => Promise<boolean>;
   updateTask: (id: string, values: TaskRequest, successMessage?: string) => Promise<boolean>;
   deleteTask: (id: string) => Promise<boolean>;
+  getTaskById: (id: string) => Promise<TaskTypes | null>;
   handleEditTask: (data: TaskTypes) => void;
   setCurrentPage: (page: number) => void;
 }
