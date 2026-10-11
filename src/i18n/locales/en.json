@@ -26,6 +26,9 @@
     "save-changes": "Save Changes",
     "view": "View {{name}}",
     "edit": "Edit {{name}}",
+    "recent": "Recent {{name}}",
+    "view-all": "View All {{name}}",
+    "no-task-yet": "No tasks in this project yet.",
     "mark-completed": "Mark as completed",
     "duplicate": "Duplicate",
     "delete": "Delete task",
@@ -90,6 +93,7 @@
   "my-tasks": {
     "title": "My Tasks",
     "name": "Task",
+    "name-s": "Tasks",
     "caption": "Keep track of your tasks and stay productive.",
     "table": {
       "task": "Task",
@@ -162,6 +166,19 @@
       "desc": "Briefly describe your project...",
       "select-status": "Select project status",
       "select-due-date": "Select Due Date"
+    },
+    "view": {
+      "due-date": "Due Date",
+      "progress": "Progress",
+      "total-tasks": "Total Tasks",
+      "completed-tasks": "Completed Tasks",
+      "project-details": "Project Details",
+      "name": "Name",
+      "desc": "Description",
+      "status": "Status",
+      "projectIcon": "Project Icon",
+      "last-updated": "Last Updated",
+      "created-at": "Created At"
     }
   }
 }

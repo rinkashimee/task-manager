@@ -9,6 +9,7 @@ import {
   CheckCircleIcon,
   CheckIcon,
   CheckSquareIcon,
+  CircleIcon,
   ClipboardTextIcon,
   CodeIcon,
   CopyIcon,
@@ -21,6 +22,7 @@ import {
   GlobeIcon,
   HouseLineIcon,
   InfoIcon,
+  ListBulletsIcon,
   ListChecksIcon,
   MagicWandIcon,
   MagnifyingGlassIcon,
@@ -75,6 +77,8 @@ const icons = {
   ListChecksIcon,
   FlagIcon,
   PencilSimpleIcon,
+  ListBulletsIcon,
+  CircleIcon,
 } satisfies Record<string, Icon>;
 
 export type IconType = keyof typeof icons;

@@ -61,14 +61,14 @@ export default function Modal(props: ModalProps) {
         aria-label={title || 'Details'}
         onMouseDown={(event) => event.stopPropagation()}
         className={cn(
-          'bg-card border-border w-full overflow-visible rounded-md border shadow-sm',
+          'bg-card border-border flex max-h-[90dvh] w-full flex-col rounded-md border shadow-sm',
           modalSizes[size],
           className
         )}
       >
         <div
           className={cn(
-            'flex items-start justify-between gap-4 px-4 py-3',
+            'flex shrink-0 items-start justify-between gap-4 px-4 py-3',
             headerVariant === 'default' && 'border-border items-center border-b',
             headerVariant === 'view' && 'pt-5'
           )}
@@ -104,7 +104,15 @@ export default function Modal(props: ModalProps) {
           </button>
         </div>
 
-        {children}
+        <div
+          className={cn(
+            'min-h-0 flex-1 overflow-y-auto',
+            '[scrollbar-width:none]',
+            '[&::-webkit-scrollbar]:hidden'
+          )}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

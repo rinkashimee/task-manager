@@ -1,5 +1,6 @@
 import type { ApiResponse } from '@/api/api.types';
 import type {
+  ProjectDetailsResponse,
   ProjectPageResponse,
   ProjectQueryParams,
   ProjectRequest,
@@ -36,5 +37,11 @@ export const projectApi = {
     const response = await api.delete<ApiResponse<null>>(`/projects/${id}`);
 
     return response.data;
+  },
+
+  getDetailsById: async (id: string): Promise<ProjectDetailsResponse> => {
+    const response = await api.get<ApiResponse<ProjectDetailsResponse>>(`/projects/${id}/details`);
+
+    return response.data.data;
   },
 };

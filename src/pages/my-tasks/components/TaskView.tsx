@@ -2,7 +2,7 @@ import Button from '@/components/ui/Button/Button';
 import Typography from '@/components/ui/Typography/Typography';
 import type { TaskTypes } from '../types/Task.types';
 import type { ReactNode } from 'react';
-import { formatDate } from '@/lib/utils/utils';
+import { cn, formatDate } from '@/lib/utils/utils';
 import type { IconType } from '@/components/icons/TaskIcon';
 import TaskIcon from '@/components/icons/TaskIcon';
 import { priorityOptions } from '@/constants/priorityOptions';
@@ -25,40 +25,6 @@ interface TaskDetailProps {
 interface TaskMetadataProps {
   label: string;
   value: ReactNode;
-}
-
-function TaskDetail({ icon, label, value }: TaskDetailProps) {
-  return (
-    <div className="flex min-w-0 items-center gap-3">
-      <div className="bg-primary/10 flex size-9 shrink-0 items-center justify-center rounded-lg">
-        <TaskIcon icon={icon} size={20} className="text-primary" />
-      </div>
-
-      <div className="flex min-w-0 flex-col gap-1">
-        <Typography variant="caption" className="text-text-muted font-sans">
-          {label}
-        </Typography>
-
-        <Typography variant="caption" className="text-text font-sans font-semibold break-words">
-          {value}
-        </Typography>
-      </div>
-    </div>
-  );
-}
-
-function TaskMetadata({ label, value }: TaskMetadataProps) {
-  return (
-    <div className="flex min-w-0 flex-col gap-1">
-      <Typography variant="caption" className="text-text-muted font-sans">
-        {label}
-      </Typography>
-
-      <Typography variant="caption" className="text-text font-sans font-medium break-words">
-        {value}
-      </Typography>
-    </div>
-  );
 }
 
 export default function TaskView(props: TaskViewProps) {
@@ -96,10 +62,17 @@ export default function TaskView(props: TaskViewProps) {
         />
       </div>
 
-      <div className="bg-background grid grid-cols-1 gap-4 rounded-lg p-4 sm:grid-cols-2">
+      <div className="border-border border-t" />
+
+      <div className="bg-background border-border grid grid-cols-1 gap-4 rounded-lg border p-4 sm:grid-cols-2">
         <TaskMetadata
           label={t('my-tasks.view.status')}
-          value={selectedStatus?.labels ? t(selectedStatus.labels) : task.status}
+          value={
+            <span className="inline-flex items-center gap-2 capitalize">
+              {selectedStatus?.icon ?? 'bg-info size-2.5 rounded-full'}
+              {selectedStatus?.labels ? t(selectedStatus.labels) : task.status}
+            </span>
+          }
         />
 
         <TaskMetadata
@@ -143,6 +116,48 @@ export default function TaskView(props: TaskViewProps) {
           </Typography>
         </Button>
       </div>
+    </div>
+  );
+}
+
+function TaskDetail({ icon, label, value }: TaskDetailProps) {
+  return (
+    <div
+      className={cn(
+        'flex min-w-0 items-start gap-2 px-2',
+        'border-border border-r',
+        'last:border-r-0',
+        'max-lg:nth-[2n]:border-r-0',
+        'max-lg:py-3'
+      )}
+    >
+      <div className="bg-primary/10 flex size-9 shrink-0 items-center justify-center rounded-lg">
+        <TaskIcon icon={icon} size={20} className="text-primary" />
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-1">
+        <Typography variant="caption" className="text-text-muted font-sans">
+          {label}
+        </Typography>
+
+        <Typography variant="caption" className="text-text font-sans font-semibold break-words">
+          {value}
+        </Typography>
+      </div>
+    </div>
+  );
+}
+
+function TaskMetadata({ label, value }: TaskMetadataProps) {
+  return (
+    <div className="flex min-w-0 flex-col gap-1">
+      <Typography variant="caption" className="text-text-muted font-sans">
+        {label}
+      </Typography>
+
+      <Typography variant="caption" className="text-text font-sans font-medium break-words">
+        {value}
+      </Typography>
     </div>
   );
 }

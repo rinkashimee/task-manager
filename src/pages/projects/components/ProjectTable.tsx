@@ -12,6 +12,10 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import type { HandleTypes } from '@/constants/commonContants';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
+import ProjectViewHeader from './ProjectViewHeader';
+import Modal from '@/components/ui/Modal/Modal';
+import { useToast } from '@/components/ui/Toast/ToastProvider';
+import ProjectView from './ProjectView';
 
 export default function ProjectTable(props: ProjectTableProps) {
   const {
@@ -24,11 +28,15 @@ export default function ProjectTable(props: ProjectTableProps) {
     createTask,
     updateProject,
     deleteProject,
+    getProjectDetailsById,
     handleEditTask,
     setCurrentPage,
   } = props;
 
   const { t } = useTranslation();
+  const { showToast } = useToast();
+
+  const [viewProject, setViewProject] = useState<ProjectTypes | null>(null);
 
   const [confirmation, setConfirmation] = useState<ProjectConfirmationState | null>(null);
 
@@ -81,8 +89,21 @@ export default function ProjectTable(props: ProjectTableProps) {
     setConfirmation(null);
   };
 
-  //TODO:
-  const handleView = (project: ProjectTypes) => {};
+  const handleView = async (project: ProjectTypes) => {
+    const latestProject = await getProjectDetailsById(project.id);
+
+    if (!latestProject) {
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: t('common.not-found'),
+        variant: 'error',
+      });
+
+      return;
+    }
+
+    setViewProject(latestProject);
+  };
 
   const handleEdit = (project: ProjectTypes) => {
     handleEditTask(project);
@@ -142,6 +163,29 @@ export default function ProjectTable(props: ProjectTableProps) {
           onChange: setCurrentPage,
         }}
       />
+
+      {viewProject && (
+        <Modal
+          open={viewProject !== null}
+          onClose={() => setViewProject(null)}
+          size="lg"
+          title={viewProject.name}
+          headerVariant="view"
+          headerContent={<ProjectViewHeader viewProject={viewProject} />}
+        >
+          <ProjectView
+            project={viewProject}
+            recentTasks={viewProject.tasks}
+            onEdit={() => {
+              handleEdit(viewProject);
+              setViewProject(null);
+            }}
+            onViewAllTasks={() => {
+              // Navigate to My Tasks with a project filter
+            }}
+          />
+        </Modal>
+      )}
 
       <ConfirmationModal
         open={confirmation !== null}

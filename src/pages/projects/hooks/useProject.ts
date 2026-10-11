@@ -21,7 +21,8 @@ export function useProject(props: UseProjectsParams) {
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState<ProjectLoadingState>({
     fetch: true,
-    fetchTask: false,
+    fetchProject: false,
+    fetchDetails: false,
     create: false,
     update: false,
     delete: false,
@@ -40,13 +41,13 @@ export function useProject(props: UseProjectsParams) {
 
       const response = await projectApi.getAll(params);
 
-      const formattedTasks: ProjectTypes[] = response.content.map((project) => ({
+      const formattedProject: ProjectTypes[] = response.content.map((project) => ({
         ...project,
         dueDate: project.dueDate ?? '',
         lastUpdated: project.updatedAt,
       }));
 
-      setProjectData(formattedTasks);
+      setProjectData(formattedProject);
       setTotalItems(response.totalElements);
     } catch (error) {
       const message = getApiErrorMessage(error, t);
@@ -101,7 +102,7 @@ export function useProject(props: UseProjectsParams) {
   const getProjectById = useCallback(
     async (id: string): Promise<ProjectTypes | null> => {
       try {
-        setLoading((prev) => ({ ...prev, fetchTask: true }));
+        setLoading((prev) => ({ ...prev, fetchProject: true }));
 
         const response = await projectApi.getById(id);
 
@@ -121,7 +122,7 @@ export function useProject(props: UseProjectsParams) {
 
         return null;
       } finally {
-        setLoading((prev) => ({ ...prev, fetchTask: false }));
+        setLoading((prev) => ({ ...prev, fetchProject: false }));
       }
     },
     [showToast, t]
@@ -196,6 +197,37 @@ export function useProject(props: UseProjectsParams) {
     [fetchProjects, showToast, t]
   );
 
+  // GET PROJECT DETAILS
+  const getProjectDetailsById = useCallback(
+    async (id: string): Promise<ProjectTypes | null> => {
+      try {
+        setLoading((prev) => ({ ...prev, fetchDetails: true }));
+
+        const response = await projectApi.getDetailsById(id);
+
+        return {
+          ...response.project,
+          dueDate: response.project.dueDate ?? '',
+          lastUpdated: response.project.updatedAt,
+          tasks: response.tasks,
+        };
+      } catch (error) {
+        const message = getApiErrorMessage(error, t);
+
+        showToast({
+          title: t('common.toast-title.fail'),
+          description: message,
+          variant: 'error',
+        });
+
+        return null;
+      } finally {
+        setLoading((prev) => ({ ...prev, fetchDetails: false }));
+      }
+    },
+    [showToast, t]
+  );
+
   // Fetch projects
   useEffect(() => {
     void fetchProjects();
@@ -208,12 +240,13 @@ export function useProject(props: UseProjectsParams) {
     isCreating: loading.create,
     isUpdating: loading.update,
     isDeleting: loading.delete,
-    isFetchingTask: loading.fetchTask,
+    isFetchingTask: loading.fetchProject,
     setProjectData,
     fetchProjects,
     createProject,
     getProjectById,
     updateProject,
     deleteProject,
+    getProjectDetailsById,
   };
 }

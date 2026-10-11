@@ -38,6 +38,7 @@ export default function Project() {
     updateProject,
     getProjectById,
     deleteProject,
+    getProjectDetailsById,
   } = useProject({
     currentPage,
     pageSize,
@@ -53,9 +54,9 @@ export default function Project() {
   };
 
   const handleEditProject = async (project: ProjectTypes) => {
-    const latestTask = await getProjectById(project.id);
+    const latestProject = await getProjectById(project.id);
 
-    if (!latestTask) {
+    if (!latestProject) {
       showToast({
         title: t('common.toast-title.fail'),
         description: t('common.not-found'),
@@ -65,7 +66,7 @@ export default function Project() {
       return;
     }
 
-    setProjectForm({ mode: 'edit', project: latestTask });
+    setProjectForm({ mode: 'edit', project: latestProject });
   };
 
   const handleProjectSubmit = async (values: ProjectFormValues) => {
@@ -129,6 +130,7 @@ export default function Project() {
           createTask={createProject}
           updateProject={updateProject}
           deleteProject={deleteProject}
+          getProjectDetailsById={getProjectDetailsById}
         />
       </div>
 

@@ -96,13 +96,13 @@ export default function projectTableColumns(
       dataIndex: 'status',
       skeletonWidth: 'w-24',
       render: (_, response) => {
-        const selectedPriority = projectStatusOptions.find(
+        const selectedStatus = projectStatusOptions.find(
           (option) => option.value === response.status
         );
 
         return (
           <Badge variant={projectStatusVariants[response.status]}>
-            {selectedPriority?.labels ? t(selectedPriority.labels) : response.status}
+            {selectedStatus?.labels ? t(selectedStatus.labels) : response.status}
           </Badge>
         );
       },

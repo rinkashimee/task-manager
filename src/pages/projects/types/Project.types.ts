@@ -1,6 +1,7 @@
 import type { ConfirmationVariant } from '@/components/ui/ConfirmationModal';
 import type { FormSubmitEvent } from '@/components/ui/Form/Form.types';
 import type { HandleTypes } from '@/constants/commonContants';
+import type { TaskResponse } from '@/pages/my-tasks/types/Task.types';
 
 export type ProjectFormMode = 'create' | 'edit';
 
@@ -16,17 +17,26 @@ export interface ProjectTypes {
   completedTasks: number;
   progress: number;
 
+  createdAt: string;
   lastUpdated: string;
+  tasks?: TaskResponse[];
 }
 
 export type ProjectFormValues = Omit<
   ProjectTypes,
-  'id' | 'totalTasks' | 'completedTasks' | 'progress' | 'lastUpdated'
+  'id' | 'totalTasks' | 'completedTasks' | 'progress' | 'lastUpdated' | 'createdAt' | 'tasks'
 >;
 
 export interface ProjectRequest extends Omit<
   ProjectTypes,
-  'id' | 'dueDate' | 'totalTasks' | 'completedTasks' | 'progress' | 'lastUpdated'
+  | 'id'
+  | 'dueDate'
+  | 'totalTasks'
+  | 'completedTasks'
+  | 'progress'
+  | 'lastUpdated'
+  | 'createdAt'
+  | 'tasks'
 > {
   dueDate: string | null;
 }
@@ -37,10 +47,18 @@ export interface ProjectQueryParams {
   search?: string;
 }
 
-export interface ProjectResponse extends Omit<ProjectTypes, 'dueDate' | 'lastUpdated'> {
+export interface ProjectResponse extends Omit<
+  ProjectTypes,
+  'dueDate' | 'lastUpdated' | 'createdAt' | 'tasks'
+> {
   dueDate: string | null;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ProjectDetailsResponse {
+  project: ProjectResponse;
+  tasks: TaskResponse[];
 }
 
 export interface ProjectPageResponse {
@@ -59,7 +77,8 @@ export interface UseProjectsParams {
 
 export type ProjectLoadingState = {
   fetch: boolean;
-  fetchTask: boolean;
+  fetchProject: boolean;
+  fetchDetails: boolean;
   create: boolean;
   update: boolean;
   delete: boolean;
@@ -94,6 +113,7 @@ export interface ProjectTableProps {
   data: ProjectTypes[];
   createTask: (data: ProjectRequest, successMessage?: string) => Promise<boolean>;
   updateProject: (id: string, values: ProjectRequest, successMessage?: string) => Promise<boolean>;
+  getProjectDetailsById: (id: string) => Promise<ProjectTypes | null>;
   deleteProject: (id: string) => Promise<boolean>;
   handleEditTask: (data: ProjectTypes) => void;
   setCurrentPage: (page: number) => void;
