@@ -33,7 +33,7 @@ export function SpinnerProvider({ children }: { children: ReactNode }) {
           className={cn(
             'fixed inset-0 z-[9999]',
             'grid h-dvh w-screen place-items-center',
-            'bg-white/10'
+            'bg-white/30 backdrop-blur-[2px]'
           )}
         >
           <Spinner message={message} />

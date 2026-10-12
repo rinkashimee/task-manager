@@ -11,7 +11,8 @@ export default function Spinner(props: SpinnerProps) {
       aria-live="polite"
       className={cn(
         'flex min-h-20 min-w-20 flex-col items-center justify-center gap-2',
-        'bg-background rounded-md px-4 py-5',
+        'bg-background rounded-xl px-5 py-5',
+        'border-border border shadow-lg',
         className
       )}
     >
