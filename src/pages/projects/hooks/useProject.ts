@@ -10,12 +10,14 @@ import type {
 import { useCallback, useEffect, useState } from 'react';
 import { projectApi } from '../service/projectApi';
 import { getApiErrorMessage } from '@/api/apiError';
+import { useSpinner } from '@/components/ui/Spinner/SpinnerContext';
 
 export function useProject(props: UseProjectsParams) {
   const { currentPage, pageSize, search } = props;
 
   const { t } = useTranslation();
   const { showToast } = useToast();
+  const { showLoading, hideLoading } = useSpinner();
 
   const [projectData, setProjectData] = useState<ProjectTypes[]>([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -69,6 +71,7 @@ export function useProject(props: UseProjectsParams) {
 
       try {
         setLoading((prev) => ({ ...prev, create: true }));
+        showLoading();
 
         const response = await projectApi.create(data);
 
@@ -93,6 +96,7 @@ export function useProject(props: UseProjectsParams) {
         return false;
       } finally {
         setLoading((prev) => ({ ...prev, create: false }));
+        hideLoading();
       }
     },
     [loading, fetchProjects, showToast, t]
@@ -103,6 +107,7 @@ export function useProject(props: UseProjectsParams) {
     async (id: string): Promise<ProjectTypes | null> => {
       try {
         setLoading((prev) => ({ ...prev, fetchProject: true }));
+        showLoading();
 
         const response = await projectApi.getById(id);
 
@@ -123,6 +128,7 @@ export function useProject(props: UseProjectsParams) {
         return null;
       } finally {
         setLoading((prev) => ({ ...prev, fetchProject: false }));
+        hideLoading();
       }
     },
     [showToast, t]
@@ -133,6 +139,7 @@ export function useProject(props: UseProjectsParams) {
     async (id: string, values: ProjectRequest, successMessage?: string): Promise<boolean> => {
       try {
         setLoading((prev) => ({ ...prev, update: true }));
+        showLoading();
 
         const payload: ProjectRequest = {
           ...values,
@@ -160,6 +167,7 @@ export function useProject(props: UseProjectsParams) {
         return false;
       } finally {
         setLoading((prev) => ({ ...prev, update: false }));
+        hideLoading();
       }
     },
     [fetchProjects, showToast, t]
@@ -170,6 +178,7 @@ export function useProject(props: UseProjectsParams) {
     async (id: string): Promise<boolean> => {
       try {
         setLoading((prev) => ({ ...prev, delete: true }));
+        showLoading();
 
         const response = await projectApi.delete(id);
 
@@ -192,6 +201,7 @@ export function useProject(props: UseProjectsParams) {
         return false;
       } finally {
         setLoading((prev) => ({ ...prev, delete: false }));
+        hideLoading();
       }
     },
     [fetchProjects, showToast, t]
@@ -202,6 +212,7 @@ export function useProject(props: UseProjectsParams) {
     async (id: string): Promise<ProjectTypes | null> => {
       try {
         setLoading((prev) => ({ ...prev, fetchDetails: true }));
+        showLoading();
 
         const response = await projectApi.getDetailsById(id);
 
@@ -223,6 +234,7 @@ export function useProject(props: UseProjectsParams) {
         return null;
       } finally {
         setLoading((prev) => ({ ...prev, fetchDetails: false }));
+        hideLoading();
       }
     },
     [showToast, t]

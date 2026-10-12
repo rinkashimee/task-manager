@@ -24,6 +24,7 @@
     "create-task": "Create Task",
     "create-project": "Create Project",
     "save-changes": "Save Changes",
+    "loading": "Loading...",
     "view": "View {{name}}",
     "edit": "Edit {{name}}",
     "recent": "Recent {{name}}",
