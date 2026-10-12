@@ -111,6 +111,7 @@ export interface ProjectTableProps {
   isFetching: boolean;
   isConfirmation: boolean;
   data: ProjectTypes[];
+  fetchProjects: () => Promise<void>;
   createTask: (data: ProjectRequest, successMessage?: string) => Promise<boolean>;
   updateProject: (id: string, values: ProjectRequest, successMessage?: string) => Promise<boolean>;
   getProjectDetailsById: (id: string) => Promise<ProjectTypes | null>;

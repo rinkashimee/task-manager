@@ -16,4 +16,6 @@ export interface ModalProps {
   closeOnOverlayClick?: boolean;
   closeOnEscape?: boolean;
   className?: string;
+  height?: string;
+  scrollable?: boolean;
 }

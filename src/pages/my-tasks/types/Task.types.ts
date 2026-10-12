@@ -6,6 +6,8 @@ export type FilterType = 'all' | 'todo' | 'in-progress' | 'completed' | 'overdue
 
 export type TaskFormMode = 'create' | 'edit';
 
+export type MyTasksVariant = 'projectTaskLists' | 'dashboard';
+
 export interface TaskTypes {
   id: string;
   title: string;
@@ -35,6 +37,7 @@ export interface TaskQueryParams {
   size: number;
   search?: string;
   status?: FilterType;
+  projectId?: string;
 }
 
 export interface TaskPageResponse {
@@ -67,6 +70,8 @@ export interface UseTasksParams {
   pageSize: number;
   search: string;
   filter: FilterType;
+  projectId: string;
+  handleRefresh?: () => void;
 }
 
 export interface TaskTableProps {
@@ -75,6 +80,7 @@ export interface TaskTableProps {
   currentPage: number;
   isFetching: boolean;
   data: TaskTypes[];
+  isProjectTaskLists: boolean;
   projectDropdown: DropdownOption[];
   createTask: (data: TaskRequest, successMessage?: string) => Promise<boolean>;
   updateTask: (id: string, values: TaskRequest, successMessage?: string) => Promise<boolean>;

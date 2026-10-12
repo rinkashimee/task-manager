@@ -20,10 +20,7 @@ export default function ActionMenu(props: ActionMenuProps) {
 
   const { t } = useTranslation();
 
-  type MenuPlacement = 'top' | 'bottom';
-
   const [isOpen, setIsOpen] = useState(false);
-  const [placement, setPlacement] = useState<MenuPlacement>('bottom');
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -32,24 +29,53 @@ export default function ActionMenu(props: ActionMenuProps) {
   useEffect(() => {
     if (!isOpen || !triggerRef.current || !menuRef.current) return;
 
-    const updatePlacement = () => {
-      const triggerRect = triggerRef.current!.getBoundingClientRect();
-      const menuHeight = menuRef.current!.offsetHeight;
+    const trigger = triggerRef.current;
+    const menu = menuRef.current;
 
-      const spaceBelow = window.innerHeight - triggerRect.bottom;
-      const spaceAbove = triggerRect.top;
+    if (!menu.matches(':popover-open')) {
+      menu.showPopover();
+    }
 
-      setPlacement(spaceBelow < menuHeight + 8 && spaceAbove > spaceBelow ? 'top' : 'bottom');
+    const updatePosition = () => {
+      const rect = trigger.getBoundingClientRect();
+      const menuHeight = menu.offsetHeight;
+      const menuWidth = menu.offsetWidth;
+
+      const gap = 4;
+      const padding = 8;
+
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+
+      const openTop = spaceBelow < menuHeight + gap && spaceAbove > spaceBelow;
+
+      const top = openTop ? rect.top - menuHeight - gap : rect.bottom + gap;
+
+      const left = Math.max(
+        padding,
+        Math.min(rect.right - menuWidth, window.innerWidth - menuWidth - padding)
+      );
+
+      menu.style.top = `${Math.max(
+        padding,
+        Math.min(top, window.innerHeight - menuHeight - padding)
+      )}px`;
+
+      menu.style.left = `${left}px`;
     };
 
-    updatePlacement();
+    updatePosition();
 
-    window.addEventListener('resize', updatePlacement);
-    window.addEventListener('scroll', updatePlacement, true);
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
 
     return () => {
-      window.removeEventListener('resize', updatePlacement);
-      window.removeEventListener('scroll', updatePlacement, true);
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+
+      if (menu.matches(':popover-open')) {
+        menu.hidePopover();
+      }
     };
   }, [isOpen]);
 
@@ -57,7 +83,9 @@ export default function ActionMenu(props: ActionMenuProps) {
     if (!isOpen) return;
 
     const handleClickOutside = (event: PointerEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+
+      if (!containerRef.current?.contains(target) && !menuRef.current?.contains(target)) {
         setIsOpen(false);
       }
     };
@@ -91,11 +119,11 @@ export default function ActionMenu(props: ActionMenuProps) {
       {isOpen && (
         <div
           ref={menuRef}
+          popover="manual"
           role="menu"
           className={cn(
             'bg-card absolute right-0 z-50',
-            'border-border w-50 rounded-md border p-1.5 shadow-sm',
-            placement === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'
+            'border-border w-50 rounded-md border p-1.5 shadow-sm'
           )}
         >
           <Button

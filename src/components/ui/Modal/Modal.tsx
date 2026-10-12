@@ -24,6 +24,8 @@ export default function Modal(props: ModalProps) {
     closeOnOverlayClick = false,
     closeOnEscape = false,
     className,
+    height,
+    scrollable = false,
   } = props;
 
   useEffect(() => {
@@ -63,6 +65,7 @@ export default function Modal(props: ModalProps) {
         className={cn(
           'bg-card border-border flex max-h-[90dvh] w-full flex-col rounded-md border shadow-sm',
           modalSizes[size],
+          height,
           className
         )}
       >
@@ -106,9 +109,12 @@ export default function Modal(props: ModalProps) {
 
         <div
           className={cn(
-            'min-h-0 flex-1 overflow-y-auto',
-            '[scrollbar-width:none]',
-            '[&::-webkit-scrollbar]:hidden'
+            'min-h-0 flex-1',
+            scrollable && [
+              'overflow-y-auto',
+              '[scrollbar-width:none]',
+              '[&::-webkit-scrollbar]:hidden',
+            ]
           )}
         >
           {children}

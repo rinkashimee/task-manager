@@ -14,13 +14,15 @@ import ActionMenu from '@/components/ui/Table/ActionMenu';
 
 interface TaskTableColumnProps {
   projectDropdown: DropdownOption[];
+  isProjectTaskLists: boolean;
   onViewHandle: (task: TaskTypes) => void;
   onEditHandle: (task: TaskTypes) => void;
   taskConfirmationModal: (task: TaskTypes, handleType: HandleTypes) => void;
 }
 
 export default function taskTableColumns(props: TaskTableColumnProps): TableColumn<TaskTypes>[] {
-  const { projectDropdown, onViewHandle, onEditHandle, taskConfirmationModal } = props;
+  const { projectDropdown, isProjectTaskLists, onViewHandle, onEditHandle, taskConfirmationModal } =
+    props;
 
   const { t } = useTranslation();
 
@@ -28,7 +30,7 @@ export default function taskTableColumns(props: TaskTableColumnProps): TableColu
     {
       key: 'task',
       title: t('my-tasks.table.task'),
-      width: 450,
+      width: isProjectTaskLists ? 250 : 400,
       dataIndex: 'title',
       skeletonWidth: 'w-48',
       render: (_, response) => (
@@ -37,7 +39,7 @@ export default function taskTableColumns(props: TaskTableColumnProps): TableColu
             {response.title}
           </Typography>
 
-          <Typography variant="caption" className="text-text-muted truncate font-sans">
+          <Typography variant="caption" className="text-text-muted font-sans">
             {response.description}
           </Typography>
         </div>
@@ -48,6 +50,7 @@ export default function taskTableColumns(props: TaskTableColumnProps): TableColu
       title: t('my-tasks.table.project'),
       dataIndex: 'projectId',
       skeletonWidth: 'w-28',
+      hidden: isProjectTaskLists,
       render: (_, response) => {
         const selectedProject = projectDropdown.find(
           (option) => option.value === response.projectId

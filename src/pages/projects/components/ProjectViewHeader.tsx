@@ -9,10 +9,11 @@ import { cn } from '@/lib/utils/utils';
 
 interface ProjectViewHeaderProps {
   viewProject: ProjectTypes;
+  viewTasksDesc?: string;
 }
 
 export default function ProjectViewHeader(props: ProjectViewHeaderProps) {
-  const { viewProject } = props;
+  const { viewProject, viewTasksDesc } = props;
 
   const { t } = useTranslation();
 
@@ -39,9 +40,15 @@ export default function ProjectViewHeader(props: ProjectViewHeaderProps) {
         </Typography>
 
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant={projectStatusVariants[viewProject.status]}>
-            {selectedPriority?.labels ? t(selectedPriority.labels) : viewProject.status}
-          </Badge>
+          {viewTasksDesc ? (
+            <Typography variant="caption" className="text-text-muted font-sans">
+              {viewTasksDesc}
+            </Typography>
+          ) : (
+            <Badge variant={projectStatusVariants[viewProject.status]}>
+              {selectedPriority?.labels ? t(selectedPriority.labels) : viewProject.status}
+            </Badge>
+          )}
         </div>
       </div>
     </div>

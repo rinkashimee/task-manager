@@ -16,6 +16,7 @@ import ProjectViewHeader from './ProjectViewHeader';
 import Modal from '@/components/ui/Modal/Modal';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
 import ProjectView from './ProjectView';
+import ProjectTaskLists from './ProjectTaskLists';
 
 export default function ProjectTable(props: ProjectTableProps) {
   const {
@@ -25,6 +26,7 @@ export default function ProjectTable(props: ProjectTableProps) {
     currentPage,
     isFetching,
     isConfirmation,
+    fetchProjects,
     createTask,
     updateProject,
     deleteProject,
@@ -36,8 +38,8 @@ export default function ProjectTable(props: ProjectTableProps) {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
+  const [viewAllTasks, setViewAllTasks] = useState<boolean>(false);
   const [viewProject, setViewProject] = useState<ProjectTypes | null>(null);
-
   const [confirmation, setConfirmation] = useState<ProjectConfirmationState | null>(null);
 
   const confirmationConfig: Partial<Record<HandleTypes, ProjectConfirmationConfig>> = {
@@ -171,6 +173,7 @@ export default function ProjectTable(props: ProjectTableProps) {
           size="lg"
           title={viewProject.name}
           headerVariant="view"
+          scrollable
           headerContent={<ProjectViewHeader viewProject={viewProject} />}
         >
           <ProjectView
@@ -181,10 +184,22 @@ export default function ProjectTable(props: ProjectTableProps) {
               setViewProject(null);
             }}
             onViewAllTasks={() => {
-              // Navigate to My Tasks with a project filter
+              setViewAllTasks(true);
             }}
           />
         </Modal>
+      )}
+
+      {viewProject && (
+        <ProjectTaskLists
+          viewProject={viewProject}
+          viewAllTasks={viewAllTasks}
+          setViewAllTasks={() => setViewAllTasks(false)}
+          handleRefresh={() => {
+            fetchProjects();
+            handleView(viewProject);
+          }}
+        />
       )}
 
       <ConfirmationModal

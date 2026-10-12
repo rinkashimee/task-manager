@@ -25,6 +25,7 @@ export default function TaskTable(props: TaskTableProps) {
     total,
     isFetching,
     projectDropdown,
+    isProjectTaskLists,
     createTask,
     updateTask,
     deleteTask,
@@ -146,6 +147,7 @@ export default function TaskTable(props: TaskTableProps) {
         rowKey={(id) => id.id}
         columns={taskTableColumns({
           projectDropdown,
+          isProjectTaskLists,
           onViewHandle: handleView,
           onEditHandle: handleEdit,
           taskConfirmationModal,
@@ -154,7 +156,7 @@ export default function TaskTable(props: TaskTableProps) {
         isLoading={isFetching}
         skeletonRows={15}
         emptyTitle={t('common.no-tasks')}
-        emptyDesc={t('common.task-caption')}
+        emptyDesc={isProjectTaskLists ? t('common.no-task-yet') : t('common.task-caption')}
         pagination={{
           current: currentPage,
           pageSize: pageSize,

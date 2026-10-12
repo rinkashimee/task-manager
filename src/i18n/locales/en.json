@@ -11,8 +11,8 @@
     "search-projects": "Search projects...",
     "add-tasks": "Add Task",
     "new-project": "New Project",
-    "no-tasks": "No tasks yet",
-    "no-projects": "No projects yet",
+    "no-tasks": "No tasks",
+    "no-projects": "No projects",
     "task-caption": "Create a task to start organizing your work.",
     "project-caption": "Create your first project to organize your tasks and track your progress.",
     "all": "All",
@@ -178,7 +178,8 @@
       "status": "Status",
       "projectIcon": "Project Icon",
       "last-updated": "Last Updated",
-      "created-at": "Created At"
+      "created-at": "Created At",
+      "all-tasks-project": "All tasks for this project."
     }
   }
 }

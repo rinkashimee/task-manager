@@ -34,6 +34,7 @@ export default function Project() {
     isUpdating,
     isDeleting,
     totalItems,
+    fetchProjects,
     createProject,
     updateProject,
     getProjectById,
@@ -130,6 +131,7 @@ export default function Project() {
           createTask={createProject}
           updateProject={updateProject}
           deleteProject={deleteProject}
+          fetchProjects={fetchProjects}
           getProjectDetailsById={getProjectDetailsById}
         />
       </div>

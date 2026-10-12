@@ -153,7 +153,7 @@ export default function ProjectView(props: ProjectViewProps) {
             type="button"
             variant="ghost"
             onClick={onViewAllTasks}
-            className="text-text h-8 gap-2 px-2.5 font-sans"
+            className="text-text hover:text-primary h-8 gap-2 px-2.5 font-sans"
           >
             <Typography as="p" variant="caption" className="truncate">
               {t('common.view-all', { name: t('my-tasks.name-s') })}

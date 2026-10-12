@@ -1,5 +1,5 @@
 import { useToast } from '@/components/ui/Toast/ToastProvider';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import type {
   TaskLoadingState,
   TaskQueryParams,
@@ -13,7 +13,7 @@ import { getApiErrorMessage } from '@/api/apiError';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 
 export function useTasks(props: UseTasksParams) {
-  const { currentPage, pageSize, search, filter } = props;
+  const { currentPage, pageSize, search, filter, projectId, handleRefresh } = props;
 
   const { t } = useTranslation();
   const { showToast } = useToast();
@@ -65,6 +65,7 @@ export function useTasks(props: UseTasksParams) {
         size: pageSize,
         search: search.trim(),
         status: filter,
+        projectId: projectId,
       };
 
       const response = await taskApi.getAll(params);
@@ -87,7 +88,7 @@ export function useTasks(props: UseTasksParams) {
     } finally {
       setLoading((prev) => ({ ...prev, fetch: false }));
     }
-  }, [currentPage, pageSize, search, filter, showToast, t]);
+  }, [currentPage, pageSize, search, filter, projectId, showToast, t]);
 
   // CREATE TASK
   const createTask = useCallback(
@@ -106,7 +107,7 @@ export function useTasks(props: UseTasksParams) {
         });
 
         await fetchTasks();
-
+        handleRefresh && handleRefresh();
         return true;
       } catch (error) {
         const message = getApiErrorMessage(error, t);
@@ -174,7 +175,7 @@ export function useTasks(props: UseTasksParams) {
         });
 
         await fetchTasks();
-
+        handleRefresh && handleRefresh();
         return true;
       } catch (error) {
         showToast({
@@ -222,16 +223,6 @@ export function useTasks(props: UseTasksParams) {
     },
     [fetchTasks, showToast, t]
   );
-
-  // Fetch projects
-  useEffect(() => {
-    void fetchProjectDropdown();
-  }, [fetchProjectDropdown]);
-
-  // Fetch tasks
-  useEffect(() => {
-    void fetchTasks();
-  }, [fetchTasks]);
 
   return {
     taskData,

@@ -73,3 +73,9 @@
 html {
   scroll-behavior: smooth;
 }
+
+@layer base {
+  :where(button, a, input, textarea, select):focus-visible {
+    outline: 1px solid var(--color-primary);
+  }
+}
