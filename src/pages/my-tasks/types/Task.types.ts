@@ -1,9 +1,12 @@
+import type { ConfirmationVariant } from '@/components/ui/ConfirmationModal';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 import type { HandleTypes } from '@/constants/commonContants';
 
 export type FilterType = 'all' | 'todo' | 'in-progress' | 'completed' | 'overdue';
 
 export type TaskFormMode = 'create' | 'edit';
+
+export type MyTasksVariant = 'projectTaskLists' | 'dashboard';
 
 export interface TaskTypes {
   id: string;
@@ -13,19 +16,20 @@ export interface TaskTypes {
   priority: string;
   status: string;
   dueDate: string;
+
+  createdAt: string;
+  updatedAt: string;
 }
 
-export type TaskFormValues = Omit<TaskTypes, 'id'>;
+export type TaskFormValues = Omit<TaskTypes, 'id' | 'createdAt' | 'updatedAt'>;
 
-export interface ConfirmationState {
+export interface TaskConfirmationState {
   task: TaskTypes;
   handleType: HandleTypes;
 }
 
 export interface TaskResponse extends Omit<TaskTypes, 'dueDate'> {
   dueDate: string | null;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface TaskQueryParams {
@@ -33,6 +37,7 @@ export interface TaskQueryParams {
   size: number;
   search?: string;
   status?: FilterType;
+  projectId?: string;
 }
 
 export interface TaskPageResponse {
@@ -43,7 +48,7 @@ export interface TaskPageResponse {
   size: number;
 }
 
-export interface TaskRequest extends Omit<TaskTypes, 'id' | 'dueDate'> {
+export interface TaskRequest extends Omit<TaskTypes, 'id' | 'dueDate' | 'createdAt' | 'updatedAt'> {
   dueDate: string | null;
 }
 
@@ -65,6 +70,8 @@ export interface UseTasksParams {
   pageSize: number;
   search: string;
   filter: FilterType;
+  projectId: string;
+  handleRefresh?: () => void;
 }
 
 export interface TaskTableProps {
@@ -73,10 +80,19 @@ export interface TaskTableProps {
   currentPage: number;
   isFetching: boolean;
   data: TaskTypes[];
+  isProjectTaskLists: boolean;
   projectDropdown: DropdownOption[];
   createTask: (data: TaskRequest, successMessage?: string) => Promise<boolean>;
   updateTask: (id: string, values: TaskRequest, successMessage?: string) => Promise<boolean>;
   deleteTask: (id: string) => Promise<boolean>;
+  getTaskById: (id: string) => Promise<TaskTypes | null>;
   handleEditTask: (data: TaskTypes) => void;
   setCurrentPage: (page: number) => void;
 }
+
+export type TaskConfirmationConfig = {
+  title: string;
+  description: string;
+  variant: ConfirmationVariant;
+  confirmText: string;
+};

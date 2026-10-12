@@ -5,23 +5,22 @@ import { cn } from '@/lib/utils/utils';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-interface TaskActionMenuProps {
+interface ActionMenuProps {
+  name: string;
   isCompleted?: boolean;
+  onView: () => void;
   onEdit: () => void;
   onComplete: () => void;
   onDuplicate: () => void;
   onDelete: () => void;
 }
 
-export default function TaskActionMenu(props: TaskActionMenuProps) {
-  const { isCompleted, onEdit, onComplete, onDuplicate, onDelete } = props;
+export default function ActionMenu(props: ActionMenuProps) {
+  const { name, isCompleted, onView, onEdit, onComplete, onDuplicate, onDelete } = props;
 
   const { t } = useTranslation();
 
-  type MenuPlacement = 'top' | 'bottom';
-
   const [isOpen, setIsOpen] = useState(false);
-  const [placement, setPlacement] = useState<MenuPlacement>('bottom');
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -30,24 +29,53 @@ export default function TaskActionMenu(props: TaskActionMenuProps) {
   useEffect(() => {
     if (!isOpen || !triggerRef.current || !menuRef.current) return;
 
-    const updatePlacement = () => {
-      const triggerRect = triggerRef.current!.getBoundingClientRect();
-      const menuHeight = menuRef.current!.offsetHeight;
+    const trigger = triggerRef.current;
+    const menu = menuRef.current;
 
-      const spaceBelow = window.innerHeight - triggerRect.bottom;
-      const spaceAbove = triggerRect.top;
+    if (!menu.matches(':popover-open')) {
+      menu.showPopover();
+    }
 
-      setPlacement(spaceBelow < menuHeight + 8 && spaceAbove > spaceBelow ? 'top' : 'bottom');
+    const updatePosition = () => {
+      const rect = trigger.getBoundingClientRect();
+      const menuHeight = menu.offsetHeight;
+      const menuWidth = menu.offsetWidth;
+
+      const gap = 4;
+      const padding = 8;
+
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+
+      const openTop = spaceBelow < menuHeight + gap && spaceAbove > spaceBelow;
+
+      const top = openTop ? rect.top - menuHeight - gap : rect.bottom + gap;
+
+      const left = Math.max(
+        padding,
+        Math.min(rect.right - menuWidth, window.innerWidth - menuWidth - padding)
+      );
+
+      menu.style.top = `${Math.max(
+        padding,
+        Math.min(top, window.innerHeight - menuHeight - padding)
+      )}px`;
+
+      menu.style.left = `${left}px`;
     };
 
-    updatePlacement();
+    updatePosition();
 
-    window.addEventListener('resize', updatePlacement);
-    window.addEventListener('scroll', updatePlacement, true);
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
 
     return () => {
-      window.removeEventListener('resize', updatePlacement);
-      window.removeEventListener('scroll', updatePlacement, true);
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+
+      if (menu.matches(':popover-open')) {
+        menu.hidePopover();
+      }
     };
   }, [isOpen]);
 
@@ -55,7 +83,9 @@ export default function TaskActionMenu(props: TaskActionMenuProps) {
     if (!isOpen) return;
 
     const handleClickOutside = (event: PointerEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+
+      if (!containerRef.current?.contains(target) && !menuRef.current?.contains(target)) {
         setIsOpen(false);
       }
     };
@@ -89,13 +119,24 @@ export default function TaskActionMenu(props: TaskActionMenuProps) {
       {isOpen && (
         <div
           ref={menuRef}
+          popover="manual"
           role="menu"
           className={cn(
             'bg-card absolute right-0 z-50',
-            'border-border w-50 rounded-md border p-1.5 shadow-sm',
-            placement === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'
+            'border-border w-50 rounded-md border p-1.5 shadow-sm'
           )}
         >
+          <Button
+            variant="ghost"
+            role="menuitem"
+            onClick={() => handleAction(onView)}
+            className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
+          >
+            <TaskIcon size={14} icon="EyeIcon" />
+
+            <Typography variant="caption">{t('common.view', { name: name })}</Typography>
+          </Button>
+
           <Button
             variant="ghost"
             role="menuitem"
@@ -104,7 +145,7 @@ export default function TaskActionMenu(props: TaskActionMenuProps) {
           >
             <TaskIcon size={14} icon="PencilIcon" />
 
-            <Typography variant="caption">{t('common.edit')}</Typography>
+            <Typography variant="caption">{t('common.edit', { name: name })}</Typography>
           </Button>
 
           {!isCompleted && (

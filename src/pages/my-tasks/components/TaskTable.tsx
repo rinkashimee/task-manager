@@ -2,15 +2,20 @@ import Card from '@/components/ui/Cards/Card';
 import Table from '@/components/ui/Table/Table';
 import taskTableColumns from './TaskTableColumn';
 import type {
-  ConfirmationState,
+  TaskConfirmationConfig,
+  TaskConfirmationState,
   TaskFormValues,
   TaskTableProps,
   TaskTypes,
-} from '../types/TaskTypes';
+} from '../types/Task.types';
 import { useState } from 'react';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import type { HandleTypes } from '@/constants/commonContants';
 import { useTranslation } from 'react-i18next';
+import Modal from '@/components/ui/Modal/Modal';
+import { useToast } from '@/components/ui/Toast/ToastProvider';
+import TaskViewHeader from './TaskViewHeader';
+import TaskView from './TaskView';
 
 export default function TaskTable(props: TaskTableProps) {
   const {
@@ -20,45 +25,46 @@ export default function TaskTable(props: TaskTableProps) {
     total,
     isFetching,
     projectDropdown,
+    isProjectTaskLists,
     createTask,
     updateTask,
     deleteTask,
+    getTaskById,
     handleEditTask,
     setCurrentPage,
   } = props;
 
   const { t } = useTranslation();
+  const { showToast } = useToast();
 
-  const [confirmation, setConfirmation] = useState<ConfirmationState | null>(null);
+  const [viewTask, setViewTask] = useState<TaskTypes | null>(null);
 
-  const confirmationConfig = {
+  const [confirmation, setConfirmation] = useState<TaskConfirmationState | null>(null);
+
+  const confirmationConfig: Partial<Record<HandleTypes, TaskConfirmationConfig>> = {
     complete: {
-      title: t('common.confirmation-config.complete-task'),
-      description: t('common.confirmation-config.complete-desc'),
+      title: t('common.confirmation-config.complete', { name: t('my-tasks.name') }),
+      description: t('common.confirmation-config.complete-desc', { name: t('my-tasks.name') }),
       variant: 'success',
-      confirmText: t('common.confirmation-config.complete-task'),
-    },
-    edit: {
-      title: t('common.confirmation-config.edit-task'),
-      description: t('common.confirmation-config.edit-desc'),
-      variant: 'info',
-      confirmText: t('common.confirmation-config.edit-task'),
+      confirmText: t('common.confirmation-config.complete', { name: t('my-tasks.name') }),
     },
     delete: {
-      title: t('common.confirmation-config.delete-task'),
-      description: t('common.confirmation-config.delete-desc'),
+      title: t('common.confirmation-config.delete', { name: t('my-tasks.name') }),
+      description: t('common.confirmation-config.delete-desc', { name: t('my-tasks.name') }),
       variant: 'danger',
-      confirmText: t('common.confirmation-config.delete-task'),
+      confirmText: t('common.confirmation-config.delete', { name: t('my-tasks.name') }),
     },
     duplicate: {
-      title: t('common.confirmation-config.duplicate-task'),
-      description: t('common.confirmation-config.duplicate-desc'),
-      variant: 'info',
-      confirmText: t('common.confirmation-config.duplicate-task'),
+      title: t('common.confirmation-config.duplicate', { name: t('my-tasks.name') }),
+      description: t('common.confirmation-config.duplicate-desc', { name: t('my-tasks.name') }),
+      variant: 'default',
+      confirmText: t('common.confirmation-config.duplicate', { name: t('my-tasks.name') }),
     },
-  } as const;
+  };
 
-  const confirmationModal = (task: TaskTypes, handleType: HandleTypes) => {
+  const config = confirmation ? confirmationConfig[confirmation.handleType] : undefined;
+
+  const taskConfirmationModal = (task: TaskTypes, handleType: HandleTypes) => {
     setConfirmation({ task, handleType });
   };
 
@@ -72,10 +78,6 @@ export default function TaskTable(props: TaskTableProps) {
         handleComplete(task);
         break;
 
-      case 'edit':
-        handleEdit(task);
-        break;
-
       case 'delete':
         handleDelete(task.id);
         break;
@@ -86,6 +88,22 @@ export default function TaskTable(props: TaskTableProps) {
     }
 
     setConfirmation(null);
+  };
+
+  const handleView = async (task: TaskTypes) => {
+    const latestTask = await getTaskById(task.id);
+
+    if (!latestTask) {
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: t('common.not-found'),
+        variant: 'error',
+      });
+
+      return;
+    }
+
+    setViewTask(latestTask);
   };
 
   const handleEdit = (task: TaskTypes) => {
@@ -101,7 +119,7 @@ export default function TaskTable(props: TaskTableProps) {
         ...values,
         status: 'completed',
       },
-      t('common.complete-success')
+      t('common.complete-success', { name: t('my-tasks.name') })
     );
   };
 
@@ -115,7 +133,7 @@ export default function TaskTable(props: TaskTableProps) {
       title: `${originalTitle} (Copy)`,
     };
 
-    await createTask(newTask, t('common.duplicate-success'));
+    await createTask(newTask, t('common.duplicate-success', { name: t('my-tasks.name') }));
   };
 
   const handleDelete = async (id: string) => {
@@ -127,10 +145,18 @@ export default function TaskTable(props: TaskTableProps) {
       <Table
         tableWrapperClassName="min-h-0 flex-1"
         rowKey={(id) => id.id}
-        columns={taskTableColumns({ projectDropdown, confirmationModal })}
+        columns={taskTableColumns({
+          projectDropdown,
+          isProjectTaskLists,
+          onViewHandle: handleView,
+          onEditHandle: handleEdit,
+          taskConfirmationModal,
+        })}
         data={data}
         isLoading={isFetching}
         skeletonRows={15}
+        emptyTitle={t('common.no-tasks')}
+        emptyDesc={isProjectTaskLists ? t('common.no-task-yet') : t('common.task-caption')}
         pagination={{
           current: currentPage,
           pageSize: pageSize,
@@ -140,16 +166,34 @@ export default function TaskTable(props: TaskTableProps) {
         }}
       />
 
+      {viewTask && (
+        <Modal
+          open={viewTask !== null}
+          onClose={() => setViewTask(null)}
+          size="lg"
+          title={viewTask.title}
+          headerVariant="view"
+          headerContent={<TaskViewHeader viewTask={viewTask} />}
+        >
+          <TaskView
+            task={viewTask}
+            projectDropdown={projectDropdown}
+            onEdit={() => {
+              handleEdit(viewTask);
+              setViewTask(null);
+            }}
+          />
+        </Modal>
+      )}
+
       <ConfirmationModal
         open={confirmation !== null}
         onClose={() => setConfirmation(null)}
         onConfirm={handleConfirm}
-        title={confirmation ? confirmationConfig[confirmation.handleType].title : ''}
-        description={confirmation ? confirmationConfig[confirmation.handleType].description : ''}
-        variant={confirmation ? confirmationConfig[confirmation.handleType].variant : 'info'}
-        confirmText={
-          confirmation ? confirmationConfig[confirmation.handleType].confirmText : 'Confirm'
-        }
+        title={config?.title ?? ''}
+        description={config?.description ?? ''}
+        variant={config?.variant ?? 'default'}
+        confirmText={config?.confirmText ?? 'Confirm'}
       />
     </Card>
   );

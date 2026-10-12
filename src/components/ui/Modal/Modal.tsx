@@ -19,9 +19,13 @@ export default function Modal(props: ModalProps) {
     title,
     caption,
     size = 'md',
+    headerVariant = 'default',
+    headerContent,
     closeOnOverlayClick = false,
     closeOnEscape = false,
     className,
+    height,
+    scrollable = false,
   } = props;
 
   useEffect(() => {
@@ -56,23 +60,37 @@ export default function Modal(props: ModalProps) {
       <div
         role="dialog"
         aria-modal="true"
+        aria-label={title || 'Details'}
         onMouseDown={(event) => event.stopPropagation()}
         className={cn(
-          'bg-card border-border w-full overflow-visible rounded-md border shadow-sm',
+          'bg-card border-border flex max-h-[90dvh] w-full flex-col rounded-md border shadow-sm',
           modalSizes[size],
+          height,
           className
         )}
       >
-        <div className="border-border flex items-center justify-between gap-4 border-b px-4 py-3">
-          <div className="min-w-0">
-            <Typography as="h2" variant="body-lg" className="text-text-primary font-semibold">
-              {title}
-            </Typography>
+        <div
+          className={cn(
+            'flex shrink-0 items-start justify-between gap-4 px-4 py-3',
+            headerVariant === 'default' && 'border-border items-center border-b',
+            headerVariant === 'view' && 'pt-5'
+          )}
+        >
+          <div className="min-w-0 flex-1">
+            {headerVariant === 'view' && headerContent ? (
+              headerContent
+            ) : (
+              <>
+                <Typography as="h2" variant="body-lg" className="text-text font-semibold">
+                  {title}
+                </Typography>
 
-            {caption && (
-              <Typography as="p" variant="caption" className="text-text-muted mt-1">
-                {caption}
-              </Typography>
+                {caption && (
+                  <Typography as="p" variant="caption" className="text-text-muted mt-1">
+                    {caption}
+                  </Typography>
+                )}
+              </>
             )}
           </div>
 
@@ -89,7 +107,18 @@ export default function Modal(props: ModalProps) {
           </button>
         </div>
 
-        {children}
+        <div
+          className={cn(
+            'min-h-0 flex-1',
+            scrollable && [
+              'overflow-y-auto',
+              '[scrollbar-width:none]',
+              '[&::-webkit-scrollbar]:hidden',
+            ]
+          )}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

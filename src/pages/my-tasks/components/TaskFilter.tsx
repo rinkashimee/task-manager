@@ -1,7 +1,7 @@
 import Button from '@/components/ui/Button/Button';
 import Typography from '@/components/ui/Typography/Typography';
 import { cn } from '@/lib/utils/utils';
-import type { FilterType } from '../types/TaskTypes';
+import type { FilterType } from '../types/Task.types';
 import type { ParseKeys } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +24,13 @@ export default function TaskFilter(props: TaskFilterProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center gap-4">
+    <div
+      className={cn(
+        'flex w-full min-w-0 items-center gap-2 overflow-x-auto',
+        '[scrollbar-width:none]',
+        '[&::-webkit-scrollbar]:hidden'
+      )}
+    >
       {filters.map((filter) => {
         const isActive = value === filter.value;
 
@@ -33,9 +39,13 @@ export default function TaskFilter(props: TaskFilterProps) {
             key={filter.value}
             variant={isActive ? 'primary' : 'ghost'}
             onClick={() => onChange(filter.value)}
-            className={cn('h-9 rounded-md px-4', !isActive && 'bg-canvas text-text-muted')}
+            className={cn('h-9 shrink-0 rounded-md px-4', !isActive && 'bg-canvas text-text-muted')}
           >
-            <Typography as="p" variant="caption" className="truncate font-sans font-semibold">
+            <Typography
+              as="p"
+              variant="caption"
+              className="font-sans font-semibold whitespace-nowrap"
+            >
               {t(filter.label)}
             </Typography>
           </Button>

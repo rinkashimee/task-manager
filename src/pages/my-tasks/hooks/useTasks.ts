@@ -1,22 +1,24 @@
 import { useToast } from '@/components/ui/Toast/ToastProvider';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import type {
   TaskLoadingState,
   TaskQueryParams,
   TaskRequest,
   TaskTypes,
   UseTasksParams,
-} from '../types/TaskTypes';
+} from '../types/Task.types';
 import { taskApi } from '../service/taskApi';
 import { useTranslation } from 'react-i18next';
 import { getApiErrorMessage } from '@/api/apiError';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
+import { useSpinner } from '@/components/ui/Spinner/SpinnerContext';
 
 export function useTasks(props: UseTasksParams) {
-  const { currentPage, pageSize, search, filter } = props;
+  const { currentPage, pageSize, search, filter, projectId, handleRefresh } = props;
 
   const { t } = useTranslation();
   const { showToast } = useToast();
+  const { showLoading, hideLoading } = useSpinner();
 
   const [taskData, setTaskData] = useState<TaskTypes[]>([]);
   const [projectDropdown, setProjectDropdown] = useState<DropdownOption[]>([]);
@@ -65,6 +67,7 @@ export function useTasks(props: UseTasksParams) {
         size: pageSize,
         search: search.trim(),
         status: filter,
+        projectId: projectId,
       };
 
       const response = await taskApi.getAll(params);
@@ -87,7 +90,7 @@ export function useTasks(props: UseTasksParams) {
     } finally {
       setLoading((prev) => ({ ...prev, fetch: false }));
     }
-  }, [currentPage, pageSize, search, filter, showToast, t]);
+  }, [currentPage, pageSize, search, filter, projectId, showToast, t]);
 
   // CREATE TASK
   const createTask = useCallback(
@@ -96,6 +99,7 @@ export function useTasks(props: UseTasksParams) {
 
       try {
         setLoading((prev) => ({ ...prev, create: true }));
+        showLoading();
 
         const response = await taskApi.create(data);
 
@@ -106,7 +110,7 @@ export function useTasks(props: UseTasksParams) {
         });
 
         await fetchTasks();
-
+        handleRefresh && handleRefresh();
         return true;
       } catch (error) {
         const message = getApiErrorMessage(error, t);
@@ -120,6 +124,7 @@ export function useTasks(props: UseTasksParams) {
         return false;
       } finally {
         setLoading((prev) => ({ ...prev, create: false }));
+        hideLoading();
       }
     },
     [loading, fetchTasks, showToast, t]
@@ -130,6 +135,7 @@ export function useTasks(props: UseTasksParams) {
     async (id: string): Promise<TaskTypes | null> => {
       try {
         setLoading((prev) => ({ ...prev, fetchTask: true }));
+        showLoading();
 
         const response = await taskApi.getById(id);
 
@@ -149,6 +155,7 @@ export function useTasks(props: UseTasksParams) {
         return null;
       } finally {
         setLoading((prev) => ({ ...prev, fetchTask: false }));
+        hideLoading();
       }
     },
     [showToast, t]
@@ -159,6 +166,7 @@ export function useTasks(props: UseTasksParams) {
     async (id: string, values: TaskRequest, successMessage?: string): Promise<boolean> => {
       try {
         setLoading((prev) => ({ ...prev, update: true }));
+        showLoading();
 
         const payload: TaskRequest = {
           ...values,
@@ -174,7 +182,7 @@ export function useTasks(props: UseTasksParams) {
         });
 
         await fetchTasks();
-
+        handleRefresh && handleRefresh();
         return true;
       } catch (error) {
         showToast({
@@ -186,6 +194,7 @@ export function useTasks(props: UseTasksParams) {
         return false;
       } finally {
         setLoading((prev) => ({ ...prev, update: false }));
+        hideLoading();
       }
     },
     [fetchTasks, showToast, t]
@@ -196,6 +205,7 @@ export function useTasks(props: UseTasksParams) {
     async (id: string): Promise<boolean> => {
       try {
         setLoading((prev) => ({ ...prev, delete: true }));
+        showLoading();
 
         const response = await taskApi.delete(id);
 
@@ -218,20 +228,11 @@ export function useTasks(props: UseTasksParams) {
         return false;
       } finally {
         setLoading((prev) => ({ ...prev, delete: false }));
+        hideLoading();
       }
     },
     [fetchTasks, showToast, t]
   );
-
-  // Fetch projects
-  useEffect(() => {
-    void fetchProjectDropdown();
-  }, [fetchProjectDropdown]);
-
-  // Fetch tasks
-  useEffect(() => {
-    void fetchTasks();
-  }, [fetchTasks]);
 
   return {
     taskData,

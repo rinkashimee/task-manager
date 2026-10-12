@@ -1,22 +1,28 @@
 import type { TableColumn } from '@/components/ui/Table/Table';
-import type { TaskTypes } from '../types/TaskTypes';
+import type { TaskTypes } from '../types/Task.types';
 import { useTranslation } from 'react-i18next';
 import Typography from '@/components/ui/Typography/Typography';
 import Badge from '@/components/ui/Badge/Badge';
 import { statusOptions } from '@/constants/statusOptions';
-import { priorityVariants, statusVariants } from '../constant/TaskContants';
+import { priorityVariants, statusVariants } from '../constant/TaskConstant';
 import { priorityOptions } from '@/constants/priorityOptions';
-import TaskActionMenu from './TaskActionMenu';
+
 import type { HandleTypes } from '@/constants/commonContants';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
+import { formatDate } from '@/lib/utils/utils';
+import ActionMenu from '@/components/ui/Table/ActionMenu';
 
-interface TableColumnProps {
+interface TaskTableColumnProps {
   projectDropdown: DropdownOption[];
-  confirmationModal: (task: TaskTypes, handleType: HandleTypes) => void;
+  isProjectTaskLists: boolean;
+  onViewHandle: (task: TaskTypes) => void;
+  onEditHandle: (task: TaskTypes) => void;
+  taskConfirmationModal: (task: TaskTypes, handleType: HandleTypes) => void;
 }
 
-export default function taskTableColumns(props: TableColumnProps): TableColumn<TaskTypes>[] {
-  const { projectDropdown, confirmationModal } = props;
+export default function taskTableColumns(props: TaskTableColumnProps): TableColumn<TaskTypes>[] {
+  const { projectDropdown, isProjectTaskLists, onViewHandle, onEditHandle, taskConfirmationModal } =
+    props;
 
   const { t } = useTranslation();
 
@@ -24,7 +30,7 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
     {
       key: 'task',
       title: t('my-tasks.table.task'),
-      width: 450,
+      width: isProjectTaskLists ? 250 : 400,
       dataIndex: 'title',
       skeletonWidth: 'w-48',
       render: (_, response) => (
@@ -33,7 +39,7 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
             {response.title}
           </Typography>
 
-          <Typography variant="caption" className="text-text-muted truncate font-sans">
+          <Typography variant="caption" className="text-text-muted font-sans">
             {response.description}
           </Typography>
         </div>
@@ -44,6 +50,7 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
       title: t('my-tasks.table.project'),
       dataIndex: 'projectId',
       skeletonWidth: 'w-28',
+      hidden: isProjectTaskLists,
       render: (_, response) => {
         const selectedProject = projectDropdown.find(
           (option) => option.value === response.projectId
@@ -95,7 +102,7 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
       skeletonWidth: 'w-28',
       render: (_, reponse) => (
         <Typography variant="caption" className="text-text font-sans">
-          {reponse.dueDate}
+          {formatDate(reponse.dueDate, { includeTime: false })}
         </Typography>
       ),
     },
@@ -104,12 +111,14 @@ export default function taskTableColumns(props: TableColumnProps): TableColumn<T
       title: '',
       skeletonWidth: 'w-6',
       render: (_, response) => (
-        <TaskActionMenu
+        <ActionMenu
+          name={t('my-tasks.table.task')}
           isCompleted={response.status === 'completed'}
-          onComplete={() => confirmationModal(response, 'complete')}
-          onEdit={() => confirmationModal(response, 'edit')}
-          onDuplicate={() => confirmationModal(response, 'duplicate')}
-          onDelete={() => confirmationModal(response, 'delete')}
+          onComplete={() => taskConfirmationModal(response, 'complete')}
+          onEdit={() => onEditHandle(response)}
+          onView={() => onViewHandle(response)}
+          onDuplicate={() => taskConfirmationModal(response, 'duplicate')}
+          onDelete={() => taskConfirmationModal(response, 'delete')}
         />
       ),
     },

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import TableEmptyState from './TableEmptyState';
 import TablePagination from './TablePagination';
 import TableSkeletonRows from './TableSkeletonRows';
+import type { IconType } from '@/components/icons/TaskIcon';
 
 export interface TableColumn<T> {
   key: string;
@@ -10,6 +11,7 @@ export interface TableColumn<T> {
   dataIndex?: keyof T;
   width?: number | string;
   skeletonWidth?: string;
+  hidden?: boolean;
   align?: 'left' | 'center' | 'right';
   render?: (value: T[keyof T] | undefined, record: T, index: number) => ReactNode;
 }
@@ -30,6 +32,9 @@ interface TableProps<T> {
   tableWrapperClassName?: string;
   isLoading?: boolean;
   skeletonRows?: number;
+  emptyTitle?: string;
+  emptyDesc?: string;
+  emptyIcon?: IconType;
 }
 
 export default function Table<T>(props: TableProps<T>) {
@@ -41,7 +46,12 @@ export default function Table<T>(props: TableProps<T>) {
     tableWrapperClassName,
     isLoading = false,
     skeletonRows = 5,
+    emptyTitle,
+    emptyDesc,
+    emptyIcon,
   } = props;
+
+  const visibleColumns = columns.filter((column) => !column.hidden);
 
   return (
     <div className={cn('bg-card flex flex-col overflow-hidden', tableWrapperClassName)}>
@@ -59,7 +69,7 @@ export default function Table<T>(props: TableProps<T>) {
         <table className="w-max min-w-full border-collapse">
           <thead>
             <tr>
-              {columns.map((column) => (
+              {visibleColumns.map((column) => (
                 <th
                   key={column.key}
                   style={{ width: column.width }}
@@ -78,13 +88,13 @@ export default function Table<T>(props: TableProps<T>) {
           </thead>
           <tbody>
             {isLoading ? (
-              <TableSkeletonRows columns={columns} rows={skeletonRows} />
+              <TableSkeletonRows columns={visibleColumns} rows={skeletonRows} />
             ) : (
               data.map((record, rowIndex) => {
                 const key = typeof rowKey === 'function' ? rowKey(record) : record[rowKey];
                 return (
                   <tr key={String(key)} className="border-border border-b transition">
-                    {columns.map((column) => {
+                    {visibleColumns.map((column) => {
                       const value = column.dataIndex ? record[column.dataIndex] : undefined;
 
                       return (
@@ -108,7 +118,13 @@ export default function Table<T>(props: TableProps<T>) {
           </tbody>
         </table>
 
-        {!isLoading && (!data || data.length === 0) && <TableEmptyState />}
+        {!isLoading && (!data || data.length === 0) && (
+          <TableEmptyState
+            title={emptyTitle ?? ''}
+            description={emptyDesc ?? ''}
+            icon={emptyIcon}
+          />
+        )}
       </div>
 
       {!isLoading && pagination && <TablePagination {...pagination} />}

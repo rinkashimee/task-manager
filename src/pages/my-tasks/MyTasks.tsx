@@ -4,20 +4,34 @@ import Button from '@/components/ui/Button/Button';
 import Input from '@/components/ui/Input/Input';
 import Typography from '@/components/ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TaskFilter from './components/TaskFilter';
 import TaskTable from './components/TaskTable';
-import type { FilterType, TaskFormMode, TaskFormValues, TaskTypes } from './types/TaskTypes';
+import type {
+  FilterType,
+  MyTasksVariant,
+  TaskFormMode,
+  TaskFormValues,
+  TaskTypes,
+} from './types/Task.types';
 import Modal from '@/components/ui/Modal/Modal';
 import TaskForm from './components/TaskForm';
 import { useTasks } from './hooks/useTasks';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
+import { pageSize } from './constant/TaskConstant';
+import { cn } from '@/lib/utils/utils';
 
-export default function MyTasks() {
+interface MyTasksProps {
+  projectId: string;
+  variant: MyTasksVariant;
+  handleRefresh: () => void;
+}
+
+export default function MyTasks(props: MyTasksProps) {
+  const { projectId, variant, handleRefresh } = props;
+
   const { t } = useTranslation();
   const { showToast } = useToast();
-
-  const pageSize = 50;
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
@@ -39,14 +53,30 @@ export default function MyTasks() {
     updateTask,
     getTaskById,
     deleteTask,
+    fetchTasks,
+    fetchProjectDropdown,
   } = useTasks({
     currentPage,
     pageSize,
     search,
     filter,
+    projectId,
+    handleRefresh,
   });
 
   const isSubmitting = isCreating || isUpdating;
+
+  const isProjectTaskLists = variant === 'projectTaskLists';
+
+  // Fetch projects
+  useEffect(() => {
+    void fetchProjectDropdown();
+  }, [fetchProjectDropdown]);
+
+  // Fetch tasks
+  useEffect(() => {
+    void fetchTasks();
+  }, [fetchTasks, projectId]);
 
   const handleAddTask = () => {
     setTaskForm({ mode: 'create' });
@@ -97,21 +127,31 @@ export default function MyTasks() {
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <Header title={t('my-tasks.title')} caption={t('my-tasks.caption')} />
+      <Header
+        title={t('my-tasks.title')}
+        caption={t('my-tasks.caption')}
+        hidden={isProjectTaskLists}
+      />
 
-      <div className="flex shrink-0 items-center justify-between gap-6 p-6">
+      <div
+        className={cn(
+          'flex shrink-0 items-center justify-between',
+          isProjectTaskLists ? 'px-6 py-3' : 'gap-6 p-6'
+        )}
+      >
         <Input
           type="text"
           value={search}
           placeholder={t('common.search-tasks')}
           icon="MagnifyingGlassIcon"
           onChange={(e) => handleSearch(e.target.value)}
-          wrapperClassName="w-full max-w-[400px]"
+          wrapperClassName={cn('w-full', isProjectTaskLists ? 'min-w-0' : 'max-w-[400px]')}
         />
 
         <Button
           type="button"
           variant="primary"
+          hidden={isProjectTaskLists}
           className="h-9 gap-2 px-4 font-sans"
           onClick={() => handleAddTask()}
         >
@@ -132,12 +172,14 @@ export default function MyTasks() {
           total={totalItems}
           projectDropdown={projectDropdown}
           currentPage={currentPage}
-          setCurrentPage={handlePageChange}
           data={taskData}
+          isProjectTaskLists={isProjectTaskLists}
+          setCurrentPage={handlePageChange}
           handleEditTask={handleEditTask}
           deleteTask={deleteTask}
           createTask={createTask}
           updateTask={updateTask}
+          getTaskById={getTaskById}
         />
       </div>
 
