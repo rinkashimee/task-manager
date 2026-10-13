@@ -60,6 +60,7 @@ export interface ProjectOptionResponse {
 export type TaskLoadingState = {
   fetch: boolean;
   fetchTask: boolean;
+  fetchProjects: boolean;
   create: boolean;
   update: boolean;
   delete: boolean;

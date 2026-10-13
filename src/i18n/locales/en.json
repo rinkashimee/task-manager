@@ -14,6 +14,7 @@
     "no-tasks": "No tasks",
     "no-projects": "No projects",
     "task-caption": "Create a task to start organizing your work.",
+    "project-progress-caption": "Create your first project to start tracking progress.",
     "project-caption": "Create your first project to organize your tasks and track your progress.",
     "all": "All",
     "to-do": "To Do",
@@ -29,6 +30,7 @@
     "edit": "Edit {{name}}",
     "recent": "Recent {{name}}",
     "view-all": "View All {{name}}",
+    "viewAll": "View All",
     "no-task-yet": "No tasks in this project yet.",
     "mark-completed": "Mark as completed",
     "duplicate": "Duplicate",
@@ -89,7 +91,13 @@
   },
   "dashboard": {
     "title": "{{data}}, {{user}}!👋",
-    "caption": "Here's an overview of your tasks for today."
+    "caption": "Here's an overview of your tasks for today.",
+    "upcoming-deadline": "Upcoming Deadlines",
+    "no-deadline": "No upcoming deadlines",
+    "deadline-desc": "You're all caught up! No deadlines approaching.",
+    "this-week": "This Week",
+    "project-progress": "Project Progress",
+    "recent-tasks": "Recent Tasks"
   },
   "my-tasks": {
     "title": "My Tasks",
@@ -146,7 +154,7 @@
       "status": "Status",
       "due-date": "Due Date",
       "last-updated": "Last Updated",
-      "tasks": "{{completeTasks}} of {{totalTasks}} tasks",
+      "tasks": "{{completeTasks}} of {{totalTasks}} tasks completed",
       "percent": "{{value}}%"
     },
     "modal": {

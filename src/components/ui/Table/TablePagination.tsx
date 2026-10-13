@@ -26,7 +26,7 @@ export default function TablePagination(props: TablePaginationProps) {
   const isLastPage = current >= totalPages;
 
   return (
-    <div className="flex items-center justify-between p-3">
+    <div className="flex w-full items-center justify-between p-3">
       <Typography variant="caption" className="truncate">
         {t('common.pagination-showing', {
           count: `${start}-${end}`,

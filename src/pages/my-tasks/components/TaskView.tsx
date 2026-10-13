@@ -12,6 +12,7 @@ import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 
 interface TaskViewProps {
   task: TaskTypes;
+  deadlineView?: boolean;
   projectDropdown: DropdownOption[];
   onEdit: () => void;
 }
@@ -28,7 +29,7 @@ interface TaskMetadataProps {
 }
 
 export default function TaskView(props: TaskViewProps) {
-  const { task, projectDropdown, onEdit } = props;
+  const { task, projectDropdown, deadlineView = false, onEdit } = props;
 
   const { t } = useTranslation();
 
@@ -107,6 +108,7 @@ export default function TaskView(props: TaskViewProps) {
           type="button"
           variant="primary"
           onClick={onEdit}
+          hidden={deadlineView}
           className="h-9 gap-1 px-4 font-sans"
         >
           <TaskIcon icon="PencilSimpleIcon" size={14} />

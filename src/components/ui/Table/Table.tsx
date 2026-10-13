@@ -35,6 +35,7 @@ interface TableProps<T> {
   emptyTitle?: string;
   emptyDesc?: string;
   emptyIcon?: IconType;
+  hideHeader?: boolean;
 }
 
 export default function Table<T>(props: TableProps<T>) {
@@ -49,6 +50,7 @@ export default function Table<T>(props: TableProps<T>) {
     emptyTitle,
     emptyDesc,
     emptyIcon,
+    hideHeader = false,
   } = props;
 
   const visibleColumns = columns.filter((column) => !column.hidden);
@@ -67,27 +69,29 @@ export default function Table<T>(props: TableProps<T>) {
         )}
       >
         <table className="w-max min-w-full border-collapse">
-          <thead>
-            <tr>
-              {visibleColumns.map((column) => (
-                <th
-                  key={column.key}
-                  style={{ width: column.width }}
-                  className={cn(
-                    'bg-canvas text-text border-border sticky top-0 z-10 border-b px-5 py-3 text-left font-sans text-xs font-semibold',
-                    {
-                      'text-center': column.align === 'center',
-                      'text-right': column.align === 'right',
-                    }
-                  )}
-                >
-                  {column.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
+          {!hideHeader && (
+            <thead>
+              <tr>
+                {visibleColumns.map((column) => (
+                  <th
+                    key={column.key}
+                    style={{ width: column.width }}
+                    className={cn(
+                      'bg-canvas text-text border-border sticky top-0 z-10 border-b px-5 py-3 text-left font-sans text-xs font-semibold',
+                      {
+                        'text-center': column.align === 'center',
+                        'text-right': column.align === 'right',
+                      }
+                    )}
+                  >
+                    {column.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+          )}
           <tbody>
-            {isLoading ? (
+            {isLoading && (!data || data.length === 0) ? (
               <TableSkeletonRows columns={visibleColumns} rows={skeletonRows} />
             ) : (
               data.map((record, rowIndex) => {
