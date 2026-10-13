@@ -29,6 +29,7 @@
     "edit": "Edit {{name}}",
     "recent": "Recent {{name}}",
     "view-all": "View All {{name}}",
+    "viewAll": "View All",
     "no-task-yet": "No tasks in this project yet.",
     "mark-completed": "Mark as completed",
     "duplicate": "Duplicate",
@@ -89,7 +90,11 @@
   },
   "dashboard": {
     "title": "{{data}}, {{user}}!👋",
-    "caption": "Here's an overview of your tasks for today."
+    "caption": "Here's an overview of your tasks for today.",
+    "upcoming-deadline": "Upcoming Deadlines",
+    "no-deadline": "No upcoming deadlines",
+    "deadline-desc": "You're all caught up! No deadlines approaching.",
+    "this-week": "This Week"
   },
   "my-tasks": {
     "title": "My Tasks",

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 interface ActionMenuProps {
   name: string;
   isCompleted?: boolean;
+  viewOnly?: boolean;
   onView: () => void;
   onEdit: () => void;
   onComplete: () => void;
@@ -16,7 +17,16 @@ interface ActionMenuProps {
 }
 
 export default function ActionMenu(props: ActionMenuProps) {
-  const { name, isCompleted, onView, onEdit, onComplete, onDuplicate, onDelete } = props;
+  const {
+    name,
+    isCompleted,
+    viewOnly = false,
+    onView,
+    onEdit,
+    onComplete,
+    onDuplicate,
+    onDelete,
+  } = props;
 
   const { t } = useTranslation();
 
@@ -136,54 +146,53 @@ export default function ActionMenu(props: ActionMenuProps) {
 
             <Typography variant="caption">{t('common.view', { name: name })}</Typography>
           </Button>
+          {!viewOnly && (
+            <>
+              <Button
+                variant="ghost"
+                role="menuitem"
+                onClick={() => handleAction(onEdit)}
+                className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
+              >
+                <TaskIcon size={14} icon="PencilIcon" />
 
-          <Button
-            variant="ghost"
-            role="menuitem"
-            onClick={() => handleAction(onEdit)}
-            className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
-          >
-            <TaskIcon size={14} icon="PencilIcon" />
+                <Typography variant="caption">{t('common.edit', { name: name })}</Typography>
+              </Button>
+              {!isCompleted && (
+                <Button
+                  variant="ghost"
+                  role="menuitem"
+                  onClick={() => handleAction(onComplete)}
+                  className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
+                >
+                  <TaskIcon size={14} icon="CheckIcon" />
 
-            <Typography variant="caption">{t('common.edit', { name: name })}</Typography>
-          </Button>
+                  <Typography variant="caption">{t('common.mark-completed')}</Typography>
+                </Button>
+              )}
+              <Button
+                variant="ghost"
+                role="menuitem"
+                onClick={() => handleAction(onDuplicate)}
+                className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
+              >
+                <TaskIcon size={14} icon="CopyIcon" />
 
-          {!isCompleted && (
-            <Button
-              variant="ghost"
-              role="menuitem"
-              onClick={() => handleAction(onComplete)}
-              className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
-            >
-              <TaskIcon size={14} icon="CheckIcon" />
+                <Typography variant="caption">{t('common.duplicate')}</Typography>
+              </Button>
+              <div className="border-border my-1 border-t" />
+              <Button
+                variant="ghost"
+                role="menuitem"
+                onClick={() => handleAction(onDelete)}
+                className="hover:bg-danger/10 text-danger !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
+              >
+                <TaskIcon size={14} icon="TrashIcon" />
 
-              <Typography variant="caption">{t('common.mark-completed')}</Typography>
-            </Button>
+                <Typography variant="caption">{t('common.delete')}</Typography>
+              </Button>
+            </>
           )}
-
-          <Button
-            variant="ghost"
-            role="menuitem"
-            onClick={() => handleAction(onDuplicate)}
-            className="hover:bg-primary/10 text-text !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
-          >
-            <TaskIcon size={14} icon="CopyIcon" />
-
-            <Typography variant="caption">{t('common.duplicate')}</Typography>
-          </Button>
-
-          <div className="border-border my-1 border-t" />
-
-          <Button
-            variant="ghost"
-            role="menuitem"
-            onClick={() => handleAction(onDelete)}
-            className="hover:bg-danger/10 text-danger !w-full !justify-start gap-2 rounded-md px-3 py-2 text-left text-xs"
-          >
-            <TaskIcon size={14} icon="TrashIcon" />
-
-            <Typography variant="caption">{t('common.delete')}</Typography>
-          </Button>
         </div>
       )}
     </div>
