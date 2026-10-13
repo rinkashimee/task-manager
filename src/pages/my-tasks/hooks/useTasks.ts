@@ -26,6 +26,7 @@ export function useTasks(props: UseTasksParams) {
   const [loading, setLoading] = useState<TaskLoadingState>({
     fetch: true,
     fetchTask: false,
+    fetchProjects: false,
     create: false,
     update: false,
     delete: false,
@@ -34,7 +35,7 @@ export function useTasks(props: UseTasksParams) {
   // GET PROJECT DROPDOWN
   const fetchProjectDropdown = useCallback(async () => {
     try {
-      setLoading((prev) => ({ ...prev, fetch: true }));
+      setLoading((prev) => ({ ...prev, fetchProjects: true }));
 
       const response = await taskApi.getProjectDropdown();
 
@@ -53,7 +54,7 @@ export function useTasks(props: UseTasksParams) {
         variant: 'error',
       });
     } finally {
-      setLoading((prev) => ({ ...prev, fetch: false }));
+      setLoading((prev) => ({ ...prev, fetchProjects: false }));
     }
   }, [showToast, t]);
 
@@ -127,7 +128,7 @@ export function useTasks(props: UseTasksParams) {
         hideLoading();
       }
     },
-    [loading, fetchTasks, showToast, t]
+    [loading.create, fetchTasks, showToast, t]
   );
 
   // GET TASK BY ID

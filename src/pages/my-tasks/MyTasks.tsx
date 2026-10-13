@@ -76,7 +76,7 @@ export default function MyTasks(props: MyTasksProps) {
   // Fetch tasks
   useEffect(() => {
     void fetchTasks();
-  }, [fetchTasks, projectId]);
+  }, [fetchTasks]);
 
   const handleAddTask = () => {
     setTaskForm({ mode: 'create' });

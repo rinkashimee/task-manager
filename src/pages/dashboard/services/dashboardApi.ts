@@ -1,7 +1,11 @@
 import type { ApiResponse } from '@/api/api.types';
 import api from '@/api/axios';
-import type { DashboardQueryParams, DashboardStatsTypes } from '../types/Dashboard.types';
-import type { TaskPageResponse } from '@/pages/my-tasks/types/Task.types';
+import type {
+  DashboardQueryParams,
+  DashboardStatsTypes,
+  ProjectProgressTypes,
+} from '../types/Dashboard.types';
+import type { TaskPageResponse, TaskTypes } from '@/pages/my-tasks/types/Task.types';
 
 export const dashboardApi = {
   getDashboardStats: async (): Promise<DashboardStatsTypes> => {
@@ -21,6 +25,20 @@ export const dashboardApi = {
       '/dashboard/upcoming-deadlines/all',
       { params }
     );
+
+    return response.data.data;
+  },
+
+  getProjectProgress: async (): Promise<ProjectProgressTypes[]> => {
+    const response = await api.get<ApiResponse<ProjectProgressTypes[]>>(
+      '/dashboard/project-progress'
+    );
+
+    return response.data.data;
+  },
+
+  getRecentTasks: async (): Promise<TaskTypes[]> => {
+    const response = await api.get<ApiResponse<TaskTypes[]>>('/dashboard/recent-tasks');
 
     return response.data.data;
   },

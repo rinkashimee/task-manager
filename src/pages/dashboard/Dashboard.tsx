@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import UpcomingDeadlines from './components/UpcomingDeadlines';
 import { useNavigate } from 'react-router-dom';
 import { pageSize } from '../my-tasks/constant/TaskConstant';
+import ProjectProgress from './components/ProjectProgress';
+import RecentTasks from './components/RecentTasks';
 
 export default function Dashboard() {
   const { t } = useTranslation();
@@ -22,14 +24,20 @@ export default function Dashboard() {
     totalItems,
     upcomingDeadlines,
     allDeadlines,
+    projectProgress,
+    recentTasks,
     isFetchDeadline,
     isFetchAllDeadline,
+    isProjectProgress,
+    isRecentTasks,
     projectDropdown,
     fetchProjectDropdown,
     fetchDashboardStats,
     fetchUpcomingDeadlines,
     getTaskById,
     fetchAllUpcomingDeadlines,
+    fetchProjectProgress,
+    fetchRecentTasks,
   } = useDashboard({ pageSize: pageSize, currentPage });
 
   // Fetch projects
@@ -47,17 +55,27 @@ export default function Dashboard() {
     void fetchUpcomingDeadlines();
   }, [fetchUpcomingDeadlines]);
 
+  // Fetch project progress
+  useEffect(() => {
+    void fetchProjectProgress();
+  }, [fetchProjectProgress]);
+
+  // Fetch recent tasks
+  useEffect(() => {
+    void fetchRecentTasks();
+  }, [fetchRecentTasks]);
+
   return (
-    <>
+    <div className="flex h-screen flex-col">
       <Header
         title={t('dashboard.title', { data: t(greeting), user: 'Rinkaa' })}
         caption={t('dashboard.caption')}
       />
 
-      <div className="flex flex-col gap-2 px-6 py-3">
+      <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto px-6 py-3">
         <DashboardStats data={dashboardStat} isLoading={isFetchStat} />
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
           <UpcomingDeadlines
             totalItems={totalItems}
             currentPage={currentPage}
@@ -70,8 +88,22 @@ export default function Dashboard() {
             setCurrentPage={setCurrentPage}
             fetchAllUpcomingDeadlines={fetchAllUpcomingDeadlines}
           />
+
+          <ProjectProgress
+            projects={projectProgress}
+            isLoading={isProjectProgress}
+            handView={() => navigate('/projects')}
+          />
         </div>
+
+        <RecentTasks
+          tasks={recentTasks}
+          loading={isRecentTasks}
+          projectDropdown={projectDropdown}
+          getTaskById={getTaskById}
+          onViewAll={() => navigate('/my-tasks')}
+        />
       </div>
-    </>
+    </div>
   );
 }

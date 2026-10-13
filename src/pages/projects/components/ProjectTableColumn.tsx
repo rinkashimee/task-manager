@@ -64,10 +64,17 @@ export default function projectTableColumns(
       skeletonWidth: 'w-28',
       render: (_, response) => {
         const progress = Math.min(100, Math.max(0, response.progress ?? 0));
+        const projectIcon = projectIcons.find((item) => item.value === response.projectIcon);
+
+        const progressColor =
+          projectIcon?.color
+            .split(' ')
+            .find((color) => color.startsWith('bg-'))
+            ?.replace('/10', '') ?? 'bg-primary';
 
         return (
           <div className="flex min-w-28 flex-col gap-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
               <Typography variant="caption" className="text-text-muted truncate">
                 {t('project.table.tasks', {
                   completeTasks: response.completedTasks,
@@ -80,10 +87,17 @@ export default function projectTableColumns(
               </Typography>
             </div>
 
-            <div className="bg-primary/10 h-2 w-full overflow-hidden rounded-full">
+            <div
+              className={cn(
+                'h-2 w-full overflow-hidden rounded-full',
+                projectIcon?.color ?? 'bg-primary/10 text-primary'
+              )}
+            >
               <div
-                className="bg-primary h-full rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
+                className={cn('h-full rounded-full transition-all duration-300', progressColor)}
+                style={{
+                  width: `${Math.min(100, Math.max(0, response.progress))}%`,
+                }}
               />
             </div>
           </div>

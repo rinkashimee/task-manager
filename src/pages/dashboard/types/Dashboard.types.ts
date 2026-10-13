@@ -11,6 +11,8 @@ export type DashboardLoadingState = {
   fetchDeadline: boolean;
   fetchAllDeadline: boolean;
   fetchTask: boolean;
+  fetchProjectProgress: boolean;
+  fetchRecentTasks: boolean;
 };
 
 export interface DashboardQueryParams {
@@ -21,4 +23,13 @@ export interface DashboardQueryParams {
 export interface UseDashboardParams {
   currentPage: number;
   pageSize: number;
+}
+
+export interface ProjectProgressTypes {
+  id: string;
+  name: string;
+  projectIcon: string;
+  totalTasks: number;
+  completedTasks: number;
+  progress: number;
 }

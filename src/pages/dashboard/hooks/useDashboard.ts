@@ -5,6 +5,7 @@ import type {
   DashboardLoadingState,
   DashboardQueryParams,
   DashboardStatsTypes,
+  ProjectProgressTypes,
   UseDashboardParams,
 } from '../types/Dashboard.types';
 import { dashboardApi } from '../services/dashboardApi';
@@ -25,6 +26,8 @@ export function useDashboard(props: UseDashboardParams) {
   const [allDeadlines, setAllDeadlines] = useState<TaskTypes[]>([]);
   const [projectDropdown, setProjectDropdown] = useState<DropdownOption[]>([]);
   const [totalItems, setTotalItems] = useState(0);
+  const [projectProgress, setProjectProgress] = useState<ProjectProgressTypes[]>([]);
+  const [recentTasks, setRecentTasks] = useState<TaskTypes[]>([]);
   const [dashboardStat, setDashboardStat] = useState<DashboardStatsTypes>({
     totalTasks: 0,
     completedTasks: 0,
@@ -37,6 +40,8 @@ export function useDashboard(props: UseDashboardParams) {
     fetchDeadline: true,
     fetchAllDeadline: false,
     fetchTask: true,
+    fetchProjectProgress: true,
+    fetchRecentTasks: true,
   });
 
   // GET PROJECT DROPDOWN
@@ -175,19 +180,68 @@ export function useDashboard(props: UseDashboardParams) {
     [showToast, t]
   );
 
+  // GET PROJECT PROGRESS
+  const fetchProjectProgress = useCallback(async () => {
+    try {
+      setLoading((prev) => ({ ...prev, fetchProjectProgress: true }));
+
+      const response = await dashboardApi.getProjectProgress();
+
+      setProjectProgress(response ?? []);
+    } catch (error) {
+      const message = getApiErrorMessage(error, t);
+
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: message,
+        variant: 'error',
+      });
+      setProjectProgress([]);
+    } finally {
+      setLoading((prev) => ({ ...prev, fetchProjectProgress: false }));
+    }
+  }, [showToast, t]);
+
+  // GET RECENT TASKS
+  const fetchRecentTasks = useCallback(async () => {
+    try {
+      setLoading((prev) => ({ ...prev, fetchRecentTasks: true }));
+
+      const response = await dashboardApi.getRecentTasks();
+
+      setRecentTasks(response);
+    } catch (error) {
+      const message = getApiErrorMessage(error, t);
+
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: message,
+        variant: 'error',
+      });
+    } finally {
+      setLoading((prev) => ({ ...prev, fetchRecentTasks: false }));
+    }
+  }, [showToast, t]);
+
   return {
     dashboardStat,
     projectDropdown,
     upcomingDeadlines,
     allDeadlines,
     totalItems,
+    projectProgress,
+    recentTasks,
     isFetchStat: loading.fetchStat,
     isFetchDeadline: loading.fetchDeadline,
     isFetchAllDeadline: loading.fetchAllDeadline,
+    isProjectProgress: loading.fetchProjectProgress,
+    isRecentTasks: loading.fetchRecentTasks,
     fetchProjectDropdown,
     fetchDashboardStats,
     fetchUpcomingDeadlines,
     getTaskById,
     fetchAllUpcomingDeadlines,
+    fetchProjectProgress,
+    fetchRecentTasks,
   };
 }
