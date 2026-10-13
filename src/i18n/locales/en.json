@@ -87,7 +87,13 @@
     "my-tasks": "My Tasks",
     "projects": "Porjects",
     "settings": "Settings",
-    "footer": "Small steps \n build big results."
+    "footer": "Small steps \n build big results.",
+    "settings-sidebar": {
+      "account": "Account",
+      "appearance": "Appearance",
+      "account-desc": "Personal information",
+      "appearance-desc": "Theme and language"
+    }
   },
   "dashboard": {
     "title": "{{data}}, {{user}}!👋",
@@ -190,5 +196,9 @@
       "created-at": "Created At",
       "all-tasks-project": "All tasks for this project."
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "caption": "Manage your account and appearance."
   }
 }

@@ -18,7 +18,7 @@ export default function SidebarItems(props: SidebarItemProps) {
   const { t } = useTranslation();
   const { pathname } = useLocation();
 
-  const isActive = pathname === path;
+  const isActive = pathname === path || pathname.startsWith(`${path}/`);
 
   return (
     <NavLink

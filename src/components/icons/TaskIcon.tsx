@@ -38,6 +38,7 @@ import {
   StackIcon,
   TrashIcon,
   UserCircleIcon,
+  UserIcon,
   WarningCircleIcon,
   WarningIcon,
   XCircleIcon,
@@ -87,6 +88,7 @@ const icons = {
   WarningCircleIcon,
   CalendarXIcon,
   CalendarIcon,
+  UserIcon,
 } satisfies Record<string, Icon>;
 
 export type IconType = keyof typeof icons;

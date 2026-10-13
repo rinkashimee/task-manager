@@ -2,6 +2,9 @@ import DashboardLayout from '@/components/layouts/DashboardLayout';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import MyTasks from '@/pages/my-tasks/MyTasks';
 import Project from '@/pages/projects/Project';
+import Account from '@/pages/settings/pages/account/Account';
+import Appearance from '@/pages/settings/pages/appearance/Appearance';
+import Settings from '@/pages/settings/Settings';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 export default function AppRoutes() {
@@ -11,9 +14,18 @@ export default function AppRoutes() {
 
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/my-tasks" element={<MyTasks />} />
+        <Route
+          path="/my-tasks"
+          element={<MyTasks variant="default" projectId="" handleRefresh={() => {}} />}
+        />
         <Route path="/projects" element={<Project />} />
-        <Route path="/settings" element={<Dashboard />} />
+
+        <Route path="/settings" element={<Settings />}>
+          <Route index element={<Navigate to="account" replace />} />
+
+          <Route path="account" element={<Account />} />
+          <Route path="appearance" element={<Appearance />} />
+        </Route>
       </Route>
     </Routes>
   );
