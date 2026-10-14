@@ -1,5 +1,6 @@
 import AuthLayout from '@/components/layouts/AuthLayout';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import ForgotPassword from '@/pages/auth/forgot-password/ForgotPassword';
 import Login from '@/pages/auth/login/Login';
 import Register from '@/pages/auth/register/Register';
 import Dashboard from '@/pages/dashboard/Dashboard';
@@ -17,6 +18,7 @@ export default function AppRoutes() {
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Route>
 
       <Route element={<DashboardLayout />}>

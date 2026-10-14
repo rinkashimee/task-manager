@@ -55,6 +55,8 @@
     "sign-up": "Mag-sign up",
     "forgot-pass": "Nakalimutan ang password?",
     "create-acc": "Gumawa ng Account",
+    "reset-link": "Ipadala ang reset link",
+    "back-sign-in": "Bumalik sa pag-sign in",
     "validation": {
       "field-required": "Kinakailangang punan ang field na ito",
       "minimum-char": "Hindi bababa sa {{min}} character",
@@ -321,6 +323,18 @@
         "email": "Ilagay ang iyong email",
         "password": "Gumawa ng password",
         "confirm-pass": "Kumpirmahin ang iyong password"
+      }
+    },
+    "forgot-pass": {
+      "forgot": "Nakalimutan ang password?",
+      "desc": "Ilagay ang iyong email address at padadalhan ka namin ng link para i-reset ang iyong password.",
+      "check-email": "Tingnan ang iyong email",
+      "check-email-desc": "Kung may account na nakarehistro sa email address na iyon, makakatanggap ka ng password reset link sa ilang sandali.",
+      "form": {
+        "email": "Email address"
+      },
+      "placeholder": {
+        "email": "Ilagay ang iyong email"
       }
     }
   }

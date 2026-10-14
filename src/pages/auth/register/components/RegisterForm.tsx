@@ -15,7 +15,10 @@ export default function RegisterForm(props: RegisterFormProps) {
   const { t } = useTranslation();
 
   return (
-    <Form<RegisterFormTypes> onSubmit={handleSubmit}>
+    <Form<RegisterFormTypes>
+      initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
+      onSubmit={handleSubmit}
+    >
       <Form.Item
         name="name"
         label={t('auth.register.form.name')}
@@ -73,7 +76,7 @@ export default function RegisterForm(props: RegisterFormProps) {
         />
       </Form.Item>
 
-      <Button type="submit" className="mt-2 h-10 w-full gap-2 px-4">
+      <Button type="submit" variant="primary" className="mt-2 h-10 w-full gap-2 px-4">
         <Typography as="p" variant="caption" className="truncate font-semibold">
           {t('common.create-acc')}
         </Typography>

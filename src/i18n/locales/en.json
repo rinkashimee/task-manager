@@ -55,6 +55,8 @@
     "sign-up": "Sign up",
     "forgot-pass": "Forgot password?",
     "create-acc": "Create account",
+    "reset-link": "Send reset link",
+    "back-sign-in": "Back to sign in",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",
@@ -321,6 +323,18 @@
         "email": "Enter your email",
         "password": "Create a password",
         "confirm-pass": "Confirm your password"
+      }
+    },
+    "forgot-pass": {
+      "forgot": "Forgot password?",
+      "desc": "Enter your email address and we'll send you a link to reset your password.",
+      "check-email": "Check your email",
+      "check-email-desc": "If an account exists with that email address, you'll receive a password reset link shortly.",
+      "form": {
+        "email": "Email address"
+      },
+      "placeholder": {
+        "email": "Enter your email"
       }
     }
   }
