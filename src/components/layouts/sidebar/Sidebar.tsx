@@ -4,16 +4,18 @@ import SidebarLogo from './SidebarLogo';
 import TaskIcon from '../../icons/TaskIcon';
 import Typography from '../../ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
+import { cn } from '@/lib/utils/utils';
 
 export default function Sidebar() {
   const { t } = useTranslation();
 
   return (
-    <aside className="bg-surface border-border relative flex h-screen w-[260px] flex-col border-r px-5 py-6">
-      <div className="pointer-events-none absolute -top-30 left-1/2 h-[220px] w-[220px] -translate-x-1/2 rounded-full bg-indigo-600/20 blur-[120px]" />
-
-      <div className="pointer-events-none absolute -bottom-30 left-1/2 h-[220px] w-[220px] -translate-x-1/2 rounded-full bg-indigo-600/20 blur-[120px]" />
-
+    <aside
+      className={cn(
+        'bg-surface border-border relative flex h-screen w-[260px] flex-col border-r px-5 py-6',
+        'bg-[linear-gradient(160deg,var(--surface)_0%,var(--surface-accent)_100%)]'
+      )}
+    >
       <SidebarLogo />
 
       <nav className="mt-10 flex-1 space-y-3">
