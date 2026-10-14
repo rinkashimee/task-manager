@@ -101,7 +101,9 @@
       "account": "Account",
       "appearance": "Hitsura",
       "account-desc": "Personal na impormasyon",
-      "appearance-desc": "Tema at wika"
+      "appearance-desc": "Tema at wika",
+      "about": "Tungkol sa App",
+      "about-desc": "Impormasyon tungkol sa App"
     }
   },
   "dashboard": {
@@ -245,6 +247,38 @@
         "dark": "Dark",
         "light-desc": "Malinis at maliwanag na interface",
         "dark-desc": "Komportable sa mata"
+      }
+    },
+    "about": {
+      "caption": "Ginawa para mapanatiling organisado ang iyong mga gawain at mas madaling maabot ang iyong mga layunin.",
+      "overview": {
+        "about-app": "Tungkol sa Task Manager",
+        "about-desc": "Alamin pa ang tungkol sa app at mga feature nito.",
+        "app-name": "Task Manager",
+        "version": "Bersyon 1.0.0",
+        "app-desc": "Ang Task Manager ay isang simple at madaling gamitin na productivity app na ginawa para tulungan kang ayusin ang mga task, pamahalaan ang mga project, at masubaybayan ang mga deadline."
+      },
+      "features": {
+        "title": "Mga Maaari Mong Gawin",
+        "desc": "Tuklasin ang mga feature na tutulong sa iyong manatiling produktibo.",
+        "organize": "Ayusin ang Iyong Mga Task",
+        "organize-desc": "Gumawa, magtakda ng prayoridad, at subaybayan ang mga task mula simula hanggang matapos.",
+        "manage-project": "Pamahalaan ang Mga Project",
+        "manage-project-desc": "Pagsama-samahin ang magkakaugnay na task at subaybayan ang progreso ng project.",
+        "track-progress": "Subaybayan ang Iyong Progreso",
+        "track-progress-desc": "Tingnan ang mga natapos na task, paparating na deadline, at pagiging produktibo.",
+        "personalize": "I-customize ang Iyong Karanasan",
+        "personalize-desc": "I-customize ang gusto mong tema at wika."
+      },
+      "information": {
+        "app-info": "Impormasyon tungkol sa App",
+        "app-info-caption": "Pangkalahatang impormasyon tungkol sa Task Manager.",
+        "version": "Bersyon",
+        "platform": "Platform",
+        "developer": "Developer",
+        "version-val": "1.0.0",
+        "platform-val": "Web Application",
+        "developer-val": "Mark Le Jhon Casalta"
       }
     }
   }

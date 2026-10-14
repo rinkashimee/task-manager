@@ -101,7 +101,9 @@
       "account": "アカウント",
       "appearance": "外観",
       "account-desc": "個人情報",
-      "appearance-desc": "テーマと言語"
+      "appearance-desc": "テーマと言語",
+      "about": "アプリについて",
+      "about-desc": "アプリケーション情報"
     }
   },
   "dashboard": {
@@ -245,6 +247,38 @@
         "dark": "ダーク",
         "light-desc": "明るくすっきりしたインターフェース",
         "dark-desc": "目に優しいインターフェース"
+      }
+    },
+    "about": {
+      "caption": "作業を整理し、目標達成をサポートします。",
+      "overview": {
+        "about-app": "タスクマネージャーについて",
+        "about-desc": "アプリとその機能について詳しくご紹介します。",
+        "app-name": "タスクマネージャー",
+        "version": "バージョン 1.0.0",
+        "app-desc": "タスクマネージャーは、タスクの整理、プロジェクトの管理、期限の把握をサポートする、シンプルで直感的な生産性向上アプリです。"
+      },
+      "features": {
+        "title": "主な機能",
+        "desc": "生産性を高めるための機能をご紹介します。",
+        "organize": "タスクを整理",
+        "organize-desc": "タスクの作成、優先順位の設定、完了までの進捗管理ができます。",
+        "manage-project": "プロジェクトを管理",
+        "manage-project-desc": "関連するタスクをまとめて、プロジェクトの進捗を確認できます。",
+        "track-progress": "進捗を確認",
+        "track-progress-desc": "完了したタスク、今後の期限、生産性を確認できます。",
+        "personalize": "自分好みにカスタマイズ",
+        "personalize-desc": "お好みのテーマと言語を設定できます。"
+      },
+      "information": {
+        "app-info": "アプリケーション情報",
+        "app-info-caption": "タスクマネージャーの基本情報。",
+        "version": "バージョン",
+        "platform": "プラットフォーム",
+        "developer": "開発者",
+        "version-val": "1.0.0",
+        "platform-val": "ウェブアプリケーション",
+        "developer-val": "Mark Le Jhon Casalta"
       }
     }
   }

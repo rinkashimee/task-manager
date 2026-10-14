@@ -2,6 +2,7 @@ import DashboardLayout from '@/components/layouts/DashboardLayout';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import MyTasks from '@/pages/my-tasks/MyTasks';
 import Project from '@/pages/projects/Project';
+import About from '@/pages/settings/pages/about/About';
 import Account from '@/pages/settings/pages/account/Account';
 import Appearance from '@/pages/settings/pages/appearance/Appearance';
 import Settings from '@/pages/settings/Settings';
@@ -25,6 +26,7 @@ export default function AppRoutes() {
 
           <Route path="account" element={<Account />} />
           <Route path="appearance" element={<Appearance />} />
+          <Route path="about" element={<About />} />
         </Route>
       </Route>
     </Routes>

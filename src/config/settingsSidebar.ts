@@ -13,4 +13,10 @@ export const settingsNavItems: SettingsNavItem[] = [
     path: '/settings/appearance',
     description: 'sidebar.settings-sidebar.appearance-desc',
   },
+  {
+    labelKey: 'sidebar.settings-sidebar.about',
+    icon: 'InfoIcon',
+    path: '/settings/about',
+    description: 'sidebar.settings-sidebar.about-desc',
+  },
 ];

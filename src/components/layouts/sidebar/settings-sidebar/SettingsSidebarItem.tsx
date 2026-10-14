@@ -29,7 +29,12 @@ export default function SettingsSidebarItem(props: SettingsSidebarItemProps) {
           : 'text-text-muted hover:bg-primary/5 hover:text-primary'
       )}
     >
-      <TaskIcon icon={icon} size={18} className={cn(isActive ? 'text-primary' : 'text-text')} />
+      <TaskIcon
+        icon={icon}
+        size={18}
+        weight="bold"
+        className={cn(isActive ? 'text-primary' : 'text-text')}
+      />
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <Typography

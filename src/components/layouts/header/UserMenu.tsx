@@ -92,7 +92,14 @@ export default function UserMenu(props: UserMenuProps) {
 
           <div className="border-border my-2 border-t" />
 
-          <UserMenuItem icon="InfoIcon" label={t('common.about')} />
+          <UserMenuItem
+            icon="InfoIcon"
+            label={t('common.about')}
+            onClick={() => {
+              navigate('/settings/about');
+              setIsOpen(false);
+            }}
+          />
 
           <div className="border-border my-2 border-t" />
 
