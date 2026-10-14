@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Inter', sans-serif;
   --font-heading: 'Space Grotesk', sans-serif;
@@ -8,6 +10,7 @@
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-canvas: var(--canvas);
+  --color-skeleton: var(--skeleton);
 
   --color-card: var(--card);
 
@@ -30,6 +33,7 @@
   --background: #f9fafe;
   --surface: #10182d;
   --canvas: #f2f5fc;
+  --skeleton: #e5eaf5;
 
   --card: #ffffff;
 
@@ -49,18 +53,19 @@
 }
 
 .dark {
-  --background: #0c1523;
-  --surface: #0a111f;
+  --background: #0e1523;
+  --surface: #0f1422;
   --canvas: #101b2c;
+  --skeleton: #303d55;
 
-  --card: #ffffff;
+  --card: #151c2c;
 
   --text: #fdfcfc;
-  --text-muted: #90a3c6;
+  --text-muted: #a5b1cc;
   --text-inverse: #ffffff;
 
-  --border: #172135;
-  --input-border: #e1e7f5;
+  --border: #202b42;
+  --input-border: #34435b;
 
   --primary: #664fff;
 
@@ -70,12 +75,22 @@
   --info: #3b82f6;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   :where(button, a, input, textarea, select):focus-visible {
     outline: 1px solid var(--color-primary);
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(0.3);
+    cursor: pointer;
+  }
+
+  .dark input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(0.7);
+    cursor: pointer;
   }
 }

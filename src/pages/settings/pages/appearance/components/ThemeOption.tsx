@@ -7,16 +7,16 @@ import type { ThemeOptionsType } from '../types/Appearance.types';
 
 interface ThemeOptionProps {
   item: ThemeOptionsType;
-  seletedTheme: ThemeOptionsType['value'];
+  selectedTheme: ThemeOptionsType['value'];
   setSelectedTheme: (theme: ThemeOptionsType['value']) => void;
 }
 
 export default function ThemeOption(props: ThemeOptionProps) {
-  const { item, seletedTheme, setSelectedTheme } = props;
+  const { item, selectedTheme, setSelectedTheme } = props;
 
   const { t } = useTranslation();
 
-  const selected = seletedTheme === item.value;
+  const selected = selectedTheme === item.value;
 
   return (
     <Button

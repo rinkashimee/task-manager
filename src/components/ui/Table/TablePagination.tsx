@@ -27,7 +27,7 @@ export default function TablePagination(props: TablePaginationProps) {
 
   return (
     <div className="flex w-full items-center justify-between p-3">
-      <Typography variant="caption" className="truncate">
+      <Typography variant="caption" className="text-text truncate">
         {t('common.pagination-showing', {
           count: `${start}-${end}`,
           total: `${total}`,
@@ -40,12 +40,12 @@ export default function TablePagination(props: TablePaginationProps) {
           variant="ghost"
           disabled={isFirstPage}
           onClick={() => onChange?.(current - 1)}
-          className="px-3 py-2"
+          className="text-text px-3 py-2"
         >
           <TaskIcon size={16} icon="CaretLeftIcon" />
         </Button>
 
-        <Typography variant="caption" className="truncate">
+        <Typography variant="caption" className="text-text truncate">
           {current} / {totalPages}
         </Typography>
 
@@ -53,7 +53,7 @@ export default function TablePagination(props: TablePaginationProps) {
           variant="ghost"
           disabled={isLastPage}
           onClick={() => onChange?.(current + 1)}
-          className="px-3 py-2"
+          className="text-text px-3 py-2"
         >
           <TaskIcon size={16} icon="CaretRightIcon" />
         </Button>

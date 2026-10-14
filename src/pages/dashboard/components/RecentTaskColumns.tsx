@@ -35,7 +35,7 @@ export default function recentTaskColumns(props: RecentTaskColumnProps): TableCo
 
         return (
           <div className="flex flex-col">
-            <Typography variant="caption" className="truncate font-sans font-semibold">
+            <Typography variant="caption" className="text-text truncate font-sans font-semibold">
               {response.title}
             </Typography>
 

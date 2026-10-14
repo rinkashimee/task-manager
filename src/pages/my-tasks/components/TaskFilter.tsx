@@ -39,7 +39,10 @@ export default function TaskFilter(props: TaskFilterProps) {
             key={filter.value}
             variant={isActive ? 'primary' : 'ghost'}
             onClick={() => onChange(filter.value)}
-            className={cn('h-9 shrink-0 rounded-md px-4', !isActive && 'bg-canvas text-text-muted')}
+            className={cn(
+              'border-border h-9 shrink-0 rounded-md border px-4',
+              !isActive && 'bg-canvas text-text-muted'
+            )}
           >
             <Typography
               as="p"

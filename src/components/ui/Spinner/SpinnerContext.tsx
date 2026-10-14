@@ -7,7 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 export const SprinnerContext = createContext<SpinnerContextValue | null>(null);
 
-export function SpinnerProvider({ children }: { children: ReactNode }) {
+export function SpinnerProvider(props: { children: ReactNode }) {
+  const { children } = props;
+
   const { t } = useTranslation();
 
   const loading = t('common.loading');

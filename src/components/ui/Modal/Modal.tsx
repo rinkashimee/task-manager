@@ -63,7 +63,7 @@ export default function Modal(props: ModalProps) {
         aria-label={title || 'Details'}
         onMouseDown={(event) => event.stopPropagation()}
         className={cn(
-          'bg-card border-border flex max-h-[90dvh] w-full flex-col rounded-md border shadow-sm',
+          'bg-card dark:bg-background border-border flex max-h-[90dvh] w-full flex-col rounded-md border shadow-sm',
           modalSizes[size],
           height,
           className

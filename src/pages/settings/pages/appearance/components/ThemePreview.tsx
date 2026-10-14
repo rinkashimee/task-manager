@@ -6,12 +6,12 @@ import { cn } from '@/lib/utils/utils';
 import { useTranslation } from 'react-i18next';
 
 interface ThemePreviewProps {
-  seletedTheme: ThemeOptionsType['value'];
+  selectedTheme: ThemeOptionsType['value'];
   setSelectedTheme: (theme: ThemeOptionsType['value']) => void;
 }
 
 export default function ThemePreview(props: ThemePreviewProps) {
-  const { seletedTheme, setSelectedTheme } = props;
+  const { selectedTheme, setSelectedTheme } = props;
 
   const { t } = useTranslation();
 
@@ -29,7 +29,7 @@ export default function ThemePreview(props: ThemePreviewProps) {
 
       <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {themes.map((item) => {
-          const selected = seletedTheme === item.value;
+          const selected = selectedTheme === item.value;
 
           return (
             <button
@@ -38,13 +38,13 @@ export default function ThemePreview(props: ThemePreviewProps) {
               onClick={() => setSelectedTheme(item.value)}
               className={cn(
                 'border-border overflow-hidden rounded-md border p-2 text-left transition-colors',
-                seletedTheme === item.value && 'border-primary'
+                selectedTheme === item.value && 'border-primary'
               )}
             >
               <div
                 className={cn(
                   'flex h-32 items-center justify-center rounded-md',
-                  item.value === 'light' ? 'bg-background text-text' : 'bg-[#0c1523] text-white'
+                  item.value === 'light' ? 'text-text bg-[#f9fafe]' : 'bg-[#0c1523] text-white'
                 )}
               >
                 <TaskIcon icon={item.icon} size={28} />

@@ -30,7 +30,7 @@ export default function DashboardStatCard(props: DashboardStatCardProps) {
           {title}
         </Typography>
 
-        <Typography variant="body-lg" className="text-text-primary font-bold">
+        <Typography variant="body-lg" className="text-text font-bold">
           {value}
         </Typography>
       </div>

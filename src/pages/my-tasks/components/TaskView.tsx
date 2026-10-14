@@ -65,7 +65,12 @@ export default function TaskView(props: TaskViewProps) {
 
       <div className="border-border border-t" />
 
-      <div className="bg-background border-border grid grid-cols-1 gap-4 rounded-lg border p-4 sm:grid-cols-2">
+      <div
+        className={cn(
+          'border-border grid grid-cols-1 gap-4 rounded-lg border p-4 sm:grid-cols-2',
+          'bg-background dark:bg-card'
+        )}
+      >
         <TaskMetadata
           label={t('my-tasks.view.status')}
           value={
@@ -94,7 +99,7 @@ export default function TaskView(props: TaskViewProps) {
       </div>
 
       <div className="border-border flex flex-col gap-2 border-t pt-4">
-        <Typography variant="body-sm" className="font-sans font-semibold">
+        <Typography variant="body-sm" className="text-text font-sans font-semibold">
           {t('my-tasks.view.description')}
         </Typography>
 

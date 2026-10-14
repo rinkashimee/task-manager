@@ -1,18 +1,18 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Typography from '@/components/ui/Typography/Typography';
-import type { AppearanceSettingsProps, ThemeOptionsType } from './types/Appearance.types';
+import type { AppearanceSettingsProps } from './types/Appearance.types';
 import { languageOptions, themes } from './constants/Appearance.constant';
 import SettingsCard from '@/components/ui/Cards/SettingsCard';
 import ThemeOption from './components/ThemeOption';
 import ThemePreview from './components/ThemePreview';
 import Dropdown from '@/components/ui/Dropdown/Dropdown';
+import useTheme from './components/ThemeContext';
 
 export default function Appearance(props: AppearanceSettingsProps) {
   const { variant = 'full' } = props;
 
   const { i18n, t } = useTranslation();
-  const [seletedTheme, setSelectedTheme] = useState<ThemeOptionsType['value']>('light');
+  const { selectedTheme, setSelectedTheme } = useTheme();
 
   const isFull = variant === 'full';
 
@@ -47,7 +47,7 @@ export default function Appearance(props: AppearanceSettingsProps) {
               <ThemeOption
                 key={item.value}
                 item={item}
-                seletedTheme={seletedTheme}
+                selectedTheme={selectedTheme}
                 setSelectedTheme={setSelectedTheme}
               />
             );
@@ -55,7 +55,7 @@ export default function Appearance(props: AppearanceSettingsProps) {
         </div>
       </div>
 
-      {isFull && <ThemePreview seletedTheme={seletedTheme} setSelectedTheme={setSelectedTheme} />}
+      {isFull && <ThemePreview selectedTheme={selectedTheme} setSelectedTheme={setSelectedTheme} />}
 
       <div className="border-border mt-5 border-t pt-4">
         <div className="flex flex-1 flex-col gap-1">

@@ -69,7 +69,7 @@ export default function UpcomingDeadlineItem(props: UpcomingDeadlineItemProps) {
         </div>
 
         <div className="flex w-40 min-w-0 flex-col gap-1">
-          <Typography variant="caption" className="truncate font-semibold">
+          <Typography variant="caption" className="text-text truncate font-semibold">
             {task.title}
           </Typography>
 

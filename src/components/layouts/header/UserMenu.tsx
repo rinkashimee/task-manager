@@ -44,7 +44,7 @@ export default function UserMenu(props: UserMenuProps) {
       <Button
         type="button"
         variant="ghost"
-        className="gap-3 px-4 py-2"
+        className="text-text gap-3 px-4 py-2"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <UserAvatar name={name} avatarUrl={avatarUrl} />

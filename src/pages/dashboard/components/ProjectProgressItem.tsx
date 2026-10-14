@@ -49,7 +49,7 @@ export default function ProjectProgressItem(props: ProjectProgressItemProps) {
           </div>
         </div>
 
-        <Typography variant="caption" className="tex-text shrink-0 font-semibold">
+        <Typography variant="caption" className="text-text shrink-0 font-semibold">
           {t('project.table.percent', { value: project.progress })}
         </Typography>
       </div>
