@@ -1,0 +1,251 @@
+{
+  "common": {
+    "morning": "Magandang umaga",
+    "afternoon": "Magandang hapon",
+    "evening": "Magandang gabi",
+    "account": "Account",
+    "appearance": "Hitsura",
+    "about": "Tungkol sa App",
+    "logout": "Mag-log out",
+    "search-tasks": "Maghanap ng mga task...",
+    "search-projects": "Maghanap ng mga project...",
+    "add-tasks": "Magdagdag ng Task",
+    "new-project": "Bagong Project",
+    "no-tasks": "Walang mga task",
+    "no-projects": "Walang mga project",
+    "task-caption": "Gumawa ng task para masimulang ayusin ang iyong mga gawain.",
+    "project-progress-caption": "Gumawa ng iyong unang project para masubaybayan ang progreso.",
+    "project-caption": "Gumawa ng iyong unang project para maayos ang mga task at masubaybayan ang progreso.",
+    "all": "Lahat",
+    "to-do": "Gagawin",
+    "in-progress": "Ginagawa",
+    "completed": "Tapos na",
+    "overdue": "Lampas sa Deadline",
+    "cancel": "Kanselahin",
+    "create-task": "Gumawa ng Task",
+    "create-project": "Gumawa ng Project",
+    "save-changes": "I-save ang mga Pagbabago",
+    "loading": "Naglo-load...",
+    "view": "Tingnan ang {{name}}",
+    "edit": "I-edit ang {{name}}",
+    "recent": "Mga Kamakailang {{name}}",
+    "view-all": "Tingnan ang Lahat ng {{name}}",
+    "viewAll": "Tingnan Lahat",
+    "no-task-yet": "Wala pang mga task sa project na ito.",
+    "mark-completed": "Markahan bilang tapos na",
+    "duplicate": "Gumawa ng Kopya",
+    "delete": "Burahin ang task",
+    "view-desc": "Walang ibinigay na paglalarawan.",
+    "pagination-showing": "Ipinapakita ang {{count}} sa {{total}} {{resourceName}}",
+    "request-time-out": "Nag-timeout ang request. Pakisubukang muli.",
+    "unable-to-connect": "Hindi makakonekta sa server.",
+    "went-wrong": "May nangyaring error. Pakisubukang muli.",
+    "creating": "Ginagawa...",
+    "saving": "Sine-save...",
+    "processing": "Pinoproseso...",
+    "not-found": "Hindi ma-load ang detalye ng task. Pakisubukang muli.",
+    "unable-duplicate": "Hindi makagawa ng kopya ng task. Pakisubukang muli.",
+    "duplicate-success": "Matagumpay na nakopya ang {{name}}",
+    "complete-success": "Matagumpay na natapos ang {{name}}",
+    "upload-image": "Mag-upload ng Larawan",
+    "remove": "Alisin",
+    "theme-preview": "{{value}} na Tema",
+    "current": " (Kasalukuyan)",
+    "validation": {
+      "field-required": "Kinakailangang punan ang field na ito",
+      "minimum-char": "Hindi bababa sa {{min}} character",
+      "maximum-char": "Hindi hihigit sa {{max}} character"
+    },
+    "status-dropdown": {
+      "todo": "Gagawin",
+      "not-started": "Hindi Pa Nasisimulan",
+      "in-progress": "Ginagawa",
+      "completed": "Tapos na",
+      "on-hold": "Naka-hold"
+    },
+    "priority-dropdown": {
+      "low": "Mababa",
+      "medium": "Katamtaman",
+      "high": "Mataas"
+    },
+    "confirmation-config": {
+      "complete": "Tapusin ang {{name}}",
+      "edit": "I-edit ang {{name}}",
+      "delete": "Burahin ang {{name}}",
+      "duplicate": "Gumawa ng Kopya ng {{name}}",
+      "complete-desc": "Sigurado ka bang gusto mong markahan ang {{name}} bilang tapos na?",
+      "edit-desc": "Sigurado ka bang gusto mong i-edit ang {{name}}?",
+      "delete-desc": "Sigurado ka bang gusto mong burahin ang {{name}}? Hindi na ito maaaring ibalik.",
+      "duplicate-desc": "Sigurado ka bang gusto mong gumawa ng kopya ng {{name}}?"
+    },
+    "toast-title": {
+      "fail": "Nabigo",
+      "success": "Matagumpay",
+      "warning": "Babala",
+      "info": "Impormasyon"
+    },
+    "language-dropdown": {
+      "en": "Ingles",
+      "fil": "Filipino",
+      "ja": "Hapones"
+    }
+  },
+  "sidebar": {
+    "logo": "Task Manager",
+    "dashboard": "Dashboard",
+    "my-tasks": "Aking Mga Task",
+    "projects": "Mga Project",
+    "settings": "Settings",
+    "footer": "Ang maliliit na hakbang ay\nnagdudulot ng malalaking tagumpay.",
+    "settings-sidebar": {
+      "account": "Account",
+      "appearance": "Hitsura",
+      "account-desc": "Personal na impormasyon",
+      "appearance-desc": "Tema at wika"
+    }
+  },
+  "dashboard": {
+    "title": "{{data}}, {{user}}!👋",
+    "caption": "Narito ang buod ng iyong mga task para sa araw na ito.",
+    "upcoming-deadline": "Mga Paparating na Deadline",
+    "no-deadline": "Walang paparating na deadline",
+    "deadline-desc": "Ayos! Wala kang mga task na malapit na ang deadline.",
+    "this-week": "Ngayong Linggo",
+    "project-progress": "Progreso ng mga Project",
+    "recent-tasks": "Mga Kamakailang Task",
+    "dashboard-stat": {
+      "total-tasks": "Kabuuang Task",
+      "completed": "Tapos na",
+      "in-progress": "Ginagawa",
+      "overdue": "Lampas sa Deadline"
+    }
+  },
+  "my-tasks": {
+    "title": "Aking Mga Task",
+    "name": "Task",
+    "name-s": "Mga Task",
+    "caption": "Subaybayan ang iyong mga task at manatiling produktibo.",
+    "table": {
+      "task": "Task",
+      "project": "Project",
+      "priority": "Prayoridad",
+      "status": "Status",
+      "due-date": "Deadline"
+    },
+    "modal": {
+      "add-tasks": "Magdagdag ng Task",
+      "edit-tasks": "I-edit ang Task",
+      "add-caption": "Gumawa ng bagong task para manatiling organisado ang iyong mga gawain.",
+      "edit-caption": "I-update ang detalye ng iyong task para manatiling maayos ang iyong mga gawain."
+    },
+    "form": {
+      "task-title": "Pangalan ng Task",
+      "desc": "Paglalarawan",
+      "project": "Project",
+      "priority": "Prayoridad",
+      "status": "Status",
+      "due-date": "Deadline"
+    },
+    "placeholder": {
+      "enter-task-title": "Hal. Gumawa ng landing page UI",
+      "enter-desc": "Magdagdag ng detalye tungkol sa task...",
+      "select-project": "Pumili ng project",
+      "select-priority": "Pumili ng prayoridad",
+      "select-status": "Pumili ng status",
+      "select-due-date": "Pumili ng deadline"
+    },
+    "view": {
+      "project": "Project",
+      "due-date": "Deadline",
+      "priority": "Prayoridad",
+      "status": "Status",
+      "last-updated": "Huling Na-update",
+      "created-at": "Petsa ng Paggawa",
+      "task-id": "Task ID",
+      "description": "Paglalarawan"
+    }
+  },
+  "project": {
+    "title": "Mga Project",
+    "name": "Project",
+    "caption": "Pamahalaan ang iyong mga project at subaybayan ang progreso.",
+    "table": {
+      "name": "Pangalan ng Project",
+      "progress": "Progreso",
+      "status": "Status",
+      "due-date": "Deadline",
+      "last-updated": "Huling Na-update",
+      "tasks": "{{completeTasks}} sa {{totalTasks}} task ang natapos",
+      "percent": "{{value}}%"
+    },
+    "modal": {
+      "new-project": "Magdagdag ng Bagong Project",
+      "edit-project": "I-edit ang Project",
+      "new-caption": "Punan ang mga detalye sa ibaba para gumawa ng bagong project.",
+      "edit-caption": "I-update ang detalye ng iyong project para manatiling organisado at napapanahon."
+    },
+    "form": {
+      "name": "Pangalan ng Project",
+      "desc": "Paglalarawan",
+      "status": "Status ng Project",
+      "due-date": "Deadline (Opsyonal)",
+      "icon": "Icon ng Project (Opsyonal)"
+    },
+    "placeholder": {
+      "project-name": "Hal. Website Redesign",
+      "desc": "Maikling ilarawan ang iyong project...",
+      "select-status": "Pumili ng status ng project",
+      "select-due-date": "Pumili ng deadline"
+    },
+    "view": {
+      "due-date": "Deadline",
+      "progress": "Progreso",
+      "total-tasks": "Kabuuang Task",
+      "completed-tasks": "Mga Natapos na Task",
+      "project-details": "Detalye ng Project",
+      "name": "Pangalan",
+      "desc": "Paglalarawan",
+      "status": "Status",
+      "projectIcon": "Icon ng Project",
+      "last-updated": "Huling Na-update",
+      "created-at": "Petsa ng Paggawa",
+      "all-tasks-project": "Lahat ng task para sa project na ito."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "caption": "Pamahalaan ang iyong account at hitsura ng app.",
+    "account-setting": {
+      "account": "Account",
+      "desc": "I-update ang iyong personal na impormasyon.",
+      "change-pic": "Palitan ang Profile Picture",
+      "recommended": "Mag-upload ng bagong larawan. Inirerekomendang laki ay 256x256px.",
+      "pic-type": "JPG, PNG o GIF (Max 2MB)",
+      "form": {
+        "name": "Pangalan",
+        "email": "Email",
+        "role": "Role"
+      },
+      "placeholder": {
+        "name": "Ilagay ang iyong pangalan",
+        "email": "Ilagay ang iyong email"
+      }
+    },
+    "appearance": {
+      "title": "Hitsura",
+      "desc": "Piliin ang gusto mong tema at mga setting ng display.",
+      "theme": "Tema",
+      "theme-desc": "Pumili ng tema para sa iyong workspace.",
+      "preview": "Preview",
+      "preview-desc": "Tingnan kung ano ang magiging hitsura ng tema sa app.",
+      "language": "Wika",
+      "language-desc": "Piliin ang wikang gusto mong gamitin sa app.",
+      "option": {
+        "light": "Light",
+        "dark": "Dark",
+        "light-desc": "Malinis at maliwanag na interface",
+        "dark-desc": "Komportable sa mata"
+      }
+    }
+  }
+}

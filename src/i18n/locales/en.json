@@ -112,7 +112,13 @@
     "deadline-desc": "You're all caught up! No deadlines approaching.",
     "this-week": "This Week",
     "project-progress": "Project Progress",
-    "recent-tasks": "Recent Tasks"
+    "recent-tasks": "Recent Tasks",
+    "dashboard-stat": {
+      "total-tasks": "Total Tasks",
+      "completed": "Completed",
+      "in-progress": "In Porgress",
+      "overdue": "Overdue"
+    }
   },
   "my-tasks": {
     "title": "My Tasks",

@@ -1,5 +1,4 @@
 import { useState, useRef, type ChangeEvent } from 'react';
-import Typography from '@/components/ui/Typography/Typography';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
 import { useTranslation } from 'react-i18next';
 import ProfilePictureUpload from './components/ProfilePictureUpload';
