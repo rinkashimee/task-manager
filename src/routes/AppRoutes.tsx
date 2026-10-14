@@ -1,4 +1,6 @@
+import AuthLayout from '@/components/layouts/AuthLayout';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import Login from '@/pages/auth/login/Login';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import MyTasks from '@/pages/my-tasks/MyTasks';
 import Project from '@/pages/projects/Project';
@@ -11,7 +13,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login />} />
+      </Route>
 
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
@@ -29,6 +33,8 @@ export default function AppRoutes() {
           <Route path="about" element={<About />} />
         </Route>
       </Route>
+
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }

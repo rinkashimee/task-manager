@@ -51,10 +51,14 @@
     "remove": "削除",
     "theme-preview": "{{value}}テーマ",
     "current": "（現在）",
+    "sign-in": "ログイン",
+    "sign-up": "新規登録",
+    "forgot-pass": "パスワードをお忘れですか？",
     "validation": {
       "field-required": "この項目は必須です",
       "minimum-char": "{{min}}文字以上で入力してください",
-      "maximum-char": "{{max}}文字以内で入力してください"
+      "maximum-char": "{{max}}文字以内で入力してください",
+      "invalid-format": "正しい形式で入力してください。"
     },
     "status-dropdown": {
       "todo": "未着手",
@@ -279,6 +283,26 @@
         "version-val": "1.0.0",
         "platform-val": "ウェブアプリケーション",
         "developer-val": "Mark Le Jhon Casalta"
+      }
+    }
+  },
+  "auth": {
+    "brand": {
+      "title": "タスクマネージャー",
+      "desc": "タスクを整理し、プロジェクトを管理して、より多くの目標を達成しましょう。"
+    },
+    "login": {
+      "welcome": "ようこそ！",
+      "desc": "タスクマネージャーにログインして続行してください。",
+      "no-account": "アカウントをお持ちでないですか？ ",
+      "form": {
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "remember-me": "ログイン状態を保持する"
+      },
+      "placeholder": {
+        "email": "メールアドレスを入力",
+        "password": "パスワードを入力"
       }
     }
   }

@@ -11,6 +11,7 @@
   --color-surface: var(--surface);
   --color-canvas: var(--canvas);
   --color-skeleton: var(--skeleton);
+  --color-surface-accent: var(--surface-accent);
 
   --color-card: var(--card);
 
@@ -34,6 +35,7 @@
   --surface: #10182d;
   --canvas: #f2f5fc;
   --skeleton: #e5eaf5;
+  --surface-accent: #151b38;
 
   --card: #ffffff;
 
@@ -57,6 +59,7 @@
   --surface: #0f1422;
   --canvas: #101b2c;
   --skeleton: #303d55;
+  --surface-accent: #171c30;
 
   --card: #151c2c;
 

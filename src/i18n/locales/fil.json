@@ -51,10 +51,14 @@
     "remove": "Alisin",
     "theme-preview": "{{value}} na Tema",
     "current": " (Kasalukuyan)",
+    "sign-in": "Mag-sign in",
+    "sign-up": "Mag-sign up",
+    "forgot-pass": "Nakalimutan ang password?",
     "validation": {
       "field-required": "Kinakailangang punan ang field na ito",
       "minimum-char": "Hindi bababa sa {{min}} character",
-      "maximum-char": "Hindi hihigit sa {{max}} character"
+      "maximum-char": "Hindi hihigit sa {{max}} character",
+      "invalid-format": "Pakilagay ang tamang format."
     },
     "status-dropdown": {
       "todo": "Gagawin",
@@ -279,6 +283,26 @@
         "version-val": "1.0.0",
         "platform-val": "Web Application",
         "developer-val": "Mark Le Jhon Casalta"
+      }
+    }
+  },
+  "auth": {
+    "brand": {
+      "title": "Task Manager",
+      "desc": "Ayusin ang iyong mga task, pamahalaan ang iyong mga project, at mas marami pang makamit."
+    },
+    "login": {
+      "welcome": "Maligayang pagdating!",
+      "desc": "Mag-sign in para magpatuloy sa Task Manager.",
+      "no-account": "Wala ka pang account? ",
+      "form": {
+        "email": "Email address",
+        "password": "Password",
+        "remember-me": "Tandaan ako"
+      },
+      "placeholder": {
+        "email": "Ilagay ang iyong email",
+        "password": "Ilagay ang iyong password"
       }
     }
   }

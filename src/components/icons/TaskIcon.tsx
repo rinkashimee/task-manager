@@ -18,7 +18,9 @@ import {
   CodeIcon,
   CopyIcon,
   DotsThreeIcon,
+  EnvelopeIcon,
   EyeIcon,
+  EyeSlashIcon,
   FlagIcon,
   FolderIcon,
   FolderOpenIcon,
@@ -28,6 +30,7 @@ import {
   InfoIcon,
   ListBulletsIcon,
   ListChecksIcon,
+  LockIcon,
   MagicWandIcon,
   MagnifyingGlassIcon,
   MegaphoneIcon,
@@ -97,6 +100,9 @@ const icons = {
   UploadIcon,
   SunIcon,
   MoonIcon,
+  EnvelopeIcon,
+  LockIcon,
+  EyeSlashIcon,
 } satisfies Record<string, Icon>;
 
 export type IconType = keyof typeof icons;

@@ -51,10 +51,14 @@
     "remove": "Remove",
     "theme-preview": "{{value}} Theme",
     "current": " (Current)",
+    "sign-in": "Sign in",
+    "sign-up": "Sign up",
+    "forgot-pass": "Forgot password?",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",
-      "maximum-char": "Maximum {{max}} characters"
+      "maximum-char": "Maximum {{max}} characters",
+      "invalid-format": "Please enter a valid format."
     },
     "status-dropdown": {
       "todo": "To Do",
@@ -279,6 +283,26 @@
         "version-val": "1.0.0",
         "platform-val": "Web Application",
         "developer-val": "Mark Le Jhon Casalta"
+      }
+    }
+  },
+  "auth": {
+    "brand": {
+      "title": "Task Manager",
+      "desc": "Organize your tasks, manage your projects, and achieve more."
+    },
+    "login": {
+      "welcome": "Welcome!",
+      "desc": "Sign in to continue to Task Manager.",
+      "no-account": "Don't have an account? ",
+      "form": {
+        "email": "Email address",
+        "password": "Password",
+        "remember-me": "Remember me"
+      },
+      "placeholder": {
+        "email": "Enter your email",
+        "password": "Enter your password"
       }
     }
   }

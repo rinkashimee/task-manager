@@ -9,7 +9,16 @@ import { useFormContext } from './FormContext';
 import TaskIcon from '@/components/icons/TaskIcon';
 
 export default function FormItem(props: FormItemProps) {
-  const { name, label, children, rules, help, className, ...restProps } = props;
+  const {
+    name,
+    label,
+    children,
+    rules,
+    help,
+    className,
+    layout = 'vertical',
+    ...restProps
+  } = props;
 
   const generatedId = useId();
 
@@ -23,6 +32,8 @@ export default function FormItem(props: FormItemProps) {
   const error = errors[name];
   const required = rules?.some((rule) => rule.required) ?? false;
 
+  const isCheckbox = children.props.type === 'checkbox';
+
   useEffect(() => {
     return registerField(name, rules ?? []);
   }, [name, rules, registerField]);
@@ -30,10 +41,15 @@ export default function FormItem(props: FormItemProps) {
   const field = cloneElement(children, {
     name,
     id: children.props.id ?? fieldId,
-    defaultValue:
-      initialValue !== undefined && initialValue !== null
-        ? String(initialValue)
-        : children.props.defaultValue,
+    ...(isCheckbox
+      ? {
+          defaultChecked:
+            initialValue != null ? initialValue === true : children.props.defaultChecked,
+        }
+      : {
+          defaultValue: initialValue != null ? String(initialValue) : children.props.defaultValue,
+        }),
+
     error: Boolean(error),
     'aria-invalid': Boolean(error),
     'aria-describedby': error || help ? messageId : undefined,
@@ -51,21 +67,47 @@ export default function FormItem(props: FormItemProps) {
   });
 
   return (
-    <div {...restProps} className={cn('flex flex-col gap-1.5', className)}>
-      {label && (
-        <Typography
-          as="label"
-          htmlFor={field.props.id}
-          variant="caption"
-          className="text-text font-sans font-medium"
-        >
-          {label}
-
-          {required && <span className="text-danger ml-1">*</span>}
-        </Typography>
+    <div
+      {...restProps}
+      className={cn(
+        'flex gap-1.5',
+        layout === 'horizontal' ? 'flex-row items-center gap-2' : 'flex-col',
+        className
       )}
+    >
+      {layout === 'horizontal' ? (
+        <>
+          {field}
 
-      {field}
+          {label && (
+            <Typography
+              as="label"
+              htmlFor={field.props.id}
+              variant="caption"
+              className="text-text cursor-pointer font-sans leading-none font-medium"
+            >
+              {label}
+              {required && <span className="text-danger ml-1">*</span>}
+            </Typography>
+          )}
+        </>
+      ) : (
+        <>
+          {label && (
+            <Typography
+              as="label"
+              htmlFor={field.props.id}
+              variant="caption"
+              className="text-text font-sans font-medium"
+            >
+              {label}
+              {required && <span className="text-danger ml-1">*</span>}
+            </Typography>
+          )}
+
+          {field}
+        </>
+      )}
 
       {(error || help) && (
         <Typography
