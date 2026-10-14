@@ -54,6 +54,7 @@
     "sign-in": "Sign in",
     "sign-up": "Sign up",
     "forgot-pass": "Forgot password?",
+    "create-acc": "Create account",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",
@@ -303,6 +304,23 @@
       "placeholder": {
         "email": "Enter your email",
         "password": "Enter your password"
+      }
+    },
+    "register": {
+      "create": "Create your account",
+      "desc": "Get started with Task Manager and stay organized.",
+      "already-have-acc": "Already have an account? ",
+      "form": {
+        "name": "Full name",
+        "email": "Email address",
+        "password": "Password",
+        "confirm-pass": "Confirm password"
+      },
+      "placeholder": {
+        "name": "Enter your full name",
+        "email": "Enter your email",
+        "password": "Create a password",
+        "confirm-pass": "Confirm your password"
       }
     }
   }

@@ -54,6 +54,7 @@
     "sign-in": "ログイン",
     "sign-up": "新規登録",
     "forgot-pass": "パスワードをお忘れですか？",
+    "create-acc": "アカウントを作成",
     "validation": {
       "field-required": "この項目は必須です",
       "minimum-char": "{{min}}文字以上で入力してください",
@@ -303,6 +304,23 @@
       "placeholder": {
         "email": "メールアドレスを入力",
         "password": "パスワードを入力"
+      }
+    },
+    "register": {
+      "create": "アカウントを作成",
+      "desc": "タスクマネージャーを使い始めて、タスクを整理しましょう。",
+      "already-have-acc": "すでにアカウントをお持ちですか？ ",
+      "form": {
+        "name": "氏名",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "confirm-pass": "パスワードの確認"
+      },
+      "placeholder": {
+        "name": "氏名を入力",
+        "email": "メールアドレスを入力",
+        "password": "パスワードを作成",
+        "confirm-pass": "パスワードを再入力"
       }
     }
   }

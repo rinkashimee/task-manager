@@ -1,6 +1,7 @@
 import AuthLayout from '@/components/layouts/AuthLayout';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import Login from '@/pages/auth/login/Login';
+import Register from '@/pages/auth/register/Register';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import MyTasks from '@/pages/my-tasks/MyTasks';
 import Project from '@/pages/projects/Project';
@@ -15,6 +16,7 @@ export default function AppRoutes() {
     <Routes>
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Route>
 
       <Route element={<DashboardLayout />}>

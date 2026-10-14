@@ -54,6 +54,7 @@
     "sign-in": "Mag-sign in",
     "sign-up": "Mag-sign up",
     "forgot-pass": "Nakalimutan ang password?",
+    "create-acc": "Gumawa ng Account",
     "validation": {
       "field-required": "Kinakailangang punan ang field na ito",
       "minimum-char": "Hindi bababa sa {{min}} character",
@@ -303,6 +304,23 @@
       "placeholder": {
         "email": "Ilagay ang iyong email",
         "password": "Ilagay ang iyong password"
+      }
+    },
+    "register": {
+      "create": "Gumawa ng Iyong Account",
+      "desc": "Simulan ang paggamit ng Task Manager at panatilihing organisado ang iyong mga gawain.",
+      "already-have-acc": "May account ka na ba? ",
+      "form": {
+        "name": "Buong pangalan",
+        "email": "Email address",
+        "password": "Password",
+        "confirm-pass": "Kumpirmahin ang password"
+      },
+      "placeholder": {
+        "name": "Ilagay ang iyong buong pangalan",
+        "email": "Ilagay ang iyong email",
+        "password": "Gumawa ng password",
+        "confirm-pass": "Kumpirmahin ang iyong password"
       }
     }
   }

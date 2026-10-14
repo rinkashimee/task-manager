@@ -55,8 +55,8 @@ export default function LoginForm(props: LoginFormProps) {
         </Link>
       </div>
 
-      <Button type="submit" variant="primary" className="h-10 w-full gap-2 px-4 font-sans">
-        <Typography as="p" variant="caption" className="truncate">
+      <Button type="submit" variant="primary" className="mt-2 h-10 w-full gap-2 px-4">
+        <Typography as="p" variant="caption" className="truncate font-semibold">
           {t('common.sign-in')}
         </Typography>
       </Button>
