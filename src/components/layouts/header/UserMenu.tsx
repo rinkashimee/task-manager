@@ -8,6 +8,7 @@ import UserDropdownHeader from './UserDropdownHeader';
 import UserMenuItem from './UserMenuItem';
 import { cn } from '@/lib/utils/utils';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 interface UserMenuProps {
   name: string;
@@ -19,6 +20,7 @@ export default function UserMenu(props: UserMenuProps) {
   const { name, email, avatarUrl } = props;
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -69,9 +71,24 @@ export default function UserMenu(props: UserMenuProps) {
 
           <div className="border-border my-2 border-t" />
 
-          <UserMenuItem icon="UserCircleIcon" label={t('common.account')} />
+          <UserMenuItem
+            icon="UserCircleIcon"
+            label={t('common.account')}
+            onClick={() => {
+              navigate('/settings/account');
+              setIsOpen(false);
+            }}
+          />
 
-          <UserMenuItem icon="PaletteIcon" label={t('common.appearance')} classname="mt-1" />
+          <UserMenuItem
+            icon="PaletteIcon"
+            label={t('common.appearance')}
+            classname="mt-1"
+            onClick={() => {
+              navigate('/settings/appearance');
+              setIsOpen(false);
+            }}
+          />
 
           <div className="border-border my-2 border-t" />
 

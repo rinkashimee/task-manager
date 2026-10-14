@@ -47,6 +47,10 @@
     "unable-duplicate": "Unable to duplicate task. Please try again.",
     "duplicate-success": "{{name}} duplicated successfully",
     "complete-success": "{{name}} marked as completed successfully",
+    "upload-image": "Upload Image",
+    "remove": "Remove",
+    "theme-preview": "{{value}} Theme",
+    "current": " (Current)",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",
@@ -79,6 +83,11 @@
       "success": "Success",
       "warning": "Warning",
       "info": "Info"
+    },
+    "language-dropdown": {
+      "en": "English",
+      "fil": "Filipino",
+      "ja": "Japanese"
     }
   },
   "sidebar": {
@@ -199,6 +208,38 @@
   },
   "settings": {
     "title": "Settings",
-    "caption": "Manage your account and appearance."
+    "caption": "Manage your account and appearance.",
+    "account-setting": {
+      "account": "Account",
+      "desc": "Update your personal information.",
+      "change-pic": "Change Profile Picture",
+      "recommended": "Upload a new photo. Recommended size is 256x256px.",
+      "pic-type": "JPG, PNG or GIF (Max 2MB)",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role"
+      },
+      "placeholder": {
+        "name": "Enter your name",
+        "email": "Enter your email"
+      }
+    },
+    "appearance": {
+      "title": "Appearance",
+      "desc": "Choose your preferred theme and display settings.",
+      "theme": "Theme",
+      "theme-desc": "Select a theme for your workspace.",
+      "preview": "Preview",
+      "preview-desc": "See how the theme looks in the application.",
+      "language": "Language",
+      "language-desc": "Select your preferred language for the application.",
+      "option": {
+        "light": "Light",
+        "dark": "Dark",
+        "light-desc": "Clean and bright interface",
+        "dark-desc": "Easy on the eyes"
+      }
+    }
   }
 }
