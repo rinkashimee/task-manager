@@ -1,6 +1,6 @@
 import TaskIcon, { type IconType } from '@/components/icons/TaskIcon';
 import { cn } from '@/lib/utils/utils';
-import type { InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes, Ref } from 'react';
 
 export type InputVariant = 'default' | 'ghost';
 
@@ -10,6 +10,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: IconType;
   wrapperClassName?: string;
   hideIcon?: boolean;
+  ref?: Ref<HTMLInputElement>;
 }
 
 const variants: Record<InputVariant, string> = {
@@ -22,6 +23,7 @@ export default function Input(props: InputProps) {
     variant = 'default',
     icon = 'UserCircleIcon',
     error,
+    ref,
     className,
     wrapperClassName,
     hideIcon = false,
@@ -39,12 +41,14 @@ export default function Input(props: InputProps) {
 
       <input
         {...restProps}
+        ref={ref}
         className={cn(
           'h-10 w-full rounded-md px-3',
           'text-text font-sans text-xs',
           'placeholder:text-text-muted',
           'transition-colors outline-none',
-          'disabled:cursor-not-allowed disabled:opacity-50',
+          'disabled:bg-background disabled:text-text-muted',
+          'disabled:cursor-not-allowed',
           icon && !hideIcon ? 'pl-10' : 'pl-3',
           variants[variant],
           error && 'border-danger focus:border-danger',

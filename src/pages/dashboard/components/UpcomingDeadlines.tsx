@@ -7,7 +7,7 @@ import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 import TaskIcon from '@/components/icons/TaskIcon';
 import UpcomingDeadlinesSkeleton from './dashboard-skeleton/UpcomingDeadlinesSkeleton';
 import UpcomingTaskLists from './UpcomingTaskLists';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
 import Modal from '@/components/ui/Modal/Modal';
 import TaskViewHeader from '@/pages/my-tasks/components/TaskViewHeader';
@@ -73,6 +73,19 @@ export default function UpcomingDeadlines(props: UpcomingDeadlinesProps) {
     await fetchAllUpcomingDeadlines();
   };
 
+  const upcomingDeadlineItems = useMemo(
+    () =>
+      tasks.map((task) => (
+        <UpcomingDeadlineItem
+          key={task.id}
+          task={task}
+          projectDropdown={projectDropdown}
+          handView={() => handleView(task)}
+        />
+      )),
+    [tasks, projectDropdown, handleView]
+  );
+
   return (
     <div className="border-border bg-card flex h-[365px] flex-col rounded-md border px-2">
       <div className="border-border flex shrink-0 items-center justify-between border-b px-2 py-2">
@@ -103,7 +116,9 @@ export default function UpcomingDeadlines(props: UpcomingDeadlinesProps) {
       >
         {isLoading ? (
           <UpcomingDeadlinesSkeleton data={tasks} />
-        ) : tasks.length === 0 ? (
+        ) : tasks.length > 0 ? (
+          <div className="flex flex-col">{upcomingDeadlineItems}</div>
+        ) : (
           <div className="flex h-full flex-col items-center justify-center gap-2">
             <div className="bg-primary/10 flex size-11 items-center justify-center rounded-full">
               <TaskIcon icon="CalendarXIcon" size={22} className="text-primary" />
@@ -118,17 +133,6 @@ export default function UpcomingDeadlines(props: UpcomingDeadlinesProps) {
                 {t('dashboard.deadline-desc')}
               </Typography>
             </div>
-          </div>
-        ) : (
-          <div className="flex flex-col">
-            {tasks.map((task) => (
-              <UpcomingDeadlineItem
-                key={task.id}
-                task={task}
-                projectDropdown={projectDropdown}
-                handView={() => handleView(task)}
-              />
-            ))}
           </div>
         )}
       </div>

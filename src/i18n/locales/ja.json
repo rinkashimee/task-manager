@@ -1,6 +1,285 @@
 {
-  "common": {},
+  "common": {
+    "morning": "おはようございます",
+    "afternoon": "こんにちは",
+    "evening": "こんばんは",
+    "account": "アカウント",
+    "appearance": "外観",
+    "about": "アプリについて",
+    "logout": "ログアウト",
+    "search-tasks": "タスクを検索...",
+    "search-projects": "プロジェクトを検索...",
+    "add-tasks": "タスクを追加",
+    "new-project": "新しいプロジェクト",
+    "no-tasks": "タスクがありません",
+    "no-projects": "プロジェクトがありません",
+    "task-caption": "タスクを作成して、作業の整理を始めましょう。",
+    "project-progress-caption": "最初のプロジェクトを作成して、進捗を管理しましょう。",
+    "project-caption": "最初のプロジェクトを作成して、タスクを整理し、進捗を管理しましょう。",
+    "all": "すべて",
+    "to-do": "未着手",
+    "in-progress": "進行中",
+    "completed": "完了",
+    "overdue": "期限切れ",
+    "cancel": "キャンセル",
+    "create-task": "タスクを作成",
+    "create-project": "プロジェクトを作成",
+    "save-changes": "変更を保存",
+    "loading": "読み込み中...",
+    "view": "{{name}}を表示",
+    "edit": "{{name}}を編集",
+    "recent": "最近の{{name}}",
+    "view-all": "すべての{{name}}を表示",
+    "viewAll": "すべて表示",
+    "no-task-yet": "このプロジェクトにはまだタスクがありません。",
+    "mark-completed": "完了にする",
+    "duplicate": "複製",
+    "delete": "タスクを削除",
+    "view-desc": "説明がありません。",
+    "pagination-showing": "全{{total}}件の{{resourceName}}のうち{{count}}件を表示",
+    "request-time-out": "リクエストがタイムアウトしました。もう一度お試しください。",
+    "unable-to-connect": "サーバーに接続できません。",
+    "went-wrong": "エラーが発生しました。もう一度お試しください。",
+    "creating": "作成中...",
+    "saving": "保存中...",
+    "processing": "処理中...",
+    "not-found": "タスクの詳細を読み込めませんでした。もう一度お試しください。",
+    "unable-duplicate": "タスクを複製できませんでした。もう一度お試しください。",
+    "duplicate-success": "{{name}}を複製しました",
+    "complete-success": "{{name}}を完了にしました",
+    "upload-image": "画像をアップロード",
+    "remove": "削除",
+    "theme-preview": "{{value}}テーマ",
+    "current": "（現在）",
+    "validation": {
+      "field-required": "この項目は必須です",
+      "minimum-char": "{{min}}文字以上で入力してください",
+      "maximum-char": "{{max}}文字以内で入力してください"
+    },
+    "status-dropdown": {
+      "todo": "未着手",
+      "not-started": "未開始",
+      "in-progress": "進行中",
+      "completed": "完了",
+      "on-hold": "保留中"
+    },
+    "priority-dropdown": {
+      "low": "低",
+      "medium": "中",
+      "high": "高"
+    },
+    "confirmation-config": {
+      "complete": "{{name}}を完了にする",
+      "edit": "{{name}}を編集",
+      "delete": "{{name}}を削除",
+      "duplicate": "{{name}}を複製",
+      "complete-desc": "この{{name}}を完了にしてもよろしいですか？",
+      "edit-desc": "この{{name}}を編集してもよろしいですか？",
+      "delete-desc": "この{{name}}を削除してもよろしいですか？この操作は取り消せません。",
+      "duplicate-desc": "この{{name}}を複製してもよろしいですか？"
+    },
+    "toast-title": {
+      "fail": "失敗",
+      "success": "成功",
+      "warning": "警告",
+      "info": "情報"
+    },
+    "language-dropdown": {
+      "en": "英語",
+      "fil": "フィリピン語",
+      "ja": "日本語"
+    }
+  },
   "sidebar": {
-    "logo": "タスクマネージャー"
+    "logo": "タスクマネージャー",
+    "dashboard": "ダッシュボード",
+    "my-tasks": "マイタスク",
+    "projects": "プロジェクト",
+    "settings": "設定",
+    "footer": "小さな一歩が\n大きな成果につながる。",
+    "settings-sidebar": {
+      "account": "アカウント",
+      "appearance": "外観",
+      "account-desc": "個人情報",
+      "appearance-desc": "テーマと言語",
+      "about": "アプリについて",
+      "about-desc": "アプリケーション情報"
+    }
+  },
+  "dashboard": {
+    "title": "{{data}}、{{user}}さん！👋",
+    "caption": "今日のタスクの概要を確認しましょう。",
+    "upcoming-deadline": "今後の締め切り",
+    "no-deadline": "今後の締め切りはありません",
+    "deadline-desc": "すべて順調です！近日中に締め切りのあるタスクはありません。",
+    "this-week": "今週",
+    "project-progress": "プロジェクトの進捗",
+    "recent-tasks": "最近のタスク",
+    "dashboard-stat": {
+      "total-tasks": "タスク総数",
+      "completed": "完了",
+      "in-progress": "進行中",
+      "overdue": "期限切れ"
+    }
+  },
+  "my-tasks": {
+    "title": "マイタスク",
+    "name": "タスク",
+    "name-s": "タスク",
+    "caption": "タスクを管理して、生産性を高めましょう。",
+    "table": {
+      "task": "タスク",
+      "project": "プロジェクト",
+      "priority": "優先度",
+      "status": "ステータス",
+      "due-date": "期限"
+    },
+    "modal": {
+      "add-tasks": "タスクを追加",
+      "edit-tasks": "タスクを編集",
+      "add-caption": "新しいタスクを作成して、作業を計画的に進めましょう。",
+      "edit-caption": "タスクの詳細を更新して、作業を計画的に進めましょう。"
+    },
+    "form": {
+      "task-title": "タスク名",
+      "desc": "説明",
+      "project": "プロジェクト",
+      "priority": "優先度",
+      "status": "ステータス",
+      "due-date": "期限"
+    },
+    "placeholder": {
+      "enter-task-title": "例：ランディングページのUIをデザイン",
+      "enter-desc": "タスクの詳細を入力してください...",
+      "select-project": "プロジェクトを選択",
+      "select-priority": "優先度を選択",
+      "select-status": "ステータスを選択",
+      "select-due-date": "期限を選択"
+    },
+    "view": {
+      "project": "プロジェクト",
+      "due-date": "期限",
+      "priority": "優先度",
+      "status": "ステータス",
+      "last-updated": "最終更新日",
+      "created-at": "作成日",
+      "task-id": "タスクID",
+      "description": "説明"
+    }
+  },
+  "project": {
+    "title": "プロジェクト",
+    "name": "プロジェクト",
+    "caption": "プロジェクトを管理して、進捗を確認しましょう。",
+    "table": {
+      "name": "プロジェクト名",
+      "progress": "進捗",
+      "status": "ステータス",
+      "due-date": "期限",
+      "last-updated": "最終更新日",
+      "tasks": "全{{totalTasks}}件中{{completeTasks}}件のタスクが完了",
+      "percent": "{{value}}%"
+    },
+    "modal": {
+      "new-project": "新しいプロジェクトを追加",
+      "edit-project": "プロジェクトを編集",
+      "new-caption": "以下の情報を入力して、新しいプロジェクトを作成してください。",
+      "edit-caption": "プロジェクトの詳細を更新して、情報を最新の状態に保ちましょう。"
+    },
+    "form": {
+      "name": "プロジェクト名",
+      "desc": "説明",
+      "status": "プロジェクトのステータス",
+      "due-date": "期限（任意）",
+      "icon": "プロジェクトアイコン（任意）"
+    },
+    "placeholder": {
+      "project-name": "例：ウェブサイトのリニューアル",
+      "desc": "プロジェクトの概要を入力してください...",
+      "select-status": "プロジェクトのステータスを選択",
+      "select-due-date": "期限を選択"
+    },
+    "view": {
+      "due-date": "期限",
+      "progress": "進捗",
+      "total-tasks": "タスク総数",
+      "completed-tasks": "完了したタスク",
+      "project-details": "プロジェクトの詳細",
+      "name": "名前",
+      "desc": "説明",
+      "status": "ステータス",
+      "projectIcon": "プロジェクトアイコン",
+      "last-updated": "最終更新日",
+      "created-at": "作成日",
+      "all-tasks-project": "このプロジェクトのすべてのタスク。"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "caption": "アカウントと外観を管理します。",
+    "account-setting": {
+      "account": "アカウント",
+      "desc": "個人情報を更新します。",
+      "change-pic": "プロフィール画像を変更",
+      "recommended": "新しい写真をアップロードしてください。推奨サイズは256×256pxです。",
+      "pic-type": "JPG、PNG、GIF（最大2MB）",
+      "form": {
+        "name": "名前",
+        "email": "メールアドレス",
+        "role": "役割"
+      },
+      "placeholder": {
+        "name": "名前を入力",
+        "email": "メールアドレスを入力"
+      }
+    },
+    "appearance": {
+      "title": "外観",
+      "desc": "お好みのテーマと表示設定を選択してください。",
+      "theme": "テーマ",
+      "theme-desc": "ワークスペースのテーマを選択してください。",
+      "preview": "プレビュー",
+      "preview-desc": "アプリでのテーマの表示を確認できます。",
+      "language": "言語",
+      "language-desc": "アプリで使用する言語を選択してください。",
+      "option": {
+        "light": "ライト",
+        "dark": "ダーク",
+        "light-desc": "明るくすっきりしたインターフェース",
+        "dark-desc": "目に優しいインターフェース"
+      }
+    },
+    "about": {
+      "caption": "作業を整理し、目標達成をサポートします。",
+      "overview": {
+        "about-app": "タスクマネージャーについて",
+        "about-desc": "アプリとその機能について詳しくご紹介します。",
+        "app-name": "タスクマネージャー",
+        "version": "バージョン 1.0.0",
+        "app-desc": "タスクマネージャーは、タスクの整理、プロジェクトの管理、期限の把握をサポートする、シンプルで直感的な生産性向上アプリです。"
+      },
+      "features": {
+        "title": "主な機能",
+        "desc": "生産性を高めるための機能をご紹介します。",
+        "organize": "タスクを整理",
+        "organize-desc": "タスクの作成、優先順位の設定、完了までの進捗管理ができます。",
+        "manage-project": "プロジェクトを管理",
+        "manage-project-desc": "関連するタスクをまとめて、プロジェクトの進捗を確認できます。",
+        "track-progress": "進捗を確認",
+        "track-progress-desc": "完了したタスク、今後の期限、生産性を確認できます。",
+        "personalize": "自分好みにカスタマイズ",
+        "personalize-desc": "お好みのテーマと言語を設定できます。"
+      },
+      "information": {
+        "app-info": "アプリケーション情報",
+        "app-info-caption": "タスクマネージャーの基本情報。",
+        "version": "バージョン",
+        "platform": "プラットフォーム",
+        "developer": "開発者",
+        "version-val": "1.0.0",
+        "platform-val": "ウェブアプリケーション",
+        "developer-val": "Mark Le Jhon Casalta"
+      }
+    }
   }
 }

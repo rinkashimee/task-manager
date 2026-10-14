@@ -1,4 +1,5 @@
-import Typography, { type TypographyVariant } from '@/components/ui/Typography/Typography';
+import Typography from '@/components/ui/Typography/Typography';
+import type { TypographyVariant } from '@/components/ui/Typography/Typography.types';
 import clsx from 'clsx';
 
 type AvatarSize = 'sm' | 'md' | 'lg';

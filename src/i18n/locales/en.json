@@ -47,6 +47,10 @@
     "unable-duplicate": "Unable to duplicate task. Please try again.",
     "duplicate-success": "{{name}} duplicated successfully",
     "complete-success": "{{name}} marked as completed successfully",
+    "upload-image": "Upload Image",
+    "remove": "Remove",
+    "theme-preview": "{{value}} Theme",
+    "current": " (Current)",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",
@@ -79,6 +83,11 @@
       "success": "Success",
       "warning": "Warning",
       "info": "Info"
+    },
+    "language-dropdown": {
+      "en": "English",
+      "fil": "Filipino",
+      "ja": "Japanese"
     }
   },
   "sidebar": {
@@ -87,7 +96,15 @@
     "my-tasks": "My Tasks",
     "projects": "Porjects",
     "settings": "Settings",
-    "footer": "Small steps \n build big results."
+    "footer": "Small steps \n build big results.",
+    "settings-sidebar": {
+      "account": "Account",
+      "appearance": "Appearance",
+      "account-desc": "Personal information",
+      "appearance-desc": "Theme and language",
+      "about": "About",
+      "about-desc": "Application information"
+    }
   },
   "dashboard": {
     "title": "{{data}}, {{user}}!👋",
@@ -97,7 +114,13 @@
     "deadline-desc": "You're all caught up! No deadlines approaching.",
     "this-week": "This Week",
     "project-progress": "Project Progress",
-    "recent-tasks": "Recent Tasks"
+    "recent-tasks": "Recent Tasks",
+    "dashboard-stat": {
+      "total-tasks": "Total Tasks",
+      "completed": "Completed",
+      "in-progress": "In Porgress",
+      "overdue": "Overdue"
+    }
   },
   "my-tasks": {
     "title": "My Tasks",
@@ -189,6 +212,74 @@
       "last-updated": "Last Updated",
       "created-at": "Created At",
       "all-tasks-project": "All tasks for this project."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "caption": "Manage your account and appearance.",
+    "account-setting": {
+      "account": "Account",
+      "desc": "Update your personal information.",
+      "change-pic": "Change Profile Picture",
+      "recommended": "Upload a new photo. Recommended size is 256x256px.",
+      "pic-type": "JPG, PNG or GIF (Max 2MB)",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role"
+      },
+      "placeholder": {
+        "name": "Enter your name",
+        "email": "Enter your email"
+      }
+    },
+    "appearance": {
+      "title": "Appearance",
+      "desc": "Choose your preferred theme and display settings.",
+      "theme": "Theme",
+      "theme-desc": "Select a theme for your workspace.",
+      "preview": "Preview",
+      "preview-desc": "See how the theme looks in the application.",
+      "language": "Language",
+      "language-desc": "Select your preferred language for the application.",
+      "option": {
+        "light": "Light",
+        "dark": "Dark",
+        "light-desc": "Clean and bright interface",
+        "dark-desc": "Easy on the eyes"
+      }
+    },
+    "about": {
+      "caption": "Made to keep your work organized and your goals within reach.",
+      "overview": {
+        "about-app": "About Task Manager",
+        "about-desc": "Learn more about the application and its features.",
+        "app-name": "Task Manager",
+        "version": "Version 1.0.0",
+        "app-desc": "Task Manager is a simple and intuitive productivity application designed to help you organize tasks, manage projects, and stay on top of deadlines."
+      },
+      "features": {
+        "title": "What You Can Do",
+        "desc": "Explore the features that help you stay productive.",
+        "organize": "Organize Your Tasks",
+        "organize-desc": "Create, prioritize, and track tasks from start to finish.",
+        "manage-project": "Manage Projects",
+        "manage-project-desc": "Keep related tasks together and monitor project progress.",
+        "track-progress": "Track Your Progress",
+        "track-progress-desc": "View completed tasks, upcoming deadlines, and productivity.",
+        "personalize": "Personalize Your Experience",
+        "personalize-desc": "Customize your preferred theme and language."
+      },
+      "information": {
+        "app-info": "Application Information",
+        "app-info-caption": "General information about Task Manager.",
+        "version": "Version",
+        "platform": "PlatForm",
+        "developer": "Developer",
+        "version-val": "1.0.0",
+        "platform-val": "Web Application",
+        "developer-val": "Mark Le Jhon Casalta"
+      }
     }
   }
 }

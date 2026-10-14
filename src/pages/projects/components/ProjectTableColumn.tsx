@@ -45,7 +45,7 @@ export default function projectTableColumns(
             </div>
 
             <div className="flex min-w-0 flex-col gap-1">
-              <Typography variant="caption" className="font-sans font-semibold">
+              <Typography variant="caption" className="text-text font-sans font-semibold">
                 {response.name}
               </Typography>
 
@@ -82,7 +82,7 @@ export default function projectTableColumns(
                 })}
               </Typography>
 
-              <Typography variant="caption" className="truncate font-medium">
+              <Typography variant="caption" className="text-text truncate font-medium">
                 {t('project.table.percent', { value: progress })}
               </Typography>
             </div>

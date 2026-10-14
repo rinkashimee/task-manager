@@ -69,7 +69,7 @@ export default function ProjectView(props: ProjectViewProps) {
         />
       </div>
 
-      <div className="bg-background border-border rounded-lg border px-4 py-3">
+      <div className="bg-background dark:bg-card border-border rounded-lg border px-4 py-3">
         <div className="mb-4 flex items-center justify-between gap-3">
           <Typography variant="body-sm" className="text-text font-sans font-semibold">
             {t('project.view.project-details')}
@@ -79,7 +79,7 @@ export default function ProjectView(props: ProjectViewProps) {
             type="button"
             variant="secondary"
             onClick={onEdit}
-            className="bg-card text-text h-8 gap-2 px-2.5 font-sans"
+            className={cn('bg-card text-text h-8 gap-2 px-2.5 font-sans', 'dark:bg-background')}
           >
             <TaskIcon icon="PencilSimpleIcon" size={14} />
 

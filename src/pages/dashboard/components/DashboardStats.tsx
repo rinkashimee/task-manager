@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { DashboardStatsTypes } from '../types/Dashboard.types';
 import DashboardStatCard from './DashboardStatCard';
 import DashboardStatSkeleton from './dashboard-skeleton/DashboardStatSkeleton';
@@ -9,6 +10,8 @@ interface DashboardStatsProps {
 
 export default function DashboardStats(props: DashboardStatsProps) {
   const { data, isLoading } = props;
+
+  const { t } = useTranslation();
 
   if (isLoading || !data) {
     return (
@@ -23,7 +26,7 @@ export default function DashboardStats(props: DashboardStatsProps) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <DashboardStatCard
-        title="Total Tasks"
+        title={t('dashboard.dashboard-stat.total-tasks')}
         value={data.totalTasks}
         icon="ClipboardTextIcon"
         iconClassName="text-primary"
@@ -31,7 +34,7 @@ export default function DashboardStats(props: DashboardStatsProps) {
       />
 
       <DashboardStatCard
-        title="Completed"
+        title={t('dashboard.dashboard-stat.completed')}
         value={data.completedTasks}
         icon="CheckCircleIcon"
         iconClassName="text-success"
@@ -39,7 +42,7 @@ export default function DashboardStats(props: DashboardStatsProps) {
       />
 
       <DashboardStatCard
-        title="In Progress"
+        title={t('dashboard.dashboard-stat.in-progress')}
         value={data.inProgressTasks}
         icon="ClockIcon"
         iconClassName="text-info"
@@ -47,7 +50,7 @@ export default function DashboardStats(props: DashboardStatsProps) {
       />
 
       <DashboardStatCard
-        title="Overdue"
+        title={t('dashboard.dashboard-stat.overdue')}
         value={data.overdueTasks}
         icon="WarningCircleIcon"
         iconClassName="text-danger"

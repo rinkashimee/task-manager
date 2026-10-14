@@ -3,6 +3,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
 import en from '@/i18n/locales/en.json';
+import fil from '@/i18n/locales/fil.json';
 import ja from '@/i18n/locales/ja.json';
 
 i18n
@@ -13,6 +14,9 @@ i18n
       en: {
         translation: en,
       },
+      fil: {
+        translation: fil,
+      },
       ja: {
         translation: ja,
       },
@@ -20,7 +24,7 @@ i18n
 
     fallbackLng: 'en',
 
-    supportedLngs: ['en', 'ja'],
+    supportedLngs: ['en', 'fil', 'ja'],
 
     interpolation: {
       escapeValue: false,

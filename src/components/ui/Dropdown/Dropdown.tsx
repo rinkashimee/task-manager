@@ -27,25 +27,60 @@ export default function Dropdown(props: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue);
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const selectedValue = value !== undefined ? value : internalValue;
 
   const selectedOption = options.find((option) => option.value === selectedValue);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || !triggerRef.current || !menuRef.current) return;
 
-    const handleClickOutside = (event: PointerEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+    const trigger = triggerRef.current;
+    const menu = menuRef.current;
+
+    if (!menu.matches(':popover-open')) {
+      menu.showPopover();
+    }
+
+    const updatePosition = () => {
+      const rect = trigger.getBoundingClientRect();
+      const menuHeight = menu.offsetHeight;
+      const menuWidth = menu.offsetWidth;
+
+      const gap = 4;
+      const padding = 8;
+
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+
+      const openTop = spaceBelow < menuHeight + gap && spaceAbove > spaceBelow;
+
+      const top = openTop ? rect.top - menuHeight - gap : rect.bottom + gap;
+
+      const left = Math.max(padding, Math.min(rect.left, window.innerWidth - menuWidth - padding));
+
+      menu.style.top = `${Math.max(
+        padding,
+        Math.min(top, window.innerHeight - menuHeight - padding)
+      )}px`;
+
+      menu.style.left = `${left}px`;
     };
 
-    document.addEventListener('pointerdown', handleClickOutside, true);
+    updatePosition();
+
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
 
     return () => {
-      document.removeEventListener('pointerdown', handleClickOutside, true);
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+
+      if (menu.matches(':popover-open')) {
+        menu.hidePopover();
+      }
     };
   }, [isOpen]);
 
@@ -59,10 +94,11 @@ export default function Dropdown(props: DropdownProps) {
   };
 
   return (
-    <div ref={dropdownRef} className={cn('relative w-full', className)}>
+    <div className={cn('relative w-full', className)}>
       <Input type="hidden" name={name} value={selectedValue} hideIcon />
 
       <Button
+        ref={triggerRef}
         id={id}
         variant="ghost"
         type="button"
@@ -99,8 +135,21 @@ export default function Dropdown(props: DropdownProps) {
 
       {isOpen && (
         <div
+          ref={menuRef}
+          popover="auto"
           role="listbox"
-          className="border-border bg-card absolute top-full right-0 left-0 z-50 mt-1 max-h-50 space-y-1 overflow-y-auto rounded-md border p-1 shadow-md"
+          className={cn(
+            'border-border bg-card fixed z-50 m-0',
+            'max-h-50 space-y-1 overflow-y-auto rounded-md border p-1 shadow-md'
+          )}
+          style={{
+            width: triggerRef.current?.offsetWidth,
+          }}
+          onToggle={(event) => {
+            if (event.newState === 'closed') {
+              setIsOpen(false);
+            }
+          }}
         >
           {options.map((option) => (
             <button

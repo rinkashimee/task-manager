@@ -6,7 +6,7 @@ export type FilterType = 'all' | 'todo' | 'in-progress' | 'completed' | 'overdue
 
 export type TaskFormMode = 'create' | 'edit';
 
-export type MyTasksVariant = 'projectTaskLists' | 'dashboard';
+export type MyTasksVariant = 'projectTaskLists' | 'default';
 
 export interface TaskTypes {
   id: string;

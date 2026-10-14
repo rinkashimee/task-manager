@@ -91,7 +91,7 @@ export default function Table<T>(props: TableProps<T>) {
             </thead>
           )}
           <tbody>
-            {isLoading && (!data || data.length === 0) ? (
+            {isLoading ? (
               <TableSkeletonRows columns={visibleColumns} rows={skeletonRows} />
             ) : (
               data.map((record, rowIndex) => {

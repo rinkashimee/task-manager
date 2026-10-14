@@ -7,9 +7,9 @@ export default function SidebarLogo() {
 
   return (
     <div className="mt-3 flex items-center gap-2">
-      <img src={taskManagerLogo} alt="Task Manager" className="h-[32px] w-[32px]" />
+      <img src={taskManagerLogo} alt="Task Manager" className="h-[30px] w-[30px]" />
 
-      <Typography as="h3" variant="body-lg" className="text-text-inverse font-heading">
+      <Typography as="h3" variant="body-lg" className="text-text-inverse !font-bold">
         {t('sidebar.logo')}
       </Typography>
     </div>

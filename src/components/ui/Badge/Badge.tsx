@@ -3,7 +3,7 @@ import type { BadgeProps, BadgeVariant } from './Badge.types';
 import Typography from '../Typography/Typography';
 
 const variants: Record<BadgeVariant, string> = {
-  default: 'bg-indigo-100 text-text',
+  default: 'bg-indigo-100 text-[#071342]',
   info: 'bg-info/30 text-info',
   success: 'bg-success/30 text-success',
   warning: 'bg-warning/30 text-warning',
