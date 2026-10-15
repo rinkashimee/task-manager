@@ -4,3 +4,7 @@ export interface RegisterFormTypes {
   password: string;
   confirmPassword: string;
 }
+
+export interface RegisterRequest extends RegisterFormTypes {}
+
+export interface RegisterResponse extends Omit<RegisterFormTypes, 'confirmPassword'> {}

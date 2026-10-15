@@ -55,6 +55,7 @@
     "sign-up": "新規登録",
     "forgot-pass": "パスワードをお忘れですか？",
     "create-acc": "アカウントを作成",
+    "creating-acc": "アカウントを作成中...",
     "reset-link": "リセットリンクを送信",
     "back-sign-in": "ログインに戻る",
     "reset-password": "パスワードをリセット",
@@ -90,7 +91,10 @@
       "fail": "失敗",
       "success": "成功",
       "warning": "警告",
-      "info": "情報"
+      "info": "情報",
+      "desc": {
+        "pass-not-match": "パスワードが一致しません。もう一度お試しください。"
+      }
     },
     "language-dropdown": {
       "en": "英語",

@@ -4,18 +4,27 @@ import Typography from '@/components/ui/Typography/Typography';
 import taskManagerLogo from '@/assets/task-manager-logo.svg';
 import type { RegisterFormTypes } from './types/Register.types';
 import RegisterForm from './components/RegisterForm';
+import { useAuth } from '../hooks/useAuth';
+import { useToast } from '@/components/ui/Toast/ToastProvider';
 
 export default function Register() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
 
-  const handleSubmit = (values: RegisterFormTypes) => {
+  const { register, isRegister } = useAuth();
+
+  const handleSubmit = async (values: RegisterFormTypes) => {
     if (values.password !== values.confirmPassword) {
-      // TODO: Display a validation error using your Form component
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: t('common.toast-title.desc.pass-not-match'),
+        variant: 'error',
+      });
+
       return;
     }
 
-    // TODO: Integrate Spring Boot registration API
-    console.log(values);
+    await register(values);
   };
 
   return (
@@ -38,7 +47,7 @@ export default function Register() {
         </Typography>
       </div>
 
-      <RegisterForm handleSubmit={handleSubmit} />
+      <RegisterForm handleSubmit={handleSubmit} loading={isRegister} />
 
       <Typography variant="caption" className="text-text-muted text-center">
         {t('auth.register.already-have-acc')}

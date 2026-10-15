@@ -55,6 +55,7 @@
     "sign-up": "Mag-sign up",
     "forgot-pass": "Nakalimutan ang password?",
     "create-acc": "Gumawa ng Account",
+    "creating-acc": "Ginagawa ang account...",
     "reset-link": "Ipadala ang reset link",
     "back-sign-in": "Bumalik sa pag-sign in",
     "reset-password": "I-reset ang Password",
@@ -90,7 +91,10 @@
       "fail": "Nabigo",
       "success": "Matagumpay",
       "warning": "Babala",
-      "info": "Impormasyon"
+      "info": "Impormasyon",
+      "desc": {
+        "pass-not-match": "Hindi magkatugma ang mga password. Pakisubukang muli."
+      }
     },
     "language-dropdown": {
       "en": "Ingles",

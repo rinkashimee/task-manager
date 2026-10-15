@@ -6,11 +6,12 @@ import Button from '@/components/ui/Button/Button';
 import Typography from '@/components/ui/Typography/Typography';
 
 interface RegisterFormProps {
+  loading: boolean;
   handleSubmit: (values: RegisterFormTypes) => void;
 }
 
 export default function RegisterForm(props: RegisterFormProps) {
-  const { handleSubmit } = props;
+  const { loading, handleSubmit } = props;
 
   const { t } = useTranslation();
 
@@ -53,7 +54,7 @@ export default function RegisterForm(props: RegisterFormProps) {
       <Form.Item
         name="password"
         label={t('auth.register.form.password')}
-        rules={[{ required: true }, { min: 8 }]}
+        rules={[{ required: true }, { min: 8 }, { max: 72 }]}
       >
         <Input
           type="password"
@@ -76,9 +77,14 @@ export default function RegisterForm(props: RegisterFormProps) {
         />
       </Form.Item>
 
-      <Button type="submit" variant="primary" className="mt-2 h-10 w-full gap-2 px-4">
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={loading}
+        className="mt-2 h-10 w-full gap-2 px-4"
+      >
         <Typography as="p" variant="caption" className="truncate font-semibold">
-          {t('common.create-acc')}
+          {loading ? t('common.creating-acc') : t('common.create-acc')}
         </Typography>
       </Button>
     </Form>

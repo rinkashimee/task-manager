@@ -55,6 +55,7 @@
     "sign-up": "Sign up",
     "forgot-pass": "Forgot password?",
     "create-acc": "Create account",
+    "creating-acc": "Creating account...",
     "reset-link": "Send reset link",
     "back-sign-in": "Back to sign in",
     "reset-password": "Reset password",
@@ -90,7 +91,10 @@
       "fail": "Failed",
       "success": "Success",
       "warning": "Warning",
-      "info": "Info"
+      "info": "Info",
+      "desc": {
+        "pass-not-match": "Passwords do not match. Please try again."
+      }
     },
     "language-dropdown": {
       "en": "English",
