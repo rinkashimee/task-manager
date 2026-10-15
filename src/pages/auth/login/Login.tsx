@@ -1,16 +1,38 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import taskManagerLogo from '@/assets/task-manager-logo.svg';
 import Typography from '@/components/ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
 import type { LoginFormTypes } from './types/Login.types';
 import LoginForm from './components/LoginForm';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Login() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  const handleSubmit = (data: LoginFormTypes) => {
-    // TODO: Integrate Spring Boot login API
-    console.log(data);
+  const { login, isLogin } = useAuth();
+
+  const handleSubmit = async (data: LoginFormTypes) => {
+    const result = await login(data);
+
+    if (result.status === 'unverified') {
+      const email = data.email.trim().toLowerCase();
+
+      localStorage.setItem('pendingVerificationEmail', email);
+
+      navigate('/verify-email', {
+        state: {
+          email,
+          mode: 'login-recovery',
+        },
+      });
+
+      return;
+    }
+
+    if (result.status === 'success') {
+      localStorage.removeItem('pendingVerificationEmail');
+    }
   };
 
   return (
@@ -33,7 +55,7 @@ export default function Login() {
         </Typography>
       </div>
 
-      <LoginForm handleSubmit={handleSubmit} />
+      <LoginForm isLogin={isLogin} handleSubmit={handleSubmit} />
 
       <Typography variant="caption" className="text-text-muted text-center">
         {t('auth.login.no-account')}

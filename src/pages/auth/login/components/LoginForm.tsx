@@ -7,11 +7,12 @@ import Typography from '@/components/ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
 
 interface LoginFormProps {
+  isLogin: boolean;
   handleSubmit: (data: LoginFormTypes) => void;
 }
 
 export default function LoginForm(props: LoginFormProps) {
-  const { handleSubmit } = props;
+  const { isLogin, handleSubmit } = props;
 
   const { t } = useTranslation();
 
@@ -55,7 +56,12 @@ export default function LoginForm(props: LoginFormProps) {
         </Link>
       </div>
 
-      <Button type="submit" variant="primary" className="mt-2 h-10 w-full gap-2 px-4">
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={isLogin}
+        className="mt-2 h-10 w-full gap-2 px-4"
+      >
         <Typography as="p" variant="caption" className="truncate font-semibold">
           {t('common.sign-in')}
         </Typography>

@@ -385,6 +385,10 @@
       "error": {
         "title": "Unable to verify your email",
         "desc": "We couldn't verify your email right now. You can try your verification link again or request a new one."
+      },
+      "recovery": {
+        "title": "Verify your email address",
+        "desc": "Your email address hasn't been verified yet. Request a new verification link to activate your account."
       }
     }
   }

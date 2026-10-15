@@ -2,12 +2,14 @@ import TaskIcon from '@/components/icons/TaskIcon';
 import Button from '@/components/ui/Button/Button';
 import Typography from '@/components/ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
-import type { VerificationStatus } from '../types/VerifyEmail.types';
+import type { VerificationMode, VerificationStatus } from '../types/VerifyEmail.types';
 import { cn } from '@/lib/utils/utils';
 
 interface VerifyEmailPendingProps {
   status: VerificationStatus;
+  mode: VerificationMode;
   isResending: boolean;
+  isResent: boolean;
   isVerify: boolean;
   email: string | null;
   cooldown: number;
@@ -16,26 +18,61 @@ interface VerifyEmailPendingProps {
 }
 
 export default function VerifyEmailPending(props: VerifyEmailPendingProps) {
-  const { email, status, isResending, isVerify, cooldown, handleResend, handleRetry } = props;
+  const {
+    email,
+    status,
+    mode,
+    isResending,
+    isResent,
+    isVerify,
+    cooldown,
+    handleResend,
+    handleRetry,
+  } = props;
 
   const { t } = useTranslation();
 
   const isError = status === 'error';
 
+  const title = isResent
+    ? t('auth.verify-email.expired.resend-success')
+    : isError
+      ? t('auth.verify-email.error.title')
+      : mode === 'login-recovery'
+        ? t('auth.verify-email.recovery.title')
+        : t('auth.verify-email.pending.verify');
+
+  const description = isResent
+    ? t('auth.verify-email.expired.resend-success-desc')
+    : isError
+      ? t('auth.verify-email.error.desc')
+      : mode === 'login-recovery'
+        ? t('auth.verify-email.recovery.desc')
+        : t('auth.verify-email.pending.desc');
+
   return (
     <>
       <div className="flex flex-col gap-3">
-        <div className="bg-primary/10 flex size-12 items-center justify-center rounded-xl">
-          <TaskIcon icon="EnvelopeIcon" size={24} className="text-primary" />
+        <div
+          className={cn(
+            'flex size-12 items-center justify-center rounded-xl',
+            isResent ? 'bg-success/10' : 'bg-primary/10'
+          )}
+        >
+          <TaskIcon
+            icon={isResent ? 'CheckCircleIcon' : 'EnvelopeIcon'}
+            size={24}
+            className={isResent ? 'text-success' : 'text-primary'}
+          />
         </div>
 
         <div className="flex flex-col gap-2">
           <Typography variant="h2" className="font-heading text-text !font-bold">
-            {isError ? t('auth.verify-email.error.title') : t('auth.verify-email.pending.verify')}
+            {title}
           </Typography>
 
           <Typography variant="body-sm" className="text-text-muted">
-            {isError ? t('auth.verify-email.error.desc') : t('auth.verify-email.pending.desc')}
+            {description}
           </Typography>
 
           {email && (
@@ -48,7 +85,7 @@ export default function VerifyEmailPending(props: VerifyEmailPendingProps) {
 
       <div className="flex flex-col gap-1">
         <Button
-          hidden={!isError}
+          hidden={!isError || isResent}
           type="button"
           disabled={isVerify}
           onClick={handleRetry}
@@ -64,10 +101,11 @@ export default function VerifyEmailPending(props: VerifyEmailPendingProps) {
           type="button"
           disabled={!email || isResending || cooldown > 0}
           onClick={handleResend}
-          variant={isError ? 'secondary' : 'primary'}
+          variant={isError && !isResent ? 'secondary' : 'primary'}
           className={cn(
             'mt-2 h-10 w-full gap-2 px-4',
             isError &&
+              !isResent &&
               'border-primary bg-card text-primary hover:bg-primary hover:text-text-inverse border'
           )}
         >
@@ -80,7 +118,7 @@ export default function VerifyEmailPending(props: VerifyEmailPendingProps) {
           </Typography>
         </Button>
 
-        {!isError && (
+        {!isError && !isResent && (
           <Typography variant="caption" className="text-text-muted text-center">
             {t('auth.verify-email.pending.no-email-receive')}
           </Typography>

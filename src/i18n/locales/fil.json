@@ -385,6 +385,10 @@
       "error": {
         "title": "Hindi ma-verify ang iyong email",
         "desc": "Hindi namin ma-verify ang iyong email sa ngayon. Maaari mong subukang muli ang verification link o humiling ng bago."
+      },
+      "recovery": {
+        "title": "I-verify ang iyong email address",
+        "desc": "Hindi pa na-verify ang iyong email address. Humiling ng bagong verification link para ma-activate ang iyong account."
       }
     }
   }

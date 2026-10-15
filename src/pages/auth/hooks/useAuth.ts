@@ -8,11 +8,13 @@ import { useSpinner } from '@/components/ui/Spinner/SpinnerContext';
 import { getApiErrorMessage } from '@/api/apiError';
 import type { VerificationStatus } from '../verify-email/types/VerifyEmail.types';
 import axios from 'axios';
+import type { LoginRequest, LoginResult } from '../login/types/Login.types';
 
 export type AuthLoadingState = {
   register: boolean;
   resend: boolean;
   verify: boolean;
+  login: boolean;
 };
 
 export function useAuth() {
@@ -26,6 +28,7 @@ export function useAuth() {
     register: false,
     resend: false,
     verify: false,
+    login: false,
   });
 
   const register = useCallback(
@@ -47,6 +50,7 @@ export function useAuth() {
         navigate('/verify-email', {
           state: {
             email: response.data.email,
+            mode: 'registration',
           },
         });
       } catch (error) {
@@ -127,12 +131,52 @@ export function useAuth() {
     [showToast, t]
   );
 
+  const login = useCallback(
+    async (values: LoginRequest): Promise<LoginResult> => {
+      try {
+        setLoading((prev) => ({ ...prev, login: true }));
+        showLoading();
+
+        const response = await authApi.login(values);
+
+        showToast({
+          title: t('common.toast-title.success'),
+          description: response.message,
+          variant: 'success',
+        });
+
+        return {
+          status: 'success',
+          data: response.data,
+        };
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 403) {
+          return { status: 'unverified' };
+        }
+
+        showToast({
+          title: t('common.toast-title.fail'),
+          description: getApiErrorMessage(error, t),
+          variant: 'error',
+        });
+
+        return { status: 'error' };
+      } finally {
+        setLoading((prev) => ({ ...prev, login: false }));
+        hideLoading();
+      }
+    },
+    [showToast, t]
+  );
+
   return {
     isRegister: loading.register,
     isResend: loading.resend,
     isVerify: loading.verify,
+    isLogin: loading.login,
     register,
     resendVerification,
     verifyEmail,
+    login,
   };
 }

@@ -24,6 +24,8 @@ export default function VerifyEmail() {
 
   const locationState = location.state as VerifyEmailLocationState | null;
 
+  const mode = locationState?.mode ?? 'registration';
+
   const [email, setEmail] = useState(
     () => locationState?.email ?? localStorage.getItem('pendingVerificationEmail') ?? ''
   );
@@ -90,6 +92,8 @@ export default function VerifyEmail() {
     if (success) {
       setCooldown(60);
       setIsResent(true);
+
+      localStorage.setItem('pendingVerificationEmail', normalizedEmail);
     }
   };
 
@@ -116,7 +120,9 @@ export default function VerifyEmail() {
       {(status === 'pending' || status === 'error') && (
         <VerifyEmailPending
           status={status}
+          mode={mode}
           email={email}
+          isResent={isResent}
           isResending={isResend}
           isVerify={isVerify}
           cooldown={cooldown}
