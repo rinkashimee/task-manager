@@ -57,6 +57,7 @@
     "create-acc": "Gumawa ng Account",
     "reset-link": "Ipadala ang reset link",
     "back-sign-in": "Bumalik sa pag-sign in",
+    "reset-password": "I-reset ang Password",
     "validation": {
       "field-required": "Kinakailangang punan ang field na ito",
       "minimum-char": "Hindi bababa sa {{min}} character",
@@ -335,6 +336,20 @@
       },
       "placeholder": {
         "email": "Ilagay ang iyong email"
+      }
+    },
+    "reset-password": {
+      "pass-reset": "Matagumpay na na-reset ang password!",
+      "desc": "Matagumpay na na-update ang iyong password. Maaari ka nang mag-sign in gamit ang iyong bagong password.",
+      "reset": "I-reset ang Iyong Password",
+      "reset-desc": "Ilagay ang iyong bagong password sa ibaba para ma-access muli ang iyong account.",
+      "form": {
+        "new-password": "Bagong password",
+        "confirm-pass": "Kumpirmahin ang bagong password"
+      },
+      "placeholder": {
+        "new-password": "Ilagay ang iyong bagong password",
+        "confirm-pass": "Kumpirmahin ang iyong bagong password"
       }
     }
   }

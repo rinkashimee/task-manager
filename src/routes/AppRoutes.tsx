@@ -3,6 +3,7 @@ import DashboardLayout from '@/components/layouts/DashboardLayout';
 import ForgotPassword from '@/pages/auth/forgot-password/ForgotPassword';
 import Login from '@/pages/auth/login/Login';
 import Register from '@/pages/auth/register/Register';
+import ResetPassword from '@/pages/auth/reset-password/ResetPassword';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import MyTasks from '@/pages/my-tasks/MyTasks';
 import Project from '@/pages/projects/Project';
@@ -19,6 +20,7 @@ export default function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
 
       <Route element={<DashboardLayout />}>

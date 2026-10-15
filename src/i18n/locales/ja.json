@@ -57,6 +57,7 @@
     "create-acc": "アカウントを作成",
     "reset-link": "リセットリンクを送信",
     "back-sign-in": "ログインに戻る",
+    "reset-password": "パスワードをリセット",
     "validation": {
       "field-required": "この項目は必須です",
       "minimum-char": "{{min}}文字以上で入力してください",
@@ -335,6 +336,20 @@
       },
       "placeholder": {
         "email": "メールアドレスを入力"
+      }
+    },
+    "reset-password": {
+      "pass-reset": "パスワードのリセットが完了しました！",
+      "desc": "パスワードが正常に更新されました。新しいパスワードでログインできます。",
+      "reset": "パスワードをリセット",
+      "reset-desc": "アカウントへのアクセスを再開するには、以下に新しいパスワードを入力してください。",
+      "form": {
+        "new-password": "新しいパスワード",
+        "confirm-pass": "新しいパスワードの確認"
+      },
+      "placeholder": {
+        "new-password": "新しいパスワードを入力",
+        "confirm-pass": "新しいパスワードを再入力"
       }
     }
   }
