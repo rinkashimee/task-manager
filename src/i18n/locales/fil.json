@@ -59,6 +59,11 @@
     "reset-link": "Ipadala ang reset link",
     "back-sign-in": "Bumalik sa pag-sign in",
     "reset-password": "I-reset ang Password",
+    "sending": "Ipinapadala...",
+    "resend-cooldown": "Muling ipadala sa loob ng {{cooldown}}s",
+    "resend-email": "Muling ipadala ang verification email",
+    "continue-sign-in": "Magpatuloy sa pag-sign in",
+    "try-again": "Subukang muli",
     "validation": {
       "field-required": "Kinakailangang punan ang field na ito",
       "minimum-char": "Hindi bababa sa {{min}} character",
@@ -354,6 +359,32 @@
       "placeholder": {
         "new-password": "Ilagay ang iyong bagong password",
         "confirm-pass": "Kumpirmahin ang iyong bagong password"
+      }
+    },
+    "verify-email": {
+      "invalid-email": "Pakilagay ang valid na email address.",
+      "pending": {
+        "verify": "I-verify ang iyong email",
+        "desc": "Nagawa na ang iyong account. Pakitingnan ang iyong inbox para sa verification link.",
+        "no-email-receive": "Hindi natanggap ang email? Maaari kang humiling ng panibagong verification link."
+      },
+      "verifying": {
+        "loading": "Vine-verify ang iyong email...",
+        "desc": "Pakihintay habang vine-verify namin ang iyong email address."
+      },
+      "success": {
+        "email": "Na-verify na ang iyong email!",
+        "desc": "Matagumpay na na-verify ang iyong email address. Maaari ka nang mag-sign in sa iyong account."
+      },
+      "expired": {
+        "expired-link": "Nag-expire na ang verification link",
+        "desc": "Hindi na valid ang verification link na ito. Ilagay ang iyong email address para makatanggap ng bagong verification link.",
+        "resend-success": "Naipadala na ang verification email!",
+        "resend-success-desc": "Nagpadala kami ng bagong verification link sa iyong email address. Pakitingnan ang iyong inbox at sundin ang link para ma-verify ang iyong account."
+      },
+      "error": {
+        "title": "Hindi ma-verify ang iyong email",
+        "desc": "Hindi namin ma-verify ang iyong email sa ngayon. Maaari mong subukang muli ang verification link o humiling ng bago."
       }
     }
   }

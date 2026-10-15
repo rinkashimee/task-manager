@@ -59,6 +59,11 @@
     "reset-link": "Send reset link",
     "back-sign-in": "Back to sign in",
     "reset-password": "Reset password",
+    "sending": "Sending...",
+    "resend-cooldown": "Resend in {{cooldown}}s",
+    "resend-email": "Resend verification email",
+    "continue-sign-in": "Continue to sign in",
+    "try-again": "Try again",
     "validation": {
       "field-required": "This field is required",
       "minimum-char": "Minimum {{min}} characters",
@@ -354,6 +359,32 @@
       "placeholder": {
         "new-password": "Enter your new password",
         "confirm-pass": "Confirm your new password"
+      }
+    },
+    "verify-email": {
+      "invalid-email": "Please enter a valid email address.",
+      "pending": {
+        "verify": "Verify your email",
+        "desc": "Your account has been created. Please check your inbox for a verification link.",
+        "no-email-receive": "Didn't receive the email? You can request another verification link."
+      },
+      "verifying": {
+        "loading": "Verifying your email...",
+        "desc": "Please wait while we verify your email address."
+      },
+      "success": {
+        "email": "Email verified!",
+        "desc": "Your email address has been verified successfully. You can now sign in to your account."
+      },
+      "expired": {
+        "expired-link": "Verification link expired",
+        "desc": "This verification link is no longer valid. Enter your email address to receive a new verification link.",
+        "resend-success": "Verification email sent!",
+        "resend-success-desc": "We've sent a new verification link to your email address. Please check your inbox and follow the link to verify your account."
+      },
+      "error": {
+        "title": "Unable to verify your email",
+        "desc": "We couldn't verify your email right now. You can try your verification link again or request a new one."
       }
     }
   }
