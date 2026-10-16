@@ -87,10 +87,12 @@
       "edit": "{{name}}を編集",
       "delete": "{{name}}を削除",
       "duplicate": "{{name}}を複製",
+      "logout": "アカウントからログアウトしますか？",
       "complete-desc": "この{{name}}を完了にしてもよろしいですか？",
       "edit-desc": "この{{name}}を編集してもよろしいですか？",
       "delete-desc": "この{{name}}を削除してもよろしいですか？この操作は取り消せません。",
-      "duplicate-desc": "この{{name}}を複製してもよろしいですか？"
+      "duplicate-desc": "この{{name}}を複製してもよろしいですか？",
+      "logout-desc": "ログアウトしてもよろしいですか？タスクやプロジェクトにアクセスするには、再度ログインする必要があります。"
     },
     "toast-title": {
       "fail": "失敗",

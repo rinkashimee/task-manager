@@ -87,10 +87,12 @@
       "edit": "Edit {{name}}",
       "delete": "Delete {{name}}",
       "duplicate": "Duplicate {{name}}",
+      "logout": "Log out of your account?",
       "complete-desc": "Are you sure you want to mark this {{name}} as completed?",
       "edit-desc": "Are you sure you want to edit this {{name}}?",
       "delete-desc": "Are you sure you want to delete this {{name}}? This action cannot be undone.",
-      "duplicate-desc": "Are you sure you want to duplicate this {{name}}?"
+      "duplicate-desc": "Are you sure you want to duplicate this {{name}}?",
+      "logout-desc": "Are you sure you want to log out? You'll need to sign in again to access your tasks and projects."
     },
     "toast-title": {
       "fail": "Failed",

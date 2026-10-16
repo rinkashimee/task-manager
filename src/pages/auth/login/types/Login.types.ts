@@ -10,7 +10,15 @@ export interface LoginResponse extends Omit<LoginFormTypes, 'rememberMe' | 'pass
   id: string;
   name: string;
   role: string;
+  accessToken: string;
+  tokenType: string;
+  expiresIn: number;
 }
 
 export type LoginResult =
   { status: 'success'; data: LoginResponse } | { status: 'unverified' } | { status: 'error' };
+
+export interface RefreshResponse extends Pick<
+  LoginResponse,
+  'accessToken' | 'tokenType' | 'expiresIn'
+> {}

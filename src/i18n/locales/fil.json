@@ -87,10 +87,12 @@
       "edit": "I-edit ang {{name}}",
       "delete": "Burahin ang {{name}}",
       "duplicate": "Gumawa ng Kopya ng {{name}}",
+      "logout": "Gusto mo bang mag-log out sa iyong account?",
       "complete-desc": "Sigurado ka bang gusto mong markahan ang {{name}} bilang tapos na?",
       "edit-desc": "Sigurado ka bang gusto mong i-edit ang {{name}}?",
       "delete-desc": "Sigurado ka bang gusto mong burahin ang {{name}}? Hindi na ito maaaring ibalik.",
-      "duplicate-desc": "Sigurado ka bang gusto mong gumawa ng kopya ng {{name}}?"
+      "duplicate-desc": "Sigurado ka bang gusto mong gumawa ng kopya ng {{name}}?",
+      "logout-desc": "Sigurado ka bang gusto mong mag-log out? Kailangan mong mag-sign in muli para ma-access ang iyong mga task at project."
     },
     "toast-title": {
       "fail": "Nabigo",

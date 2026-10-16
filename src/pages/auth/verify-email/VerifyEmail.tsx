@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import TaskIcon from '@/components/icons/TaskIcon';
 import Typography from '@/components/ui/Typography/Typography';
 import type { VerificationStatus, VerifyEmailLocationState } from './types/VerifyEmail.types';
@@ -24,11 +24,16 @@ export default function VerifyEmail() {
 
   const locationState = location.state as VerifyEmailLocationState | null;
 
+  const storedEmail = localStorage.getItem('pendingVerificationEmail');
   const mode = locationState?.mode ?? 'registration';
 
-  const [email, setEmail] = useState(
-    () => locationState?.email ?? localStorage.getItem('pendingVerificationEmail') ?? ''
-  );
+  const [email, setEmail] = useState(() => locationState?.email ?? storedEmail ?? '');
+
+  const hasVerificationContext = Boolean(token || locationState?.email || storedEmail);
+
+  if (!hasVerificationContext) {
+    return <Navigate to="/login" replace />;
+  }
 
   const { resendVerification, verifyEmail, isResend, isVerify } = useAuth();
 
@@ -102,7 +107,7 @@ export default function VerifyEmail() {
 
     setStatus('verifying');
 
-    const result = await verifyEmail(token);
+    const result = await verifyEmail(token, true);
 
     setStatus(result);
   };

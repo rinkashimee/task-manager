@@ -5,10 +5,12 @@ import { useTranslation } from 'react-i18next';
 import type { LoginFormTypes } from './types/Login.types';
 import LoginForm from './components/LoginForm';
 import { useAuth } from '../hooks/useAuth';
+import { useAuthSession } from '../hooks/useAuthSession';
 
 export default function Login() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { setAuthenticated } = useAuthSession();
 
   const { login, isLogin } = useAuth();
 
@@ -32,6 +34,9 @@ export default function Login() {
 
     if (result.status === 'success') {
       localStorage.removeItem('pendingVerificationEmail');
+
+      setAuthenticated();
+      navigate('/dashboard', { replace: true });
     }
   };
 

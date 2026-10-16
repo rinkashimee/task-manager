@@ -1,5 +1,5 @@
 import { useToast } from '@/components/ui/Toast/ToastProvider';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import type { RegisterRequest } from '../register/types/Register.types';
@@ -9,18 +9,24 @@ import { getApiErrorMessage } from '@/api/apiError';
 import type { VerificationStatus } from '../verify-email/types/VerifyEmail.types';
 import axios from 'axios';
 import type { LoginRequest, LoginResult } from '../login/types/Login.types';
+import { tokenManager } from '../services/tokenManager';
+import { verifyEmailRequest } from '../services/verifyEmailRequest';
+import { useAuthSession } from './useAuthSession';
+import { waitForPendingRefresh } from '../services/refreshToken';
 
 export type AuthLoadingState = {
   register: boolean;
   resend: boolean;
   verify: boolean;
   login: boolean;
+  logout: boolean;
 };
 
 export function useAuth() {
   const { t } = useTranslation();
   const { showToast } = useToast();
   const { showLoading, hideLoading } = useSpinner();
+  const { setUnauthenticated } = useAuthSession();
 
   const navigate = useNavigate();
 
@@ -29,7 +35,10 @@ export function useAuth() {
     resend: false,
     verify: false,
     login: false,
+    logout: false,
   });
+
+  const logoutInProgress = useRef(false);
 
   const register = useCallback(
     async (values: RegisterRequest): Promise<void> => {
@@ -66,7 +75,7 @@ export function useAuth() {
         hideLoading();
       }
     },
-    [showToast, t]
+    [showLoading, hideLoading, showToast, t]
   );
 
   const resendVerification = useCallback(
@@ -97,20 +106,17 @@ export function useAuth() {
         hideLoading();
       }
     },
-    [showToast, t]
+    [showLoading, hideLoading, showToast, t]
   );
 
   const verifyEmail = useCallback(
-    async (token: string): Promise<VerificationStatus> => {
+    async (token: string, retry = false): Promise<VerificationStatus> => {
       try {
         setLoading((prev) => ({ ...prev, verify: true }));
-        showLoading();
 
-        const result = await authApi.verifyEmail({ token });
+        await verifyEmailRequest(token, retry);
 
-        if (result.success) {
-          localStorage.removeItem('pendingVerificationEmail');
-        }
+        localStorage.removeItem('pendingVerificationEmail');
 
         return 'success';
       } catch (error) {
@@ -125,10 +131,9 @@ export function useAuth() {
         return 'error';
       } finally {
         setLoading((prev) => ({ ...prev, verify: false }));
-        hideLoading();
       }
     },
-    [showToast, t]
+    []
   );
 
   const login = useCallback(
@@ -138,6 +143,8 @@ export function useAuth() {
         showLoading();
 
         const response = await authApi.login(values);
+
+        tokenManager.setToken(response.data.accessToken);
 
         showToast({
           title: t('common.toast-title.success'),
@@ -166,17 +173,55 @@ export function useAuth() {
         hideLoading();
       }
     },
-    [showToast, t]
+    [showLoading, hideLoading, showToast, t]
   );
+
+  const logout = useCallback(async (): Promise<void> => {
+    if (logoutInProgress.current) return;
+
+    logoutInProgress.current = true;
+
+    setLoading((prev) => ({ ...prev, logout: true }));
+    showLoading();
+
+    tokenManager.clearToken();
+    try {
+      await waitForPendingRefresh();
+
+      const response = await authApi.logout();
+
+      showToast({
+        title: t('common.toast-title.success'),
+        description: response.message,
+        variant: 'success',
+      });
+    } catch (error) {
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: getApiErrorMessage(error, t),
+        variant: 'error',
+      });
+    } finally {
+      tokenManager.finishLogout();
+      setUnauthenticated();
+
+      setLoading((prev) => ({ ...prev, logout: true }));
+      hideLoading();
+
+      logoutInProgress.current = false;
+    }
+  }, [showLoading, hideLoading, showToast, setUnauthenticated, t]);
 
   return {
     isRegister: loading.register,
     isResend: loading.resend,
     isVerify: loading.verify,
     isLogin: loading.login,
+    isLogout: loading.logout,
     register,
     resendVerification,
     verifyEmail,
     login,
+    logout,
   };
 }
