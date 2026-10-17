@@ -40,7 +40,8 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    const isAuthEndpoint = originalRequest.url?.startsWith('/auth/');
+    const isAuthEndpoint =
+      originalRequest.url?.startsWith('/auth/') && !originalRequest.url?.startsWith('/auth/me');
 
     if (
       error.response?.status !== 401 ||

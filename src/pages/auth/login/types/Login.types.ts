@@ -22,3 +22,5 @@ export interface RefreshResponse extends Pick<
   LoginResponse,
   'accessToken' | 'tokenType' | 'expiresIn'
 > {}
+
+export interface AuthUser extends Pick<LoginResponse, 'id' | 'name' | 'email' | 'role'> {}

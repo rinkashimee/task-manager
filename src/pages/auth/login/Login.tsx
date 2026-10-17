@@ -35,7 +35,15 @@ export default function Login() {
     if (result.status === 'success') {
       localStorage.removeItem('pendingVerificationEmail');
 
-      setAuthenticated();
+      const { id, name, email, role } = result.data;
+
+      setAuthenticated({
+        id,
+        name,
+        email,
+        role,
+      });
+
       navigate('/dashboard', { replace: true });
     }
   };

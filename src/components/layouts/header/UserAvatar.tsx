@@ -5,7 +5,7 @@ import clsx from 'clsx';
 type AvatarSize = 'sm' | 'md' | 'lg';
 
 interface UserAvatarProps {
-  name: string;
+  name: string | undefined;
   avatarUrl?: string | null;
   size?: AvatarSize;
 }
@@ -33,7 +33,7 @@ const avatarSizes: Record<AvatarSize, AvatarSizeConfig> = {
 export default function UserAvatar(props: UserAvatarProps) {
   const { name, avatarUrl, size = 'sm' } = props;
 
-  const initial = name.charAt(0).toUpperCase();
+  const initial = name?.charAt(0)?.toUpperCase();
   const config = avatarSizes[size];
 
   return (

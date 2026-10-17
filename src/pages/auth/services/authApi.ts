@@ -5,7 +5,7 @@ import type {
   ResendVerificationRequest,
   VerifyEmailRequest,
 } from '../verify-email/types/VerifyEmail.types';
-import type { LoginRequest, LoginResponse } from '../login/types/Login.types';
+import type { AuthUser, LoginRequest, LoginResponse } from '../login/types/Login.types';
 
 export const authApi = {
   register: async (data: RegisterRequest): Promise<ApiResponse<RegisterResponse>> => {
@@ -28,6 +28,12 @@ export const authApi = {
 
   login: async (values: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
     const response = await api.post<ApiResponse<LoginResponse>>('/auth/login', values);
+
+    return response.data;
+  },
+
+  getCurrentUser: async (): Promise<ApiResponse<AuthUser>> => {
+    const response = await api.get<ApiResponse<AuthUser>>('/auth/me');
 
     return response.data;
   },

@@ -13,8 +13,8 @@ import { useAuth } from '@/pages/auth/hooks/useAuth';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 
 interface UserMenuProps {
-  name: string;
-  email: string;
+  name: string | undefined;
+  email: string | undefined;
   avatarUrl?: string | null;
 }
 
@@ -73,7 +73,9 @@ export default function UserMenu(props: UserMenuProps) {
         <div
           className={cn(
             'border-border bg-card absolute',
-            'top-full right-0 z-50 w-[240px] rounded-md border p-3 shadow-sm'
+            'top-full right-0 z-50',
+            'w-max max-w-[min(360px,calc(100vw-24px))] min-w-[240px]',
+            'rounded-md border p-3 shadow-sm'
           )}
         >
           <UserDropdownHeader name={name} email={email} avatarUrl={avatarUrl} />

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { pageSize } from '../my-tasks/constant/TaskConstant';
 import ProjectProgress from './components/ProjectProgress';
 import RecentTasks from './components/RecentTasks';
+import { useAuthSession } from '../auth/hooks/useAuthSession';
 
 export default function Dashboard() {
   const { t } = useTranslation();
@@ -17,6 +18,8 @@ export default function Dashboard() {
   const greeting = getGreeting();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const { user } = useAuthSession();
 
   const {
     dashboardStat,
@@ -68,7 +71,7 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen flex-col">
       <Header
-        title={t('dashboard.title', { data: t(greeting), user: 'Rinkaa' })}
+        title={t('dashboard.title', { data: t(greeting), user: user?.name ?? 'User' })}
         caption={t('dashboard.caption')}
       />
 

@@ -1,8 +1,10 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { AuthContext, type AuthStatus } from './AuthContext';
 import { tokenManager } from '../services/tokenManager';
 import { useSpinner } from '@/components/ui/Spinner/SpinnerContext';
 import { refreshAccessToken } from '../services/refreshToken';
+import type { AuthUser } from '../login/types/Login.types';
+import { authApi } from '../services/authApi';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -11,12 +13,14 @@ interface AuthProviderProps {
 export default function AuthProvider(props: AuthProviderProps) {
   const { children } = props;
 
-  const { showLoading, hideLoading } = useSpinner();
-
   const [status, setStatus] = useState<AuthStatus>('loading');
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  const { showLoading, hideLoading } = useSpinner();
 
   useEffect(() => {
     let active = true;
+    const sessionVersion = tokenManager.getSessionVersion();
 
     const restoreSession = async () => {
       showLoading();
@@ -24,13 +28,21 @@ export default function AuthProvider(props: AuthProviderProps) {
       try {
         await refreshAccessToken();
 
-        if (!active) return;
+        const response = await authApi.getCurrentUser();
 
+        if (!active || sessionVersion !== tokenManager.getSessionVersion()) {
+          return;
+        }
+
+        setUser(response.data);
         setStatus('authenticated');
       } catch {
-        if (!active) return;
+        if (!active || sessionVersion !== tokenManager.getSessionVersion()) {
+          return;
+        }
 
         tokenManager.clearToken();
+        setUser(null);
         setStatus('unauthenticated');
       } finally {
         if (active) {
@@ -47,17 +59,26 @@ export default function AuthProvider(props: AuthProviderProps) {
     };
   }, [showLoading, hideLoading]);
 
-  const setAuthenticated = () => {
+  const setAuthenticated = useCallback((user: AuthUser) => {
+    setUser(user);
     setStatus('authenticated');
-  };
+  }, []);
 
-  const setUnauthenticated = () => {
+  const setUnauthenticated = useCallback(() => {
     tokenManager.clearToken();
+    setUser(null);
     setStatus('unauthenticated');
-  };
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ status, setAuthenticated, setUnauthenticated }}>
+    <AuthContext.Provider
+      value={{
+        status,
+        user,
+        setAuthenticated,
+        setUnauthenticated,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
