@@ -19,7 +19,13 @@ export const userApi = {
     const formData = new FormData();
     formData.append('file', file);
 
-    const response = await api.put<ApiResponse<ProfileImageResponse>>('/users/me/avatar', formData);
+    const response = await api.put<ApiResponse<ProfileImageResponse>>(
+      '/users/me/avatar',
+      formData,
+      {
+        timeout: 30000,
+      }
+    );
 
     return response.data;
   },

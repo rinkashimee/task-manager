@@ -1,4 +1,4 @@
-import { useState, useRef, type ChangeEvent } from 'react';
+import { useRef, type ChangeEvent } from 'react';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
 import { useTranslation } from 'react-i18next';
 import ProfilePictureUpload from './components/ProfilePictureUpload';
@@ -8,6 +8,7 @@ import SettingsCard from '@/components/ui/Cards/SettingsCard';
 import Appearance from '../appearance/Appearance';
 import { useAuthSession } from '@/pages/auth/hooks/useAuthSession';
 import { useUser } from './hooks/useUser';
+import { compressImage } from '@/lib/utils/utils';
 
 export default function Account() {
   const { t } = useTranslation();
@@ -56,7 +57,17 @@ export default function Account() {
       return;
     }
 
-    await uploadProfileImage(file);
+    try {
+      const optimizedFile = await compressImage(file);
+
+      await uploadProfileImage(optimizedFile);
+    } catch {
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: t('common.toast-title.desc.unable'),
+        variant: 'error',
+      });
+    }
   };
 
   const handleRemove = async () => {
