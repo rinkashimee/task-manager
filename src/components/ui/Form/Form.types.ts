@@ -13,6 +13,7 @@ export interface FormRule {
   required?: boolean;
   min?: number;
   max?: number;
+  pattern?: RegExp;
   message?: string;
 }
 
@@ -29,6 +30,8 @@ export interface FormProps<
 export interface FormFieldProps {
   name?: string;
   id?: string;
+  type?: React.HTMLInputTypeAttribute;
+  defaultChecked?: boolean;
   error?: boolean;
   required?: boolean;
   defaultValue?: string;
@@ -43,6 +46,7 @@ export interface FormItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
   children: ReactElement<FormFieldProps>;
   rules?: FormRule[];
   help?: string;
+  layout?: 'vertical' | 'horizontal';
 }
 
 export interface FormContextValue {

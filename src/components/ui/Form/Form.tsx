@@ -8,7 +8,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { FormContext } from './FormContext';
 
 function validateField(
-  value: FormDataEntryValue | null,
+  value: FormDataEntryValue | boolean | null | undefined,
   rules: FormRule[],
   t: TFunction
 ): string | undefined {
@@ -25,6 +25,10 @@ function validateField(
 
     if (text && rule.max !== undefined && text.length > rule.max) {
       return rule.message ?? t('common.validation.maximum-char', { max: rule.max });
+    }
+
+    if (text && rule.pattern && !rule.pattern.test(text)) {
+      return rule.message ?? t('common.validation.invalid-format');
     }
   }
 
@@ -73,8 +77,16 @@ function Form<TValues extends object = Record<string, FormDataEntryValue>>(
   const handleSubmit = (event: FormSubmitEvent) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
-    const values = Object.fromEntries(formData.entries()) as TValues;
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const values = Object.fromEntries(formData.entries()) as Record<string, unknown>;
+
+    form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach((checkbox) => {
+      if (!checkbox.name) return;
+
+      values[checkbox.name] = checkbox.checked;
+    });
 
     const nextErrors: Record<string, string> = {};
 
@@ -92,7 +104,7 @@ function Form<TValues extends object = Record<string, FormDataEntryValue>>(
       return;
     }
 
-    onSubmit?.(values, event);
+    onSubmit?.(values as TValues, event);
   };
 
   return (

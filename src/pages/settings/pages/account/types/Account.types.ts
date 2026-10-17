@@ -1,11 +1,17 @@
+import type { AuthUser } from '@/pages/auth/login/types/Login.types';
+
 export interface AccountFormTypes {
   name: string;
   email: string;
   role: string;
 }
 
-export interface UpdateAccountTypes {
+export interface UpdateProfileRequest {
   name: string;
-  email: string;
-  avatar?: File | null;
 }
+
+export interface ProfileImageResponse {
+  profileImage: string;
+}
+
+export type UpdateProfileResponse = AuthUser;

@@ -51,10 +51,24 @@
     "remove": "Alisin",
     "theme-preview": "{{value}} na Tema",
     "current": " (Kasalukuyan)",
+    "sign-in": "Mag-sign in",
+    "sign-up": "Mag-sign up",
+    "forgot-pass": "Nakalimutan ang password?",
+    "create-acc": "Gumawa ng Account",
+    "creating-acc": "Ginagawa ang account...",
+    "reset-link": "Ipadala ang reset link",
+    "back-sign-in": "Bumalik sa pag-sign in",
+    "reset-password": "I-reset ang Password",
+    "sending": "Ipinapadala...",
+    "resend-cooldown": "Muling ipadala sa loob ng {{cooldown}}s",
+    "resend-email": "Muling ipadala ang verification email",
+    "continue-sign-in": "Magpatuloy sa pag-sign in",
+    "try-again": "Subukang muli",
     "validation": {
       "field-required": "Kinakailangang punan ang field na ito",
       "minimum-char": "Hindi bababa sa {{min}} character",
-      "maximum-char": "Hindi hihigit sa {{max}} character"
+      "maximum-char": "Hindi hihigit sa {{max}} character",
+      "invalid-format": "Pakilagay ang tamang format."
     },
     "status-dropdown": {
       "todo": "Gagawin",
@@ -73,16 +87,26 @@
       "edit": "I-edit ang {{name}}",
       "delete": "Burahin ang {{name}}",
       "duplicate": "Gumawa ng Kopya ng {{name}}",
+      "logout": "Gusto mo bang mag-log out sa iyong account?",
       "complete-desc": "Sigurado ka bang gusto mong markahan ang {{name}} bilang tapos na?",
       "edit-desc": "Sigurado ka bang gusto mong i-edit ang {{name}}?",
       "delete-desc": "Sigurado ka bang gusto mong burahin ang {{name}}? Hindi na ito maaaring ibalik.",
-      "duplicate-desc": "Sigurado ka bang gusto mong gumawa ng kopya ng {{name}}?"
+      "duplicate-desc": "Sigurado ka bang gusto mong gumawa ng kopya ng {{name}}?",
+      "logout-desc": "Sigurado ka bang gusto mong mag-log out? Kailangan mong mag-sign in muli para ma-access ang iyong mga task at project."
     },
     "toast-title": {
       "fail": "Nabigo",
       "success": "Matagumpay",
       "warning": "Babala",
-      "info": "Impormasyon"
+      "info": "Impormasyon",
+      "desc": {
+        "pass-not-match": "Hindi magkatugma ang mga password. Pakisubukang muli.",
+        "name": "Hindi maaaring walang laman ang pangalan.",
+        "no-changes": "Walang nakitang pagbabago. Pakibago ang iyong pangalan bago i-save.",
+        "supported-image": "JPG, PNG, at GIF na mga larawan lamang ang pinapayagan.",
+        "max-size": "Hindi dapat lumampas sa 2 MB ang laki ng larawan.",
+        "unable": "Hindi maproseso ang napiling larawan."
+      }
     },
     "language-dropdown": {
       "en": "Ingles",
@@ -279,6 +303,99 @@
         "version-val": "1.0.0",
         "platform-val": "Web Application",
         "developer-val": "Mark Le Jhon Casalta"
+      }
+    }
+  },
+  "auth": {
+    "brand": {
+      "title": "Task Manager",
+      "desc": "Ayusin ang iyong mga task, pamahalaan ang iyong mga project, at mas marami pang makamit."
+    },
+    "login": {
+      "welcome": "Maligayang pagdating!",
+      "desc": "Mag-sign in para magpatuloy sa Task Manager.",
+      "no-account": "Wala ka pang account? ",
+      "form": {
+        "email": "Email address",
+        "password": "Password",
+        "remember-me": "Tandaan ako"
+      },
+      "placeholder": {
+        "email": "Ilagay ang iyong email",
+        "password": "Ilagay ang iyong password"
+      }
+    },
+    "register": {
+      "create": "Gumawa ng Iyong Account",
+      "desc": "Simulan ang paggamit ng Task Manager at panatilihing organisado ang iyong mga gawain.",
+      "already-have-acc": "May account ka na ba? ",
+      "form": {
+        "name": "Buong pangalan",
+        "email": "Email address",
+        "password": "Password",
+        "confirm-pass": "Kumpirmahin ang password"
+      },
+      "placeholder": {
+        "name": "Ilagay ang iyong buong pangalan",
+        "email": "Ilagay ang iyong email",
+        "password": "Gumawa ng password",
+        "confirm-pass": "Kumpirmahin ang iyong password"
+      }
+    },
+    "forgot-pass": {
+      "forgot": "Nakalimutan ang password?",
+      "desc": "Ilagay ang iyong email address at padadalhan ka namin ng link para i-reset ang iyong password.",
+      "check-email": "Tingnan ang iyong email",
+      "check-email-desc": "Kung may account na nakarehistro sa email address na iyon, makakatanggap ka ng password reset link sa ilang sandali.",
+      "form": {
+        "email": "Email address"
+      },
+      "placeholder": {
+        "email": "Ilagay ang iyong email"
+      }
+    },
+    "reset-password": {
+      "pass-reset": "Matagumpay na na-reset ang password!",
+      "desc": "Matagumpay na na-update ang iyong password. Maaari ka nang mag-sign in gamit ang iyong bagong password.",
+      "reset": "I-reset ang Iyong Password",
+      "reset-desc": "Ilagay ang iyong bagong password sa ibaba para ma-access muli ang iyong account.",
+      "form": {
+        "new-password": "Bagong password",
+        "confirm-pass": "Kumpirmahin ang bagong password"
+      },
+      "placeholder": {
+        "new-password": "Ilagay ang iyong bagong password",
+        "confirm-pass": "Kumpirmahin ang iyong bagong password"
+      }
+    },
+    "verify-email": {
+      "invalid-email": "Pakilagay ang valid na email address.",
+      "pending": {
+        "verify": "I-verify ang iyong email",
+        "desc": "Nagawa na ang iyong account. Pakitingnan ang iyong inbox para sa verification link.",
+        "no-email-receive": "Hindi natanggap ang email? Maaari kang humiling ng panibagong verification link."
+      },
+      "verifying": {
+        "loading": "Vine-verify ang iyong email...",
+        "desc": "Pakihintay habang vine-verify namin ang iyong email address."
+      },
+      "success": {
+        "email": "Na-verify na ang iyong email!",
+        "desc": "Matagumpay na na-verify ang iyong email address. Maaari ka nang mag-sign in sa iyong account."
+      },
+      "expired": {
+        "expired-link": "Nag-expire na ang verification link",
+        "desc": "Hindi na valid ang verification link na ito. Ilagay ang iyong email address para makatanggap ng bagong verification link.",
+        "resend-success": "Naipadala na ang verification email!",
+        "resend-success-desc": "Nagpadala kami ng bagong verification link sa iyong email address. Pakitingnan ang iyong inbox at sundin ang link para ma-verify ang iyong account."
+      },
+      "error": {
+        "title": "Hindi ma-verify ang iyong email",
+        "desc": "Hindi namin ma-verify ang iyong email sa ngayon. Maaari mong subukang muli ang verification link o humiling ng bago."
+      },
+      "recovery": {
+        "title": "I-verify ang iyong email address",
+        "desc": "Hindi pa na-verify ang iyong email address. Humiling ng bagong verification link para ma-activate ang iyong account."
       }
     }
   }

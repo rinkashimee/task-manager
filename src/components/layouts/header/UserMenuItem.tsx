@@ -8,17 +8,19 @@ interface UserMenuItemProps {
   icon: IconType;
   label: string;
   danger?: boolean;
+  disabled?: boolean;
   classname?: string;
   onClick?: () => void;
 }
 
 export default function UserMenuItem(props: UserMenuItemProps) {
-  const { icon, label, danger, classname, onClick } = props;
+  const { icon, label, danger, disabled, classname, onClick } = props;
 
   return (
     <Button
       variant="ghost"
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         'w-full justify-start gap-3 px-3 py-2',
         'text-text-muted hover:bg-primary/10 hover:text-primary',

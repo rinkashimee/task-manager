@@ -1,5 +1,6 @@
 import Typography from '@/components/ui/Typography/Typography';
 import UserMenu from './UserMenu';
+import { useAuthSession } from '@/pages/auth/hooks/useAuthSession';
 
 interface HeaderProps {
   title: string;
@@ -9,6 +10,8 @@ interface HeaderProps {
 
 export default function Header(props: HeaderProps) {
   const { title, caption, hidden } = props;
+
+  const { user } = useAuthSession();
 
   return (
     <header
@@ -25,7 +28,11 @@ export default function Header(props: HeaderProps) {
         </Typography>
       </div>
 
-      <UserMenu name="Rinkaa" email="rinka.xxx@gmail.com" />
+      <UserMenu
+        name={user?.name ?? 'User'}
+        email={user?.email ?? ''}
+        avatarUrl={user?.profileImage}
+      />
     </header>
   );
 }

@@ -51,10 +51,24 @@
     "remove": "削除",
     "theme-preview": "{{value}}テーマ",
     "current": "（現在）",
+    "sign-in": "ログイン",
+    "sign-up": "新規登録",
+    "forgot-pass": "パスワードをお忘れですか？",
+    "create-acc": "アカウントを作成",
+    "creating-acc": "アカウントを作成中...",
+    "reset-link": "リセットリンクを送信",
+    "back-sign-in": "ログインに戻る",
+    "reset-password": "パスワードをリセット",
+    "sending": "送信中...",
+    "resend-cooldown": "{{cooldown}}秒後に再送信",
+    "resend-email": "確認メールを再送信",
+    "continue-sign-in": "ログインに進む",
+    "try-again": "もう一度試す",
     "validation": {
       "field-required": "この項目は必須です",
       "minimum-char": "{{min}}文字以上で入力してください",
-      "maximum-char": "{{max}}文字以内で入力してください"
+      "maximum-char": "{{max}}文字以内で入力してください",
+      "invalid-format": "正しい形式で入力してください。"
     },
     "status-dropdown": {
       "todo": "未着手",
@@ -73,16 +87,26 @@
       "edit": "{{name}}を編集",
       "delete": "{{name}}を削除",
       "duplicate": "{{name}}を複製",
+      "logout": "アカウントからログアウトしますか？",
       "complete-desc": "この{{name}}を完了にしてもよろしいですか？",
       "edit-desc": "この{{name}}を編集してもよろしいですか？",
       "delete-desc": "この{{name}}を削除してもよろしいですか？この操作は取り消せません。",
-      "duplicate-desc": "この{{name}}を複製してもよろしいですか？"
+      "duplicate-desc": "この{{name}}を複製してもよろしいですか？",
+      "logout-desc": "ログアウトしてもよろしいですか？タスクやプロジェクトにアクセスするには、再度ログインする必要があります。"
     },
     "toast-title": {
       "fail": "失敗",
       "success": "成功",
       "warning": "警告",
-      "info": "情報"
+      "info": "情報",
+      "desc": {
+        "pass-not-match": "パスワードが一致しません。もう一度お試しください。",
+        "name": "名前を空欄にすることはできません。",
+        "no-changes": "変更がありません。保存する前に名前を変更してください。",
+        "supported-image": "JPG、PNG、GIF形式の画像のみ使用できます。",
+        "max-size": "画像サイズは2MB以下にしてください。",
+        "unable": "選択した画像を処理できませんでした。"
+      }
     },
     "language-dropdown": {
       "en": "英語",
@@ -279,6 +303,99 @@
         "version-val": "1.0.0",
         "platform-val": "ウェブアプリケーション",
         "developer-val": "Mark Le Jhon Casalta"
+      }
+    }
+  },
+  "auth": {
+    "brand": {
+      "title": "タスクマネージャー",
+      "desc": "タスクを整理し、プロジェクトを管理して、より多くの目標を達成しましょう。"
+    },
+    "login": {
+      "welcome": "ようこそ！",
+      "desc": "タスクマネージャーにログインして続行してください。",
+      "no-account": "アカウントをお持ちでないですか？ ",
+      "form": {
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "remember-me": "ログイン状態を保持する"
+      },
+      "placeholder": {
+        "email": "メールアドレスを入力",
+        "password": "パスワードを入力"
+      }
+    },
+    "register": {
+      "create": "アカウントを作成",
+      "desc": "タスクマネージャーを使い始めて、タスクを整理しましょう。",
+      "already-have-acc": "すでにアカウントをお持ちですか？ ",
+      "form": {
+        "name": "氏名",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "confirm-pass": "パスワードの確認"
+      },
+      "placeholder": {
+        "name": "氏名を入力",
+        "email": "メールアドレスを入力",
+        "password": "パスワードを作成",
+        "confirm-pass": "パスワードを再入力"
+      }
+    },
+    "forgot-pass": {
+      "forgot": "パスワードをお忘れですか？",
+      "desc": "メールアドレスを入力してください。パスワードをリセットするためのリンクをお送りします。",
+      "check-email": "メールをご確認ください",
+      "check-email-desc": "そのメールアドレスに登録されたアカウントが存在する場合、まもなくパスワードリセット用のリンクが届きます。",
+      "form": {
+        "email": "メールアドレス"
+      },
+      "placeholder": {
+        "email": "メールアドレスを入力"
+      }
+    },
+    "reset-password": {
+      "pass-reset": "パスワードのリセットが完了しました！",
+      "desc": "パスワードが正常に更新されました。新しいパスワードでログインできます。",
+      "reset": "パスワードをリセット",
+      "reset-desc": "アカウントへのアクセスを再開するには、以下に新しいパスワードを入力してください。",
+      "form": {
+        "new-password": "新しいパスワード",
+        "confirm-pass": "新しいパスワードの確認"
+      },
+      "placeholder": {
+        "new-password": "新しいパスワードを入力",
+        "confirm-pass": "新しいパスワードを再入力"
+      }
+    },
+    "verify-email": {
+      "invalid-email": "有効なメールアドレスを入力してください。",
+      "pending": {
+        "verify": "メールアドレスを確認",
+        "desc": "アカウントが作成されました。受信トレイに届いた確認リンクをご確認ください。",
+        "no-email-receive": "メールが届きませんか？確認リンクを再送信できます。"
+      },
+      "verifying": {
+        "loading": "メールアドレスを確認中...",
+        "desc": "メールアドレスを確認しています。しばらくお待ちください。"
+      },
+      "success": {
+        "email": "メールアドレスの確認が完了しました！",
+        "desc": "メールアドレスが正常に確認されました。アカウントにログインできるようになりました。"
+      },
+      "expired": {
+        "expired-link": "確認リンクの有効期限が切れました",
+        "desc": "この確認リンクは無効になっています。新しい確認リンクを受け取るには、メールアドレスを入力してください。",
+        "resend-success": "確認メールを送信しました！",
+        "resend-success-desc": "新しい確認リンクをメールアドレスに送信しました。受信トレイを確認し、リンクからアカウントの確認を完了してください。"
+      },
+      "error": {
+        "title": "メールアドレスを確認できませんでした",
+        "desc": "現在、メールアドレスを確認できません。確認リンクをもう一度試すか、新しいリンクをリクエストしてください。"
+      },
+      "recovery": {
+        "title": "メールアドレスを確認してください",
+        "desc": "メールアドレスはまだ確認されていません。アカウントを有効にするには、新しい確認リンクをリクエストしてください。"
       }
     }
   }

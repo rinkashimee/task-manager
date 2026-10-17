@@ -6,13 +6,16 @@ import { App } from './App';
 import ToastProvider from './components/ui/Toast/ToastProvider';
 import { SpinnerProvider } from './components/ui/Spinner/SpinnerContext';
 import { ThemeProvider } from './pages/settings/pages/appearance/components/ThemeContext';
+import AuthProvider from './pages/auth/context/AuthProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>
       <ToastProvider>
         <SpinnerProvider>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </SpinnerProvider>
       </ToastProvider>
     </ThemeProvider>
