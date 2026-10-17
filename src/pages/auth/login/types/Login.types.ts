@@ -13,6 +13,7 @@ export interface LoginResponse extends Omit<LoginFormTypes, 'rememberMe' | 'pass
   accessToken: string;
   tokenType: string;
   expiresIn: number;
+  profileImage: string | null;
 }
 
 export type LoginResult =
@@ -23,4 +24,7 @@ export interface RefreshResponse extends Pick<
   'accessToken' | 'tokenType' | 'expiresIn'
 > {}
 
-export interface AuthUser extends Pick<LoginResponse, 'id' | 'name' | 'email' | 'role'> {}
+export interface AuthUser extends Pick<
+  LoginResponse,
+  'id' | 'name' | 'email' | 'role' | 'profileImage'
+> {}

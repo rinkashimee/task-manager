@@ -100,7 +100,11 @@
       "warning": "Babala",
       "info": "Impormasyon",
       "desc": {
-        "pass-not-match": "Hindi magkatugma ang mga password. Pakisubukang muli."
+        "pass-not-match": "Hindi magkatugma ang mga password. Pakisubukang muli.",
+        "name": "Hindi maaaring walang laman ang pangalan.",
+        "no-changes": "Walang nakitang pagbabago. Pakibago ang iyong pangalan bago i-save.",
+        "supported-image": "JPG, PNG, at GIF na mga larawan lamang ang pinapayagan.",
+        "max-size": "Hindi dapat lumampas sa 2 MB ang laki ng larawan."
       }
     },
     "language-dropdown": {

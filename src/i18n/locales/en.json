@@ -100,7 +100,11 @@
       "warning": "Warning",
       "info": "Info",
       "desc": {
-        "pass-not-match": "Passwords do not match. Please try again."
+        "pass-not-match": "Passwords do not match. Please try again.",
+        "name": "Name cannot be empty.",
+        "no-changes": "No changes detected. Please update your name before saving.",
+        "supported-image": "Only JPG, PNG, and GIF images are allowed.",
+        "max-size": "Image size must not exceed 2 MB."
       }
     },
     "language-dropdown": {

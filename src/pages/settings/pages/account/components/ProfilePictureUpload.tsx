@@ -7,14 +7,20 @@ import { useTranslation } from 'react-i18next';
 
 interface ProfilePictureUploadProps {
   avatar: string | null;
-  setAvatar: (data: string | null) => void;
+  name: string | undefined;
   fileInputRef: RefObject<HTMLInputElement | null>;
+  onRemove: () => Promise<void>;
+  isUploading: boolean;
+  isDeleting: boolean;
 }
 
 export default function ProfilePictureUpload(props: ProfilePictureUploadProps) {
-  const { avatar, fileInputRef, setAvatar } = props;
+  const { avatar, fileInputRef, name, onRemove, isUploading, isDeleting } = props;
 
   const { t } = useTranslation();
+
+  const initial = name?.charAt(0)?.toUpperCase();
+  const isProcessing = isUploading || isDeleting;
 
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -30,7 +36,7 @@ export default function ProfilePictureUpload(props: ProfilePictureUploadProps) {
             <img src={avatar} alt="Profile" className="h-full w-full object-cover" />
           ) : (
             <Typography variant="h3" className="text-text-inverse">
-              {/* {name.charAt(0).toUpperCase()} */}R
+              {initial}
             </Typography>
           )}
         </div>
@@ -38,6 +44,7 @@ export default function ProfilePictureUpload(props: ProfilePictureUploadProps) {
         <Button
           type="button"
           variant="ghost"
+          disabled={isProcessing}
           onClick={() => fileInputRef.current?.click()}
           className={cn(
             'bg-card border-border absolute right-0 bottom-0 flex',
@@ -65,6 +72,7 @@ export default function ProfilePictureUpload(props: ProfilePictureUploadProps) {
           <Button
             type="button"
             variant="secondary"
+            disabled={isProcessing}
             onClick={() => fileInputRef.current?.click()}
             className="bg-card text-primary border-primary hover:bg-primary/10 h-8 gap-1 border px-2.5"
           >
@@ -78,8 +86,8 @@ export default function ProfilePictureUpload(props: ProfilePictureUploadProps) {
           <Button
             type="button"
             variant="secondary"
-            disabled={!avatar}
-            onClick={() => setAvatar(null)}
+            disabled={!avatar || isProcessing}
+            onClick={onRemove}
             className="bg-card text-text-muted border-border hover:bg-background h-8 gap-1 border px-2.5"
           >
             <TaskIcon icon="TrashIcon" size={14} weight="bold" />

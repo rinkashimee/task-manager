@@ -28,7 +28,11 @@ export default function Header(props: HeaderProps) {
         </Typography>
       </div>
 
-      <UserMenu name={user?.name ?? 'User'} email={user?.email ?? ''} />
+      <UserMenu
+        name={user?.name ?? 'User'}
+        email={user?.email ?? ''}
+        avatarUrl={user?.profileImage}
+      />
     </header>
   );
 }
