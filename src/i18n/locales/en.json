@@ -105,7 +105,9 @@
         "no-changes": "No changes detected. Please update your name before saving.",
         "supported-image": "Only JPG, PNG, and GIF images are allowed.",
         "max-size": "Image size must not exceed 2 MB.",
-        "unable": "Unable to process the selected image."
+        "unable": "Unable to process the selected image.",
+        "password-mismatch": "Passwords do not match.",
+        "invalid-link": "Invalid password reset link. Please request a new one."
       }
     },
     "language-dropdown": {

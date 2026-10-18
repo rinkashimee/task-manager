@@ -1,4 +1,8 @@
 export interface ResetPasswordFormTypes {
-  password: string;
+  newPassword: string;
   confirmPassword: string;
+}
+
+export interface ResetPasswordRequest extends Pick<ResetPasswordFormTypes, 'newPassword'> {
+  token: string;
 }

@@ -105,7 +105,9 @@
         "no-changes": "変更がありません。保存する前に名前を変更してください。",
         "supported-image": "JPG、PNG、GIF形式の画像のみ使用できます。",
         "max-size": "画像サイズは2MB以下にしてください。",
-        "unable": "選択した画像を処理できませんでした。"
+        "unable": "選択した画像を処理できませんでした。",
+        "password-mismatch": "パスワードが一致しません。",
+        "invalid-link": "パスワードリセットリンクが無効です。新しいリンクをリクエストしてください。"
       }
     },
     "language-dropdown": {

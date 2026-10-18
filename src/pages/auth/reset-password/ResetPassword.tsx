@@ -8,9 +8,12 @@ import Typography from '@/components/ui/Typography/Typography';
 import type { ResetPasswordFormTypes } from './types/ResetPassword.types';
 import { cn } from '@/lib/utils/utils';
 import ResetPasswordForm from './components/ResetPasswordForm';
+import { useAuth } from '../hooks/useAuth';
+import { useToast } from '@/components/ui/Toast/ToastProvider';
 
 export default function ResetPassword() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
 
   const [searchParams] = useSearchParams();
 
@@ -18,20 +21,37 @@ export default function ResetPassword() {
 
   const token = searchParams.get('token');
 
+  const { resetPassword, isResetPassword } = useAuth();
+
   const handleSubmit = async (values: ResetPasswordFormTypes) => {
-    if (values.password !== values.confirmPassword) {
-      // TODO: Show inline confirm-password validation error
+    if (values.newPassword !== values.confirmPassword) {
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: t('common.toast-title.desc.password-mismatch'),
+        variant: 'error',
+      });
+
       return;
     }
 
     if (!token) {
-      // TODO: Show invalid or expired reset link message
+      showToast({
+        title: t('common.toast-title.fail'),
+        description: t('common.toast-title.desc.invalid-link'),
+        variant: 'error',
+      });
+
       return;
     }
 
-    // TODO: Call Spring Boot reset password API with:
-    // token and values.password
-    //
+    const success = await resetPassword({
+      token,
+      newPassword: values.newPassword,
+    });
+
+    if (!success) return;
+
+    setIsSuccess(true);
   };
 
   return (
@@ -94,7 +114,7 @@ export default function ResetPassword() {
             </div>
           </div>
 
-          <ResetPasswordForm handleSubmit={handleSubmit} />
+          <ResetPasswordForm isResetPassword={isResetPassword} handleSubmit={handleSubmit} />
 
           <Link
             to="/login"
