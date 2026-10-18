@@ -4,7 +4,7 @@ export interface LoginFormTypes {
   rememberMe: boolean;
 }
 
-export interface LoginRequest extends Omit<LoginFormTypes, 'rememberMe'> {}
+export interface LoginRequest extends LoginFormTypes {}
 
 export interface LoginResponse extends Omit<LoginFormTypes, 'rememberMe' | 'password'> {
   id: string;
