@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@/components/ui/Typography/Typography';
 
 interface ForgotPasswordFormProps {
+  isRequestReset: boolean;
   handleSubmit: (values: ForgotPasswordFormTypes) => void;
 }
 
 export default function ForgotPasswordForm(props: ForgotPasswordFormProps) {
-  const { handleSubmit } = props;
+  const { isRequestReset, handleSubmit } = props;
 
   const { t } = useTranslation();
 
@@ -34,9 +35,14 @@ export default function ForgotPasswordForm(props: ForgotPasswordFormProps) {
         />
       </Form.Item>
 
-      <Button type="submit" variant="primary" className="mt-2 h-10 w-full gap-2 px-4">
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={isRequestReset}
+        className="mt-2 h-10 w-full gap-2 px-4"
+      >
         <Typography as="p" variant="caption" className="truncate font-semibold">
-          {t('common.reset-link')}
+          {isRequestReset ? t('common.sending') : t('common.reset-link')}
         </Typography>
       </Button>
     </Form>

@@ -105,7 +105,9 @@
         "no-changes": "Walang nakitang pagbabago. Pakibago ang iyong pangalan bago i-save.",
         "supported-image": "JPG, PNG, at GIF na mga larawan lamang ang pinapayagan.",
         "max-size": "Hindi dapat lumampas sa 2 MB ang laki ng larawan.",
-        "unable": "Hindi maproseso ang napiling larawan."
+        "unable": "Hindi maproseso ang napiling larawan.",
+        "password-mismatch": "Hindi magkatugma ang mga password.",
+        "invalid-link": "Hindi valid ang password reset link. Mangyaring humiling ng bagong link."
       }
     },
     "language-dropdown": {

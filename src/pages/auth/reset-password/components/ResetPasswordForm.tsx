@@ -6,24 +6,25 @@ import Button from '@/components/ui/Button/Button';
 import Typography from '@/components/ui/Typography/Typography';
 
 interface ResetPasswordFormProps {
+  isResetPassword: boolean;
   handleSubmit: (values: ResetPasswordFormTypes) => void;
 }
 
 export default function ResetPasswordForm(props: ResetPasswordFormProps) {
-  const { handleSubmit } = props;
+  const { isResetPassword, handleSubmit } = props;
 
   const { t } = useTranslation();
 
   return (
     <Form<ResetPasswordFormTypes>
       initialValues={{
-        password: '',
+        newPassword: '',
         confirmPassword: '',
       }}
       onSubmit={handleSubmit}
     >
       <Form.Item
-        name="password"
+        name="newPassword"
         label={t('auth.reset-password.form.new-password')}
         rules={[{ required: true }, { min: 8 }]}
       >
@@ -48,7 +49,12 @@ export default function ResetPasswordForm(props: ResetPasswordFormProps) {
         />
       </Form.Item>
 
-      <Button type="submit" variant="primary" className="mt-2 h-10 w-full gap-2 px-4">
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={isResetPassword}
+        className="mt-2 h-10 w-full gap-2 px-4"
+      >
         <Typography as="p" variant="caption" className="truncate font-semibold">
           {t('common.reset-password')}
         </Typography>

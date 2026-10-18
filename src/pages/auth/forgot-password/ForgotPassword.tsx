@@ -8,15 +8,21 @@ import TaskIcon from '@/components/icons/TaskIcon';
 import type { ForgotPasswordFormTypes } from './types/ForgotPassword.types';
 import ForgotPasswordForm from './components/ForgotPasswordForm';
 import { cn } from '@/lib/utils/utils';
+import { useAuth } from '../hooks/useAuth';
 
 export default function ForgotPassword() {
   const { t } = useTranslation();
 
+  const { requestPasswordReset, isRequestReset } = useAuth();
+
   const [emailSent, setEmailSent] = useState(false);
 
   const handleSubmit = async (values: ForgotPasswordFormTypes) => {
-    // TODO: Integrate Spring Boot forgot password API
-    // Set emailSent(true) only after the API successfully accepts the request.
+    const response = await requestPasswordReset(values.email);
+
+    if (!response) return;
+
+    setEmailSent(true);
   };
 
   return (
@@ -47,7 +53,7 @@ export default function ForgotPassword() {
             </div>
           </div>
 
-          <ForgotPasswordForm handleSubmit={handleSubmit} />
+          <ForgotPasswordForm isRequestReset={isRequestReset} handleSubmit={handleSubmit} />
         </>
       ) : (
         <div className="flex flex-col gap-4">

@@ -13,6 +13,7 @@ import { tokenManager } from '../services/tokenManager';
 import { verifyEmailRequest } from '../services/verifyEmailRequest';
 import { useAuthSession } from './useAuthSession';
 import { waitForPendingRefresh } from '../services/refreshToken';
+import type { ResetPasswordRequest } from '../reset-password/types/ResetPassword.types';
 
 export type AuthLoadingState = {
   register: boolean;
@@ -20,6 +21,8 @@ export type AuthLoadingState = {
   verify: boolean;
   login: boolean;
   logout: boolean;
+  requestReset: boolean;
+  resetPassword: boolean;
 };
 
 export function useAuth() {
@@ -36,6 +39,8 @@ export function useAuth() {
     verify: false,
     login: false,
     logout: false,
+    requestReset: false,
+    resetPassword: false,
   });
 
   const logoutInProgress = useRef(false);
@@ -212,16 +217,70 @@ export function useAuth() {
     }
   }, [showLoading, hideLoading, showToast, setUnauthenticated, t]);
 
+  const requestPasswordReset = useCallback(
+    async (email: string): Promise<boolean> => {
+      setLoading((prev) => ({ ...prev, requestReset: true }));
+      showLoading();
+
+      try {
+        await authApi.forgotPassword({ email });
+
+        return true;
+      } catch (error) {
+        showToast({
+          title: t('common.toast-title.fail'),
+          description: getApiErrorMessage(error, t),
+          variant: 'error',
+        });
+
+        return false;
+      } finally {
+        setLoading((prev) => ({ ...prev, requestReset: false }));
+        hideLoading();
+      }
+    },
+    [showLoading, hideLoading, showToast, t]
+  );
+
+  const resetPassword = useCallback(
+    async (values: ResetPasswordRequest): Promise<boolean> => {
+      setLoading((prev) => ({ ...prev, resetPassword: true }));
+      showLoading();
+
+      try {
+        await authApi.resetPassword(values);
+
+        return true;
+      } catch (error) {
+        showToast({
+          title: t('common.toast-title.fail'),
+          description: getApiErrorMessage(error, t),
+          variant: 'error',
+        });
+
+        return false;
+      } finally {
+        setLoading((prev) => ({ ...prev, resetPassword: false }));
+        hideLoading();
+      }
+    },
+    [showLoading, hideLoading, showToast, t]
+  );
+
   return {
     isRegister: loading.register,
     isResend: loading.resend,
     isVerify: loading.verify,
     isLogin: loading.login,
     isLogout: loading.logout,
+    isRequestReset: loading.requestReset,
+    isResetPassword: loading.resetPassword,
     register,
     resendVerification,
     verifyEmail,
     login,
     logout,
+    requestPasswordReset,
+    resetPassword,
   };
 }
