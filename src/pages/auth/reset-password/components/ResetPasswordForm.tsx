@@ -26,7 +26,7 @@ export default function ResetPasswordForm(props: ResetPasswordFormProps) {
       <Form.Item
         name="newPassword"
         label={t('auth.reset-password.form.new-password')}
-        rules={[{ required: true }, { min: 8 }]}
+        rules={[{ required: true }, { min: 8 }, { max: 72 }]}
       >
         <Input
           type="password"
