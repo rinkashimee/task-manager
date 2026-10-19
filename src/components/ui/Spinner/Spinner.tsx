@@ -10,9 +10,10 @@ export default function Spinner(props: SpinnerProps) {
       role="status"
       aria-live="polite"
       className={cn(
-        'flex min-h-20 min-w-20 flex-col items-center justify-center gap-2',
-        'bg-background rounded-xl px-5 py-5',
-        'border-border border shadow-lg',
+        'flex min-h-16 min-w-16 flex-col items-center justify-center',
+        'gap-1.5 rounded-xl px-3 py-3',
+        'sm:min-h-20 sm:min-w-20 sm:gap-2 sm:px-4 sm:py-4',
+        'bg-background border-border border shadow-lg',
         className
       )}
     >
@@ -23,7 +24,10 @@ export default function Spinner(props: SpinnerProps) {
         <span className="bg-primary/80 absolute top-1/2 left-0 h-1.5 w-1.5 -translate-y-1/2 rounded-full" />
       </div>
 
-      <Typography variant="caption" className="text-primary whitespace-nowrap">
+      <Typography
+        variant="caption"
+        className="text-primary text-center text-[11px] whitespace-nowrap sm:text-xs"
+      >
         {message}
       </Typography>
     </div>

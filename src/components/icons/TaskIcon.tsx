@@ -31,6 +31,7 @@ import {
   InfoIcon,
   ListBulletsIcon,
   ListChecksIcon,
+  ListIcon,
   LockIcon,
   MagicWandIcon,
   MagnifyingGlassIcon,
@@ -105,6 +106,7 @@ const icons = {
   LockIcon,
   EyeSlashIcon,
   ArrowLeftIcon,
+  ListIcon,
 } satisfies Record<string, Icon>;
 
 export type IconType = keyof typeof icons;

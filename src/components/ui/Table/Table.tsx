@@ -65,6 +65,9 @@ export default function Table<T>(props: TableProps<T>) {
           '[&::-webkit-scrollbar]:w-0',
           '[&::-webkit-scrollbar-thumb]:rounded-full',
           '[&::-webkit-scrollbar-thumb]:bg-black/30',
+          'dark:[&::-webkit-scrollbar-thumb]:bg-[#52617c]',
+          '[&::-webkit-scrollbar-thumb]:hover:bg-black/40',
+          'dark:[&::-webkit-scrollbar-thumb]:hover:bg-[#7183a1]',
           '[&::-webkit-scrollbar-track]:bg-transparent'
         )}
       >

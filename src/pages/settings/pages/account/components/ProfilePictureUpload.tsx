@@ -24,7 +24,7 @@ export default function ProfilePictureUpload(props: ProfilePictureUploadProps) {
 
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-      <div className="relative shrink-0">
+      <div className="relative h-20 w-20 shrink-0">
         <div
           className={cn(
             'bg-primary flex h-20 w-20 cursor-default items-center justify-center',
@@ -47,9 +47,10 @@ export default function ProfilePictureUpload(props: ProfilePictureUploadProps) {
           disabled={isProcessing}
           onClick={() => fileInputRef.current?.click()}
           className={cn(
-            'bg-card border-border absolute right-0 bottom-0 flex',
-            'h-7 w-7 items-center justify-center rounded-full border shadow-sm',
-            'text-primary'
+            'bg-card border-border text-primary',
+            'absolute right-0 bottom-0',
+            'flex h-7 w-7 items-center justify-center',
+            'rounded-full border p-0 shadow-sm'
           )}
           aria-label={t('settings.account-setting.change-pic')}
         >

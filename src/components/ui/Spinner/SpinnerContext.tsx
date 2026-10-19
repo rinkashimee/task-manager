@@ -4,6 +4,7 @@ import Spinner from '@/components/ui/Spinner/Spinner';
 import { cn } from '@/lib/utils/utils';
 import type { SpinnerContextValue } from './Spinner.types';
 import { useTranslation } from 'react-i18next';
+import type { ParseKeys } from 'i18next';
 
 export const SprinnerContext = createContext<SpinnerContextValue | null>(null);
 
@@ -12,13 +13,11 @@ export function SpinnerProvider(props: { children: ReactNode }) {
 
   const { t } = useTranslation();
 
-  const loading = t('common.loading');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [messageKey, setMessageKey] = useState<ParseKeys>('common.loading');
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState(loading);
-
-  const showLoading = useCallback((message = loading) => {
-    setMessage(message);
+  const showLoading = useCallback((key: ParseKeys = 'common.loading') => {
+    setMessageKey(key);
     setIsLoading(true);
   }, []);
 
@@ -34,11 +33,11 @@ export function SpinnerProvider(props: { children: ReactNode }) {
         <div
           className={cn(
             'fixed inset-0 z-[9999]',
-            'grid h-dvh w-screen place-items-center',
+            'grid h-dvh w-full place-items-center p-4',
             'bg-white/30 backdrop-blur-[2px]'
           )}
         >
-          <Spinner message={message} />
+          <Spinner message={t(messageKey)} />
         </div>
       )}
     </SprinnerContext.Provider>

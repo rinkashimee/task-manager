@@ -15,7 +15,7 @@ export default function About() {
 
       <AboutInformation />
 
-      <Typography variant="caption" className="text-text-muted py-3 text-center">
+      <Typography variant="caption" className="text-text-muted py-1 text-center">
         {t('settings.about.caption')}
       </Typography>
     </div>
