@@ -31,20 +31,20 @@
 }
 
 :root {
-  --background: #f9fafe;
+  --background: #f1f3f9;
   --surface: #10182d;
-  --canvas: #f2f5fc;
-  --skeleton: #e5eaf5;
+  --canvas: #e9edf6;
+  --skeleton: #dfe4f0;
   --surface-accent: #151b38;
 
-  --card: #ffffff;
+  --card: #fcfcff;
 
-  --text: #071342;
-  --text-muted: #808db5;
+  --text: #202b49;
+  --text-muted: #68748f;
   --text-inverse: #ffffff;
 
-  --border: #edf1fb;
-  --input-border: #e1e7f5;
+  --border: #dfe4ef;
+  --input-border: #d3daea;
 
   --primary: #664fff;
 
