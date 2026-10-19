@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 export default function AuthLayout() {
   return (
-    <div className="bg-background flex min-h-screen items-center justify-center p-0 lg:p-6">
+    <div className="bg-background relative isolate flex min-h-screen items-center justify-center p-0 lg:p-6">
       <div className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:block">
         <div
           className={cn(
@@ -23,7 +23,7 @@ export default function AuthLayout() {
 
       <div
         className={cn(
-          'border-border bg-card grid min-h-screen w-full overflow-hidden',
+          'border-border bg-card relative z-10 grid min-h-screen w-full overflow-hidden',
           'lg:min-h-[580px] lg:max-w-5xl lg:grid-cols-2 lg:rounded-xl lg:border lg:shadow-2xl'
         )}
       >
