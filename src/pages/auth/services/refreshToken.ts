@@ -2,6 +2,8 @@ import type { ApiResponse } from '@/api/api.types';
 import axios from 'axios';
 import type { RefreshResponse } from '../login/types/Login.types';
 import { tokenManager } from './tokenManager';
+import { decryptPayload, generateEncryptionKey } from '@/api/encryption/encryption';
+import type { EncryptedData } from '@/api/encryption/encryption.types';
 
 const refreshApi = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -22,21 +24,40 @@ export function refreshAccessToken(): Promise<string> {
 
   const version = tokenManager.getSessionVersion();
 
-  const request = refreshApi
-    .post<ApiResponse<RefreshResponse>>('/auth/refresh')
-    .then(({ data }) => {
-      if (!data.success || !data.data?.accessToken) {
-        throw new Error('Unable to refresh access token.');
+  const request = (async (): Promise<string> => {
+    const { encryptedKey, aesKey } = await generateEncryptionKey();
+
+    const response = await refreshApi.post<ApiResponse<RefreshResponse> | EncryptedData>(
+      '/auth/refresh',
+      undefined,
+      {
+        headers: {
+          'X-Payload-Encrypted': 'true',
+          'X-Encrypted-Key': encryptedKey,
+        },
       }
+    );
 
-      if (tokenManager.isLoggingOut() || version !== tokenManager.getSessionVersion()) {
-        throw new Error('Authentication session has changed.');
-      }
+    const data =
+      response.headers['x-payload-encrypted'] === 'true'
+        ? ((await decryptPayload(
+            response.data as EncryptedData,
+            aesKey
+          )) as ApiResponse<RefreshResponse>)
+        : (response.data as ApiResponse<RefreshResponse>);
 
-      tokenManager.setToken(data.data.accessToken);
+    if (!data.success || !data.data?.accessToken) {
+      throw new Error('Unable to refresh access token.');
+    }
 
-      return data.data.accessToken;
-    });
+    if (tokenManager.isLoggingOut() || version !== tokenManager.getSessionVersion()) {
+      throw new Error('Authentication session has changed.');
+    }
+
+    tokenManager.setToken(data.data.accessToken);
+
+    return data.data.accessToken;
+  })();
 
   refreshPromise = request.finally(() => {
     if (refreshPromise === trackedPromise) {
