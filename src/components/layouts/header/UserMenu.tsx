@@ -53,7 +53,7 @@ export default function UserMenu(props: UserMenuProps) {
       <Button
         type="button"
         variant="ghost"
-        className="text-text gap-3 px-4 py-2"
+        className="text-text hover:bg-canvas gap-3 px-4 py-2"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <UserAvatar name={name} avatarUrl={avatarUrl} />

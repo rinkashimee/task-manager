@@ -6,10 +6,14 @@ export default function SidebarLogo() {
   const { t } = useTranslation();
 
   return (
-    <div className="mt-3 flex items-center gap-2">
-      <img src={taskManagerLogo} alt="Task Manager" className="h-[30px] w-[30px]" />
+    <div className="flex min-w-0 items-center gap-2 md:mt-3 md:justify-center xl:justify-start">
+      <img src={taskManagerLogo} alt="Task Manager" className="h-[30px] w-[30px] shrink-0" />
 
-      <Typography as="h3" variant="body-lg" className="text-text-inverse !font-bold">
+      <Typography
+        as="h3"
+        variant="body-lg"
+        className="text-text-inverse !font-bold whitespace-nowrap md:hidden xl:block"
+      >
         {t('sidebar.logo')}
       </Typography>
     </div>
