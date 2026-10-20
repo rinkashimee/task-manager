@@ -16,6 +16,11 @@ import Modal from '@/components/ui/Modal/Modal';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
 import TaskViewHeader from './TaskViewHeader';
 import TaskView from './TaskView';
+import TablePagination from '@/components/ui/Table/TablePagination';
+import TaskList from './TaskList';
+import { cn } from '@/lib/utils/utils';
+import ListItemSkeleton from '@/components/ui/ListItem/ListItemSkeleton';
+import TableEmptyState from '@/components/ui/Table/TableEmptyState';
 
 export default function TaskTable(props: TaskTableProps) {
   const {
@@ -142,29 +147,69 @@ export default function TaskTable(props: TaskTableProps) {
 
   return (
     <Card className="flex min-h-0 flex-1 flex-col p-3">
-      <Table
-        tableWrapperClassName="min-h-0 flex-1"
-        rowKey={(id) => id.id}
-        columns={taskTableColumns({
-          projectDropdown,
-          isProjectTaskLists,
-          onViewHandle: handleView,
-          onEditHandle: handleEdit,
-          taskConfirmationModal,
-        })}
-        data={data}
-        isLoading={isFetching}
-        skeletonRows={15}
-        emptyTitle={t('common.no-tasks')}
-        emptyDesc={isProjectTaskLists ? t('common.no-task-yet') : t('common.task-caption')}
-        pagination={{
-          current: currentPage,
-          pageSize: pageSize,
-          total: total,
-          resourceName: t('my-tasks.table.task'),
-          onChange: setCurrentPage,
-        }}
-      />
+      <div
+        className={cn(
+          'flex min-h-0 flex-1 flex-col overflow-y-auto md:hidden',
+          '[scrollbar-width:none]',
+          '[&::-webkit-scrollbar]:hidden'
+        )}
+      >
+        {isFetching ? (
+          <ListItemSkeleton />
+        ) : data.length === 0 ? (
+          <div className="flex min-h-0 flex-1 items-center justify-center">
+            <TableEmptyState
+              title={t('common.no-tasks')}
+              description={isProjectTaskLists ? t('common.no-task-yet') : t('common.task-caption')}
+            />
+          </div>
+        ) : (
+          <TaskList
+            data={data}
+            projectDropdown={projectDropdown}
+            isProjectTaskLists={isProjectTaskLists}
+            onViewHandle={handleView}
+            onEditHandle={handleEdit}
+            taskConfirmationModal={taskConfirmationModal}
+          />
+        )}
+      </div>
+
+      <div className="hidden min-h-0 flex-1 flex-col md:flex">
+        <Table
+          tableWrapperClassName="min-h-0 flex-1"
+          rowKey={(id) => id.id}
+          columns={taskTableColumns({
+            projectDropdown,
+            isProjectTaskLists,
+            onViewHandle: handleView,
+            onEditHandle: handleEdit,
+            taskConfirmationModal,
+          })}
+          data={data}
+          isLoading={isFetching}
+          skeletonRows={15}
+          emptyTitle={t('common.no-tasks')}
+          emptyDesc={isProjectTaskLists ? t('common.no-task-yet') : t('common.task-caption')}
+          pagination={{
+            current: currentPage,
+            pageSize: pageSize,
+            total: total,
+            resourceName: t('my-tasks.table.task'),
+            onChange: setCurrentPage,
+          }}
+        />
+      </div>
+
+      <div className="shrink-0 md:hidden">
+        <TablePagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={total}
+          resourceName={t('my-tasks.table.task')}
+          onChange={setCurrentPage}
+        />
+      </div>
 
       {viewTask && (
         <Modal

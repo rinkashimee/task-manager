@@ -152,12 +152,12 @@ export default function MyTasks(props: MyTasksProps) {
           type="button"
           variant="primary"
           hidden={isProjectTaskLists}
-          className="h-9 gap-2 px-4 font-sans"
+          className="h-9 gap-2 px-3 font-sans"
           onClick={() => handleAddTask()}
         >
-          <TaskIcon size={16} icon="PlusIcon" />
+          <TaskIcon size={16} icon="PlusIcon" weight="bold" />
 
-          <Typography as="p" variant="caption" className="truncate">
+          <Typography as="p" variant="caption" className="hidden truncate md:block">
             {t('common.add-tasks')}
           </Typography>
         </Button>

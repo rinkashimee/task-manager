@@ -53,19 +53,19 @@ export default function UserMenu(props: UserMenuProps) {
       <Button
         type="button"
         variant="ghost"
-        className="text-text hover:bg-canvas gap-3 px-4 py-2"
+        className="text-text hover:bg-canvas gap-3 px-2 py-2 md:px-4 md:py-2"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <UserAvatar name={name} avatarUrl={avatarUrl} />
 
-        <Typography variant="body-sm" className="font-sans font-semibold">
+        <Typography variant="body-sm" className="hidden font-sans font-semibold md:block">
           {name}
         </Typography>
 
         <TaskIcon
           icon="CaretDownIcon"
           size={14}
-          className={clsx('transition-transform', isOpen && 'rotate-180')}
+          className={clsx('hidden transition-transform md:block', isOpen && 'rotate-180')}
         />
       </Button>
 

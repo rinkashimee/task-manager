@@ -73,7 +73,7 @@
     "status-dropdown": {
       "todo": "To Do",
       "not-started": "Not Started",
-      "in-progress": "In Porgress",
+      "in-progress": "In Progress",
       "completed": "Completed",
       "on-hold": "On Hold"
     },
@@ -128,7 +128,7 @@
     "logo": "Task Manager",
     "dashboard": "Dashboard",
     "my-tasks": "My Tasks",
-    "projects": "Porjects",
+    "projects": "Projects",
     "settings": "Settings",
     "footer": "Small steps \n build big results.",
     "settings-sidebar": {
@@ -152,7 +152,7 @@
     "dashboard-stat": {
       "total-tasks": "Total Tasks",
       "completed": "Completed",
-      "in-progress": "In Porgress",
+      "in-progress": "In Progress",
       "overdue": "Overdue"
     }
   },

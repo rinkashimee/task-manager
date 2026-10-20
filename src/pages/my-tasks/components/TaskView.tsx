@@ -40,10 +40,10 @@ export default function TaskView(props: TaskViewProps) {
   const selectedProject = projectDropdown.find((option) => option.value === task.projectId);
 
   return (
-    <div className="flex flex-col gap-5 px-5 pb-5">
+    <div className="flex min-w-0 flex-col gap-4 px-4 pb-4 sm:gap-5 sm:px-5 sm:pb-5">
       <div className="border-border border-t" />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
         <TaskDetail
           icon="FolderIcon"
           label={t('my-tasks.view.project')}
@@ -67,7 +67,7 @@ export default function TaskView(props: TaskViewProps) {
 
       <div
         className={cn(
-          'border-border grid grid-cols-1 gap-4 rounded-lg border p-4 sm:grid-cols-2',
+          'border-border grid grid-cols-2 gap-4 rounded-lg border p-3 sm:p-4',
           'bg-background dark:bg-card'
         )}
       >
@@ -103,7 +103,10 @@ export default function TaskView(props: TaskViewProps) {
           {t('my-tasks.view.description')}
         </Typography>
 
-        <Typography variant="caption" className="text-text-muted font-sans whitespace-pre-wrap">
+        <Typography
+          variant="caption"
+          className="text-text-muted font-sans break-words whitespace-pre-wrap"
+        >
           {task.description || t('common.view-desc')}
         </Typography>
       </div>
@@ -114,7 +117,7 @@ export default function TaskView(props: TaskViewProps) {
           variant="primary"
           onClick={onEdit}
           hidden={deadlineView}
-          className="h-9 gap-1 px-4 font-sans"
+          className="h-9 w-full gap-1 px-4 font-sans sm:w-auto"
         >
           <TaskIcon icon="PencilSimpleIcon" size={14} />
 
@@ -131,11 +134,9 @@ function TaskDetail({ icon, label, value }: TaskDetailProps) {
   return (
     <div
       className={cn(
-        'flex min-w-0 items-start gap-2 px-2',
-        'border-border border-r',
-        'last:border-r-0',
-        'max-lg:nth-[2n]:border-r-0',
-        'max-lg:py-3'
+        'flex min-w-0 items-center gap-3',
+        'py-1 sm:items-start sm:px-2 sm:py-0',
+        'sm:border-border sm:border-r sm:last:border-r-0'
       )}
     >
       <div className="bg-primary/10 flex size-9 shrink-0 items-center justify-center rounded-lg">
