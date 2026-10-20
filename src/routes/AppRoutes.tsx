@@ -15,6 +15,7 @@ import Settings from '@/pages/settings/Settings';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import GuestRoute from './GuestRoute';
 import ProtectedRoute from './ProtectedRoute';
+import NotFoundPage from '@/pages/not-found/NotFoundPage';
 
 export default function AppRoutes() {
   return (
@@ -49,7 +50,9 @@ export default function AppRoutes() {
         </Route>
       </Route>
 
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

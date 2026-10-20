@@ -114,6 +114,14 @@
       "en": "Ingles",
       "fil": "Filipino",
       "ja": "Hapones"
+    },
+    "not-found-page": {
+      "404": "404",
+      "not-found": "Hindi mahanap ang pahina",
+      "desc": "Ang pahinang hinahanap mo ay hindi umiiral o maaaring nailipat na.",
+      "go-back": "Bumalik",
+      "go-dashboard": "Bumalik sa Dashboard",
+      "go-login": "Bumalik sa Login"
     }
   },
   "sidebar": {
