@@ -44,7 +44,7 @@ export default function TaskForm(props: TaskFormProps) {
         }
       }
       onSubmit={handleSubmit}
-      className="p-6"
+      className="p-4 sm:p-5 md:p-6"
     >
       <Form.Item
         name="title"
@@ -90,11 +90,11 @@ export default function TaskForm(props: TaskFormProps) {
         </Form.Item>
       </div>
 
-      <div className="border-border mt-8 flex justify-end gap-3">
+      <div className="border-border mt-6 flex gap-3 sm:mt-8 sm:justify-end">
         <Button
           type="button"
           variant="secondary"
-          className="h-9 gap-2 px-4 font-sans"
+          className="h-10 min-w-0 flex-1 gap-2 px-4 font-sans sm:h-9 sm:flex-none"
           onClick={() => onClose(false)}
           disabled={isSubmitting}
         >
@@ -106,7 +106,7 @@ export default function TaskForm(props: TaskFormProps) {
         <Button
           type="submit"
           variant="primary"
-          className="h-9 gap-2 px-4 font-sans"
+          className="h-10 min-w-0 flex-1 gap-2 px-4 font-sans sm:h-9 sm:flex-none"
           disabled={isSubmitting}
         >
           <Typography as="p" variant="caption" className="truncate">

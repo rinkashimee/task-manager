@@ -108,12 +108,12 @@ export default function Project() {
         <Button
           type="button"
           variant="primary"
-          className="h-9 gap-2 px-4 font-sans"
+          className="h-9 gap-2 px-3 font-sans"
           onClick={() => handleAddProject()}
         >
-          <TaskIcon size={16} icon="PlusIcon" />
+          <TaskIcon size={16} icon="PlusIcon" weight="bold" />
 
-          <Typography as="p" variant="caption" className="truncate">
+          <Typography as="p" variant="caption" className="hidden truncate md:block">
             {t('common.new-project')}
           </Typography>
         </Button>

@@ -23,7 +23,7 @@ export default function Header(props: HeaderProps) {
       className="border-border flex items-center justify-between gap-3 border-b px-4 py-4 sm:px-6 sm:py-6"
       hidden={hidden}
     >
-      <div className="flex min-w-0 items-center gap-3">
+      <div className="flex min-w-0 items-center gap-2">
         <Button
           type="button"
           variant="ghost"
