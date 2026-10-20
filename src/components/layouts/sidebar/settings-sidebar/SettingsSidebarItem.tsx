@@ -23,7 +23,8 @@ export default function SettingsSidebarItem(props: SettingsSidebarItemProps) {
     <NavLink
       to={path}
       className={cn(
-        'flex min-w-0 flex-1 items-center gap-3 rounded-md px-3 py-3 transition-colors lg:flex-none',
+        'flex shrink-0 items-center gap-3 rounded-md px-3 py-3 whitespace-nowrap transition-colors',
+        'lg:w-full',
         isActive
           ? 'bg-primary/10 text-primary'
           : 'text-text-muted hover:bg-primary/5 hover:text-primary'

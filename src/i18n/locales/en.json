@@ -289,7 +289,7 @@
         "about-app": "About Task Manager",
         "about-desc": "Learn more about the application and its features.",
         "app-name": "Task Manager",
-        "version": "Version 1.0.0",
+        "version": "Version {{value}}",
         "app-desc": "Task Manager is a simple and intuitive productivity application designed to help you organize tasks, manage projects, and stay on top of deadlines."
       },
       "features": {
@@ -310,7 +310,7 @@
         "version": "Version",
         "platform": "PlatForm",
         "developer": "Developer",
-        "version-val": "1.0.0",
+        "version-val": "{{value}}",
         "platform-val": "Web Application",
         "developer-val": "Mark Le Jhon Casalta"
       }

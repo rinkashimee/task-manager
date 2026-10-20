@@ -56,81 +56,85 @@ export default function Table<T>(props: TableProps<T>) {
   const visibleColumns = columns.filter((column) => !column.hidden);
 
   return (
-    <div className={cn('bg-card flex flex-col overflow-hidden', tableWrapperClassName)}>
-      <div
-        className={cn(
-          'relative flex-1 overflow-auto',
-          '[scrollbar-width:auto]',
-          '[&::-webkit-scrollbar]:h-[6px]',
-          '[&::-webkit-scrollbar]:w-0',
-          '[&::-webkit-scrollbar-thumb]:rounded-full',
-          '[&::-webkit-scrollbar-thumb]:bg-black/30',
-          'dark:[&::-webkit-scrollbar-thumb]:bg-[#52617c]',
-          '[&::-webkit-scrollbar-thumb]:hover:bg-black/40',
-          'dark:[&::-webkit-scrollbar-thumb]:hover:bg-[#7183a1]',
-          '[&::-webkit-scrollbar-track]:bg-transparent'
-        )}
-      >
-        <table className="w-max min-w-full border-collapse">
-          {!hideHeader && (
-            <thead>
-              <tr>
-                {visibleColumns.map((column) => (
-                  <th
-                    key={column.key}
-                    style={{ width: column.width }}
-                    className={cn(
-                      'bg-canvas text-text border-border sticky top-0 z-10 border-b px-5 py-3 text-left font-sans text-xs font-semibold',
-                      {
-                        'text-center': column.align === 'center',
-                        'text-right': column.align === 'right',
-                      }
-                    )}
-                  >
-                    {column.title}
-                  </th>
-                ))}
-              </tr>
-            </thead>
+    <div className={cn('bg-card flex min-h-0 flex-col overflow-hidden', tableWrapperClassName)}>
+      <div className="relative flex min-h-[220px] flex-1 flex-col">
+        <div
+          className={cn(
+            'min-h-0 flex-1 overflow-auto',
+            '[scrollbar-width:auto]',
+            '[&::-webkit-scrollbar]:h-[6px]',
+            '[&::-webkit-scrollbar]:w-0',
+            '[&::-webkit-scrollbar-thumb]:rounded-full',
+            '[&::-webkit-scrollbar-thumb]:bg-black/30',
+            'dark:[&::-webkit-scrollbar-thumb]:bg-[#52617c]',
+            '[&::-webkit-scrollbar-thumb]:hover:bg-black/40',
+            'dark:[&::-webkit-scrollbar-thumb]:hover:bg-[#7183a1]',
+            '[&::-webkit-scrollbar-track]:bg-transparent'
           )}
-          <tbody>
-            {isLoading ? (
-              <TableSkeletonRows columns={visibleColumns} rows={skeletonRows} />
-            ) : (
-              data.map((record, rowIndex) => {
-                const key = typeof rowKey === 'function' ? rowKey(record) : record[rowKey];
-                return (
-                  <tr key={String(key)} className="border-border border-b transition">
-                    {visibleColumns.map((column) => {
-                      const value = column.dataIndex ? record[column.dataIndex] : undefined;
-
-                      return (
-                        <td
-                          key={column.key}
-                          className={cn('p-4', {
-                            'text-center': column.align === 'center',
-                            'text-right': column.align === 'right',
-                          })}
-                        >
-                          {column.render
-                            ? column.render(value, record, rowIndex)
-                            : String(value ?? '')}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })
+        >
+          <table className="w-max min-w-full border-collapse">
+            {!hideHeader && (
+              <thead>
+                <tr>
+                  {visibleColumns.map((column) => (
+                    <th
+                      key={column.key}
+                      style={{ width: column.width }}
+                      className={cn(
+                        'bg-canvas text-text border-border sticky top-0 z-10 border-b px-5 py-3 text-left font-sans text-xs font-semibold',
+                        {
+                          'text-center': column.align === 'center',
+                          'text-right': column.align === 'right',
+                        }
+                      )}
+                    >
+                      {column.title}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
             )}
-          </tbody>
-        </table>
+            <tbody>
+              {isLoading ? (
+                <TableSkeletonRows columns={visibleColumns} rows={skeletonRows} />
+              ) : (
+                data.map((record, rowIndex) => {
+                  const key = typeof rowKey === 'function' ? rowKey(record) : record[rowKey];
+                  return (
+                    <tr key={String(key)} className="border-border border-b transition">
+                      {visibleColumns.map((column) => {
+                        const value = column.dataIndex ? record[column.dataIndex] : undefined;
+
+                        return (
+                          <td
+                            key={column.key}
+                            className={cn('p-4', {
+                              'text-center': column.align === 'center',
+                              'text-right': column.align === 'right',
+                            })}
+                          >
+                            {column.render
+                              ? column.render(value, record, rowIndex)
+                              : String(value ?? '')}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
 
         {!isLoading && (!data || data.length === 0) && (
-          <TableEmptyState
-            title={emptyTitle ?? ''}
-            description={emptyDesc ?? ''}
-            icon={emptyIcon}
-          />
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <TableEmptyState
+              title={emptyTitle ?? ''}
+              description={emptyDesc ?? ''}
+              icon={emptyIcon}
+            />
+          </div>
         )}
       </div>
 

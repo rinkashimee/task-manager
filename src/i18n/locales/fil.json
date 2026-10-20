@@ -289,7 +289,7 @@
         "about-app": "Tungkol sa Task Manager",
         "about-desc": "Alamin pa ang tungkol sa app at mga feature nito.",
         "app-name": "Task Manager",
-        "version": "Bersyon 1.0.0",
+        "version": "Bersyon {{value}}",
         "app-desc": "Ang Task Manager ay isang simple at madaling gamitin na productivity app na ginawa para tulungan kang ayusin ang mga task, pamahalaan ang mga project, at masubaybayan ang mga deadline."
       },
       "features": {
@@ -310,7 +310,7 @@
         "version": "Bersyon",
         "platform": "Platform",
         "developer": "Developer",
-        "version-val": "1.0.0",
+        "version-val": "{{value}}",
         "platform-val": "Web Application",
         "developer-val": "Mark Le Jhon Casalta"
       }

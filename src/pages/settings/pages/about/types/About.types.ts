@@ -10,4 +10,5 @@ export interface FeatureItemsTypes {
 export interface InformationTypes {
   label: ParseKeys;
   value: ParseKeys;
+  version?: string;
 }
