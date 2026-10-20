@@ -11,6 +11,7 @@ import Modal from '@/components/ui/Modal/Modal';
 import TaskView from '@/pages/my-tasks/components/TaskView';
 import TaskViewHeader from '@/pages/my-tasks/components/TaskViewHeader';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
+import { cn } from '@/lib/utils/utils';
 
 interface RecentTasksProps {
   tasks: TaskTypes[];
@@ -44,7 +45,12 @@ export default function RecentTasks(props: RecentTasksProps) {
   };
 
   return (
-    <div className="bg-card border-border flex shrink-0 flex-col rounded-md border px-5 xl:min-h-0 xl:flex-1 xl:shrink">
+    <div
+      className={cn(
+        'bg-card border-border flex min-h-[280px] shrink-0 flex-col rounded-md border px-5',
+        'xl:min-h-0 xl:flex-1 xl:shrink'
+      )}
+    >
       <div className="border-border flex shrink-0 items-center justify-between gap-4 border-b py-2">
         <Typography variant="body-sm" className="text-text font-semibold">
           {t('dashboard.recent-tasks')}
@@ -65,7 +71,7 @@ export default function RecentTasks(props: RecentTasksProps) {
 
       <Table
         hideHeader
-        tableWrapperClassName="xl:min-h-0 xl:flex-1"
+        tableWrapperClassName="min-h-[220px] flex-1 xl:min-h-0"
         rowKey={(id) => id.id}
         columns={recentTaskColumns({
           projectDropdown,

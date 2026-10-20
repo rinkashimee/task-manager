@@ -1,4 +1,5 @@
 import type { FeatureItemsTypes, InformationTypes } from '../types/About.types';
+import { version } from '../../../../../../package.json';
 
 export const featureItems: FeatureItemsTypes[] = [
   {
@@ -24,7 +25,11 @@ export const featureItems: FeatureItemsTypes[] = [
 ];
 
 export const informationItems: InformationTypes[] = [
-  { label: 'settings.about.information.version', value: 'settings.about.information.version-val' },
+  {
+    label: 'settings.about.information.version',
+    value: 'settings.about.information.version-val',
+    version: version,
+  },
   {
     label: 'settings.about.information.platform',
     value: 'settings.about.information.platform-val',

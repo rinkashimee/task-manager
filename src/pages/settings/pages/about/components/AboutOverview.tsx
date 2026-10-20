@@ -2,6 +2,7 @@ import SettingsCard from '@/components/ui/Cards/SettingsCard';
 import Typography from '@/components/ui/Typography/Typography';
 import { useTranslation } from 'react-i18next';
 import taskManagerLogo from '@/assets/task-manager-logo.svg';
+import { version } from '../../../../../../package.json';
 
 export default function AboutOverview() {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ export default function AboutOverview() {
           </Typography>
 
           <Typography variant="caption" className="text-text-muted">
-            {t('settings.about.overview.version')}
+            {t('settings.about.overview.version', { value: version })}
           </Typography>
         </div>
       </div>

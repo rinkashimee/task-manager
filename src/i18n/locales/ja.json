@@ -289,7 +289,7 @@
         "about-app": "タスクマネージャーについて",
         "about-desc": "アプリとその機能について詳しくご紹介します。",
         "app-name": "タスクマネージャー",
-        "version": "バージョン 1.0.0",
+        "version": "バージョン {{value}}",
         "app-desc": "タスクマネージャーは、タスクの整理、プロジェクトの管理、期限の把握をサポートする、シンプルで直感的な生産性向上アプリです。"
       },
       "features": {
@@ -310,7 +310,7 @@
         "version": "バージョン",
         "platform": "プラットフォーム",
         "developer": "開発者",
-        "version-val": "1.0.0",
+        "version-val": "{{value}}",
         "platform-val": "ウェブアプリケーション",
         "developer-val": "Mark Le Jhon Casalta"
       }

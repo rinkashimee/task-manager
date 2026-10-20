@@ -19,7 +19,9 @@ export default function AboutInformation() {
             </Typography>
 
             <Typography variant="caption" className="text-text font-medium">
-              {t(item.value)}
+              {t(item.value, {
+                value: item.version,
+              })}
             </Typography>
           </div>
         ))}
