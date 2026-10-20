@@ -8,7 +8,7 @@ import type { EncryptedData } from '@/api/encryption/encryption.types';
 const refreshApi = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
-  timeout: 10000,
+  timeout: 30000,
 });
 
 let refreshPromise: Promise<string> | null = null;
