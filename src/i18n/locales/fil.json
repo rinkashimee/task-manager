@@ -154,6 +154,10 @@
       "completed": "Tapos na",
       "in-progress": "Ginagawa",
       "overdue": "Lampas sa Deadline"
+    },
+    "upcoming-all-task": {
+      "title": "Mga Paparating na Deadline",
+      "desc": "Mga task na may deadline ngayong linggo"
     }
   },
   "my-tasks": {

@@ -19,7 +19,7 @@ export default function ProjectProgress(props: ProjectProgressProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="border-border bg-card flex h-[365px] flex-col rounded-md border px-2">
+    <div className="border-border bg-card flex h-auto min-h-[220px] flex-col rounded-md border px-2 lg:h-[365px]">
       <div className="border-border flex shrink-0 items-center justify-between border-b px-2 py-2">
         <Typography variant="body-sm" className="text-text font-semibold">
           {t('dashboard.project-progress')}
@@ -40,7 +40,7 @@ export default function ProjectProgress(props: ProjectProgressProps) {
 
       <div
         className={cn(
-          'mt-1.5 min-h-0 flex-1',
+          'mt-1.5 min-h-0 flex-1 pb-3',
           'overflow-y-auto',
           '[scrollbar-width:none]',
           '[&::-webkit-scrollbar]:hidden'

@@ -15,10 +15,10 @@ export default function DashboardStatCard(props: DashboardStatCardProps) {
   const { title, value, icon, iconClassName, backgroundClassName } = props;
 
   return (
-    <div className="border-border bg-card flex items-center gap-4 rounded-md border p-4">
+    <div className="border-border bg-card flex items-center gap-3 rounded-md border p-4">
       <div
         className={cn(
-          'flex size-11 shrink-0 items-center justify-center rounded-xl',
+          'flex size-10 shrink-0 items-center justify-center rounded-xl sm:size-11',
           backgroundClassName
         )}
       >
