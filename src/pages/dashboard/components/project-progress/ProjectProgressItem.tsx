@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils/utils';
 import { projectIcons } from '@/pages/projects/constant/ProjectConstant';
-import type { ProjectProgressTypes } from '../types/Dashboard.types';
 import { useTranslation } from 'react-i18next';
 import TaskIcon from '@/components/icons/TaskIcon';
 import Typography from '@/components/ui/Typography/Typography';
+import type { ProjectProgressTypes } from '../../types/Dashboard.types';
 
 interface ProjectProgressItemProps {
   project: ProjectProgressTypes;
