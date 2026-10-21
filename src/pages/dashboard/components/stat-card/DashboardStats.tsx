@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import type { DashboardStatsTypes } from '../types/Dashboard.types';
+import DashboardStatSkeleton from '../dashboard-skeleton/DashboardStatSkeleton';
+import type { DashboardStatsTypes } from '../../types/Dashboard.types';
 import DashboardStatCard from './DashboardStatCard';
-import DashboardStatSkeleton from './dashboard-skeleton/DashboardStatSkeleton';
 
 interface DashboardStatsProps {
   isLoading?: boolean;

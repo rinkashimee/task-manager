@@ -1,11 +1,11 @@
 import Typography from '@/components/ui/Typography/Typography';
 import TaskIcon from '@/components/icons/TaskIcon';
-import type { ProjectProgressTypes } from '../types/Dashboard.types';
+import type { ProjectProgressTypes } from '../../types/Dashboard.types';
 import { useTranslation } from 'react-i18next';
 import Button from '@/components/ui/Button/Button';
 import { cn } from '@/lib/utils/utils';
+import ProjectProgressSkeleton from '../dashboard-skeleton/ProjectProgressSkeleton';
 import ProjectProgressItem from './ProjectProgressItem';
-import ProjectProgressSkeleton from './dashboard-skeleton/ProjectProgressSkeleton';
 
 interface ProjectProgressProps {
   isLoading: boolean;

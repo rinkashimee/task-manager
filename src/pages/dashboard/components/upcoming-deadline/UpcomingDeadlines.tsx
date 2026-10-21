@@ -5,7 +5,7 @@ import UpcomingDeadlineItem from './UpcomingDeadlineItem';
 import { useTranslation } from 'react-i18next';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 import TaskIcon from '@/components/icons/TaskIcon';
-import UpcomingDeadlinesSkeleton from './dashboard-skeleton/UpcomingDeadlinesSkeleton';
+import UpcomingDeadlinesSkeleton from '../dashboard-skeleton/UpcomingDeadlinesSkeleton';
 import UpcomingTaskLists from './UpcomingTaskLists';
 import { useMemo, useState } from 'react';
 import { useToast } from '@/components/ui/Toast/ToastProvider';

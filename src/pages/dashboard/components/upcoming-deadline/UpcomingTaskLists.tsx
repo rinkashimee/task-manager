@@ -7,7 +7,7 @@ import TablePagination from '@/components/ui/Table/TablePagination';
 import { pageSize } from '@/pages/my-tasks/constant/TaskConstant';
 import { useTranslation } from 'react-i18next';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
-import UpcomingDeadlinesSkeleton from './dashboard-skeleton/UpcomingDeadlinesSkeleton';
+import UpcomingDeadlinesSkeleton from '../dashboard-skeleton/UpcomingDeadlinesSkeleton';
 import { cn } from '@/lib/utils/utils';
 
 interface UpcomingTaskListsProps {

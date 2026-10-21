@@ -1,15 +1,15 @@
 import Header from '@/components/layouts/header/Header';
 import { getGreeting } from '@/lib/utils/utils';
 import { useTranslation } from 'react-i18next';
-import DashboardStats from './components/DashboardStats';
 import { useDashboard } from './hooks/useDashboard';
 import { useEffect, useState } from 'react';
-import UpcomingDeadlines from './components/UpcomingDeadlines';
+import UpcomingDeadlines from './components/upcoming-deadline/UpcomingDeadlines';
 import { useNavigate } from 'react-router-dom';
 import { pageSize } from '../my-tasks/constant/TaskConstant';
-import ProjectProgress from './components/ProjectProgress';
-import RecentTasks from './components/RecentTasks';
+import ProjectProgress from './components/project-progress/ProjectProgress';
+import RecentTasks from './components/recent-tasks/RecentTasks';
 import { useAuthSession } from '../auth/hooks/useAuthSession';
+import DashboardStats from './components/stat-card/DashboardStats';
 
 export default function Dashboard() {
   const { t } = useTranslation();
