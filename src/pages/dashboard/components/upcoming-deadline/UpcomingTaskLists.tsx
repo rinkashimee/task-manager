@@ -7,7 +7,7 @@ import TablePagination from '@/components/ui/Table/TablePagination';
 import { pageSize } from '@/pages/my-tasks/constant/TaskConstant';
 import { useTranslation } from 'react-i18next';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
-import UpcomingDeadlinesSkeleton from './dashboard-skeleton/UpcomingDeadlinesSkeleton';
+import UpcomingDeadlinesSkeleton from '../dashboard-skeleton/UpcomingDeadlinesSkeleton';
 import { cn } from '@/lib/utils/utils';
 
 interface UpcomingTaskListsProps {
@@ -54,14 +54,14 @@ export default function UpcomingTaskLists(props: UpcomingTaskListsProps) {
   return (
     <Modal
       size="xl"
-      height="h-[80dvh]"
+      height="h-[90dvh] sm:h-[80dvh]"
       open={viewAllTasks}
       onClose={onClose}
-      title="Upcoming Deadlines"
-      caption="Tasks due this week"
+      title={t('dashboard.upcoming-all-task.title')}
+      caption={t('dashboard.upcoming-all-task.desc')}
     >
-      <div className="flex h-full min-h-0 flex-col px-4 py-3">
-        <div className="bg-primary/5 flex items-center justify-between rounded-lg px-4 py-3">
+      <div className="flex h-full min-h-0 flex-col px-3 py-3 sm:px-4">
+        <div className="bg-primary/5 flex items-center justify-between gap-3 rounded-lg px-3 py-3 sm:px-4">
           <div className="flex items-center gap-4">
             <div className="bg-primary/10 flex size-11 items-center justify-center rounded-lg">
               <TaskIcon icon="CalendarIcon" size={24} className="text-primary" />
@@ -80,7 +80,7 @@ export default function UpcomingTaskLists(props: UpcomingTaskListsProps) {
 
           <div className="flex flex-col items-center gap-1">
             <Typography variant="body-sm" className="text-text !font-bold">
-              {allDeadlineTasks.length}
+              {totalItems}
             </Typography>
 
             <Typography variant="caption" className="text-text-muted">

@@ -154,6 +154,10 @@
       "completed": "完了",
       "in-progress": "進行中",
       "overdue": "期限切れ"
+    },
+    "upcoming-all-task": {
+      "title": "今後の締め切り",
+      "desc": "今週が期限のタスク"
     }
   },
   "my-tasks": {

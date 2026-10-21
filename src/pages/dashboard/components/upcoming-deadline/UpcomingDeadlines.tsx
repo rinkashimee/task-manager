@@ -5,7 +5,7 @@ import UpcomingDeadlineItem from './UpcomingDeadlineItem';
 import { useTranslation } from 'react-i18next';
 import type { DropdownOption } from '@/components/ui/Dropdown/Dropdown.types';
 import TaskIcon from '@/components/icons/TaskIcon';
-import UpcomingDeadlinesSkeleton from './dashboard-skeleton/UpcomingDeadlinesSkeleton';
+import UpcomingDeadlinesSkeleton from '../dashboard-skeleton/UpcomingDeadlinesSkeleton';
 import UpcomingTaskLists from './UpcomingTaskLists';
 import { useMemo, useState } from 'react';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
@@ -87,7 +87,7 @@ export default function UpcomingDeadlines(props: UpcomingDeadlinesProps) {
   );
 
   return (
-    <div className="border-border bg-card flex h-[365px] flex-col rounded-md border px-2">
+    <div className="border-border bg-card flex h-auto min-h-[220px] flex-col rounded-md border px-2 lg:h-[365px]">
       <div className="border-border flex shrink-0 items-center justify-between border-b px-2 py-2">
         <Typography variant="body-sm" className="text-text font-semibold">
           {t('dashboard.upcoming-deadline')}
@@ -119,7 +119,7 @@ export default function UpcomingDeadlines(props: UpcomingDeadlinesProps) {
         ) : tasks.length > 0 ? (
           <div className="flex flex-col">{upcomingDeadlineItems}</div>
         ) : (
-          <div className="flex h-full flex-col items-center justify-center gap-2">
+          <div className="flex min-h-[160px] flex-col items-center justify-center gap-2 lg:h-full lg:min-h-0">
             <div className="bg-primary/10 flex size-11 items-center justify-center rounded-full">
               <TaskIcon icon="CalendarXIcon" size={22} className="text-primary" />
             </div>

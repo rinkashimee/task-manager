@@ -154,6 +154,10 @@
       "completed": "Completed",
       "in-progress": "In Progress",
       "overdue": "Overdue"
+    },
+    "upcoming-all-task": {
+      "title": "Upcoming Deadlines",
+      "desc": "Tasks due this week"
     }
   },
   "my-tasks": {

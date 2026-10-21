@@ -12,6 +12,9 @@ import TaskView from '@/pages/my-tasks/components/TaskView';
 import TaskViewHeader from '@/pages/my-tasks/components/TaskViewHeader';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
 import { cn } from '@/lib/utils/utils';
+import ListItemSkeleton from '@/components/ui/ListItem/ListItemSkeleton';
+import TableEmptyState from '@/components/ui/Table/TableEmptyState';
+import RecentTaskList from './RecentTaskList';
 
 interface RecentTasksProps {
   tasks: TaskTypes[];
@@ -47,8 +50,8 @@ export default function RecentTasks(props: RecentTasksProps) {
   return (
     <div
       className={cn(
-        'bg-card border-border flex min-h-[280px] shrink-0 flex-col rounded-md border px-5',
-        'xl:min-h-0 xl:flex-1 xl:shrink'
+        'bg-card border-border flex min-h-[220px] shrink-0 flex-col rounded-md border px-3',
+        'md:px-5 xl:min-h-0 xl:flex-1 xl:shrink'
       )}
     >
       <div className="border-border flex shrink-0 items-center justify-between gap-4 border-b py-2">
@@ -69,20 +72,46 @@ export default function RecentTasks(props: RecentTasksProps) {
         </Button>
       </div>
 
-      <Table
-        hideHeader
-        tableWrapperClassName="min-h-[220px] flex-1 xl:min-h-0"
-        rowKey={(id) => id.id}
-        columns={recentTaskColumns({
-          projectDropdown,
-          onViewHandle: handleView,
-        })}
-        data={tasks}
-        isLoading={loading}
-        skeletonRows={15}
-        emptyTitle={t('common.no-tasks')}
-        emptyDesc={t('common.task-caption')}
-      />
+      <div
+        className={cn(
+          'max-h-[400px] min-h-0 overflow-y-auto md:hidden',
+          '[scrollbar-width:none]',
+          '[&::-webkit-scrollbar]:hidden'
+        )}
+      >
+        {loading ? (
+          <div className="py-3">
+            <ListItemSkeleton rows={5} />
+          </div>
+        ) : tasks.length === 0 ? (
+          <div className="flex min-h-[180px] flex-1 items-center justify-center">
+            <TableEmptyState title={t('common.no-tasks')} description={t('common.task-caption')} />
+          </div>
+        ) : (
+          <RecentTaskList
+            data={tasks}
+            projectDropdown={projectDropdown}
+            onViewHandle={handleView}
+          />
+        )}
+      </div>
+
+      <div className="hidden min-h-0 flex-1 flex-col md:flex">
+        <Table
+          hideHeader
+          tableWrapperClassName="min-h-[220px] flex-1 xl:min-h-0"
+          rowKey={(id) => id.id}
+          columns={recentTaskColumns({
+            projectDropdown,
+            onViewHandle: handleView,
+          })}
+          data={tasks}
+          isLoading={loading}
+          skeletonRows={15}
+          emptyTitle={t('common.no-tasks')}
+          emptyDesc={t('common.task-caption')}
+        />
+      </div>
 
       {viewTaskData && (
         <Modal

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import type { DashboardStatsTypes } from '../types/Dashboard.types';
+import DashboardStatSkeleton from '../dashboard-skeleton/DashboardStatSkeleton';
+import type { DashboardStatsTypes } from '../../types/Dashboard.types';
 import DashboardStatCard from './DashboardStatCard';
-import DashboardStatSkeleton from './dashboard-skeleton/DashboardStatSkeleton';
 
 interface DashboardStatsProps {
   isLoading?: boolean;
@@ -15,7 +15,7 @@ export default function DashboardStats(props: DashboardStatsProps) {
 
   if (isLoading || !data) {
     return (
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         {Array.from({ length: 4 }, (_, index) => (
           <DashboardStatSkeleton key={index} />
         ))}
@@ -24,7 +24,7 @@ export default function DashboardStats(props: DashboardStatsProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
       <DashboardStatCard
         title={t('dashboard.dashboard-stat.total-tasks')}
         value={data.totalTasks}
