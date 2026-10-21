@@ -39,10 +39,10 @@ export default function ProjectView(props: ProjectViewProps) {
   const progress = Math.min(100, Math.max(0, project.progress ?? 0));
 
   return (
-    <div className="flex flex-col gap-4 px-5 pb-5">
+    <div className="flex min-w-0 flex-col gap-4 px-4 pb-4 sm:px-5 sm:pb-5">
       <div className="border-border border-t" />
 
-      <div className="border-border grid grid-cols-2 border-b pb-4 lg:grid-cols-4">
+      <div className="border-border grid grid-cols-2 gap-y-4 border-b pb-4 lg:grid-cols-4">
         <ProjectStat
           icon="CalendarDotsIcon"
           label={t('project.view.due-date')}
@@ -190,7 +190,10 @@ export default function ProjectView(props: ProjectViewProps) {
                     {task.title}
                   </Typography>
 
-                  <Typography variant="caption" className="text-text-muted shrink-0 font-sans">
+                  <Typography
+                    variant="caption"
+                    className="text-text-muted max-w-24 shrink-0 truncate font-sans sm:max-w-none"
+                  >
                     {formatDate(task.dueDate)}
                   </Typography>
                 </div>
@@ -215,12 +218,12 @@ function ProjectStat({ icon, label, value, progress }: ProjectStatProps) {
       className={cn(
         'flex min-w-0 items-start gap-2 px-2',
         'border-border border-r',
-        'last:border-r-0',
-        'max-lg:nth-[2n]:border-r-0',
-        'max-lg:py-3'
+        'nth-[2n]:border-r-0',
+        'lg:nth-[2n]:border-r',
+        'lg:last:!border-r-0'
       )}
     >
-      <div className="bg-primary/10 flex size-8.5 shrink-0 items-center justify-center rounded-lg">
+      <div className="bg-primary/10 flex size-8 shrink-0 items-center justify-center rounded-lg">
         <TaskIcon icon={icon} size={20} className="text-primary shrink-0" />
       </div>
 
@@ -248,7 +251,7 @@ function ProjectStat({ icon, label, value, progress }: ProjectStatProps) {
 
 function ProjectDetail({ label, value }: ProjectDetailProps) {
   return (
-    <>
+    <div className="flex min-w-0 flex-col gap-1">
       <Typography variant="caption" className="text-text-muted font-sans">
         {label}
       </Typography>
@@ -256,6 +259,6 @@ function ProjectDetail({ label, value }: ProjectDetailProps) {
       <Typography variant="caption" className="text-text font-sans break-words">
         {value}
       </Typography>
-    </>
+    </div>
   );
 }
