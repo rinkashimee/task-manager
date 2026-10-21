@@ -17,6 +17,11 @@ import Modal from '@/components/ui/Modal/Modal';
 import { useToast } from '@/components/ui/Toast/ToastProvider';
 import ProjectView from './ProjectView';
 import ProjectTaskLists from './ProjectTaskLists';
+import TablePagination from '@/components/ui/Table/TablePagination';
+import { cn } from '@/lib/utils/utils';
+import ListItemSkeleton from '@/components/ui/ListItem/ListItemSkeleton';
+import TableEmptyState from '@/components/ui/Table/TableEmptyState';
+import ProjectList from './ProjectList';
 
 export default function ProjectTable(props: ProjectTableProps) {
   const {
@@ -143,28 +148,67 @@ export default function ProjectTable(props: ProjectTableProps) {
 
   return (
     <Card className="flex min-h-0 flex-1 flex-col p-3">
-      <Table
-        tableWrapperClassName="min-h-0 flex-1"
-        rowKey={(id) => id.id}
-        columns={projectTableColumns({
-          onViewHandle: handleView,
-          onEditHandle: handleEdit,
-          projectConfirmationModal,
-        })}
-        data={data}
-        isLoading={isFetching}
-        skeletonRows={15}
-        emptyTitle={t('common.no-projects')}
-        emptyDesc={t('common.project-caption')}
-        emptyIcon="FolderOpenIcon"
-        pagination={{
-          current: currentPage,
-          pageSize: pageSize,
-          total: total,
-          resourceName: t('project.title'),
-          onChange: setCurrentPage,
-        }}
-      />
+      <div
+        className={cn(
+          'flex min-h-0 flex-1 flex-col overflow-y-auto md:hidden',
+          '[scrollbar-width:none]',
+          '[&::-webkit-scrollbar]:hidden'
+        )}
+      >
+        {isFetching ? (
+          <ListItemSkeleton />
+        ) : data.length === 0 ? (
+          <div className="flex min-h-0 flex-1 items-center justify-center">
+            <TableEmptyState
+              icon="FolderOpenIcon"
+              title={t('common.no-projects')}
+              description={t('common.project-caption')}
+            />
+          </div>
+        ) : (
+          <ProjectList
+            data={data}
+            onViewHandle={handleView}
+            onEditHandle={handleEdit}
+            projectConfirmationModal={projectConfirmationModal}
+          />
+        )}
+      </div>
+
+      <div className="hidden min-h-0 flex-1 flex-col md:flex">
+        <Table
+          tableWrapperClassName="min-h-0 flex-1"
+          rowKey={(id) => id.id}
+          columns={projectTableColumns({
+            onViewHandle: handleView,
+            onEditHandle: handleEdit,
+            projectConfirmationModal,
+          })}
+          data={data}
+          isLoading={isFetching}
+          skeletonRows={15}
+          emptyTitle={t('common.no-projects')}
+          emptyDesc={t('common.project-caption')}
+          emptyIcon="FolderOpenIcon"
+          pagination={{
+            current: currentPage,
+            pageSize: pageSize,
+            total: total,
+            resourceName: t('project.title'),
+            onChange: setCurrentPage,
+          }}
+        />
+      </div>
+
+      <div className="shrink-0 md:hidden">
+        <TablePagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={total}
+          resourceName={t('project.title')}
+          onChange={setCurrentPage}
+        />
+      </div>
 
       {viewProject && (
         <Modal
